@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 double globalPosX = 0;
@@ -7,6 +8,13 @@ double globalPosY = 0;
 double posX = 0;
 double posY = 0;
 Key globalKey = const Key("");
+
+double containerWidth = 150; // Başlangıç genişliği
+double containerHeight = 150; // Başlangıç yüksekliği
+double containerLeft = 0; // X pozisyonu
+double containerTop = 0; // Y pozisyonu
+bool isResizing = false;
+Offset startPosition = Offset.zero;
 
 class PageDraggable extends StatefulWidget {
   const PageDraggable({super.key});
@@ -32,16 +40,87 @@ class _PageDraggableState extends State<PageDraggable> {
                 height: areaH * 0.2, width: areaW, color: Colors.red)),
         ...widgets,
 
-        ///Create Widget
+        ///Create Widget Button
         createWidget,
 
-        ///Create Text
+        ///Create Text Button
         createTextWidget(context),
 
         ///Delete Button
         deleteWidget,
+        ///Resizeable Widget
+        resizeableWidget
       ]),
     );
+  }
+
+  Positioned get resizeableWidget {
+    return Positioned(
+        top: globalPosY,
+        right: globalPosX,
+        child: GestureDetector(
+          onPanStart: (details) {
+            if (details.localPosition.dx >= containerWidth - 20 &&
+                details.localPosition.dy >= containerHeight - 20) {
+              setState(() {
+                isResizing = true;
+                startPosition = details.localPosition;
+              });
+            }
+          },
+          onPanUpdate: (details) {
+            if (isResizing) {
+              setState(() {
+                if (containerWidth >= 50 && containerHeight >= 50) {
+                  double dx = details.localPosition.dx - startPosition.dx;
+                  double dy = details.localPosition.dy - startPosition.dy;
+                  containerWidth += dx;
+                  containerHeight += dy;
+                  startPosition = details.localPosition;
+                } else {
+                  containerHeight += 51;
+                  containerWidth += 51;
+                }
+              });
+            }
+          },
+          onPanEnd: (details) {
+            setState(() {
+              isResizing = false;
+            });
+          },
+          child: Draggable(
+            feedback: SizedBox(),
+            onDragUpdate: (details) {
+              setState(() {isResizing = false;
+                posX = details.globalPosition.dx;
+                posY = details.globalPosition.dy;
+
+                globalPosX = posX;
+                globalPosY = posY;
+              });
+            },
+            child: Container(
+              width: containerWidth,
+              height: containerHeight,
+              margin: EdgeInsets.only(left: containerLeft, top: containerTop),
+              decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.black),
+              ),
+              child: const Center(
+                child: Text(
+                  "İçerik",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
   }
 
   Positioned get deleteWidget {
