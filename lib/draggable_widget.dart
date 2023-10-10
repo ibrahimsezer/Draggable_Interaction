@@ -11,8 +11,8 @@ Key globalKey = const Key("");
 
 double containerWidth = 150; // Başlangıç genişliği
 double containerHeight = 150; // Başlangıç yüksekliği
-double containerLeft = 0; // X pozisyonu
-double containerTop = 0; // Y pozisyonu
+double containerLeft = 50; // X pozisyonu
+double containerTop = 50; // Y pozisyonu
 bool isResizing = false;
 Offset startPosition = Offset.zero;
 
@@ -89,32 +89,20 @@ class _PageDraggableState extends State<PageDraggable> {
               isResizing = false;
             });
           },
-          child: Draggable(
-            feedback: SizedBox(),
-            onDragUpdate: (details) {
-              setState(() {isResizing = false;
-                posX = details.globalPosition.dx;
-                posY = details.globalPosition.dy;
-
-                globalPosX = posX;
-                globalPosY = posY;
-              });
-            },
-            child: Container(
-              width: containerWidth,
-              height: containerHeight,
-              margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.black),
-              ),
-              child: const Center(
-                child: Text(
-                  "İçerik",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    decoration: TextDecoration.none,
-                  ),
+          child: Container(
+            width: containerWidth,
+            height: containerHeight,
+            margin: EdgeInsets.only(left: containerLeft, top: containerTop),
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.black),
+            ),
+            child: const Center(
+              child: Text(
+                "İçerik",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),
