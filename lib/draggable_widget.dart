@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 double globalPosX = 0;
@@ -26,7 +28,8 @@ class _PageDraggableState extends State<PageDraggable> {
       body: Stack(children: [
         Positioned(
             top: 0,
-            child: Container(height: areaH*0.2, width: areaW, color: Colors.red)),
+            child: Container(
+                height: areaH * 0.2, width: areaW, color: Colors.red)),
         ...widgets,
 
         ///Create Widget
@@ -43,103 +46,100 @@ class _PageDraggableState extends State<PageDraggable> {
 
   Positioned get deleteWidget {
     return Positioned(
-          bottom: 30,
-          left: 30,
-          child: DragTarget(
-            onAccept: (data) {
-              setState(() {
-                //Todo Silinecek eleman düzenlenmeli
-                print(data.toString());
-                print(widgets[0].key.toString());
-                widgets.remove(widgets.first);
-              });
-            },
-            builder: (BuildContext context, List<Object?> candidateData,
-                List<dynamic> rejectedData) {
-              return CircleAvatar(
-                backgroundColor: Colors.amberAccent,
-                radius: 35,
-                child: IconButton(
-                    onPressed: () {},
-                    color: Colors.black,
-                    icon: const Icon(Icons.delete)),
-              );
-            },
-          ));
+        bottom: 30,
+        left: 30,
+        child: DragTarget(
+          onAccept: (data) {
+            setState(() {
+              //Todo Silinecek eleman düzenlenmeli
+              print(data.toString());
+              print(widgets[0].key.toString());
+              widgets.remove(widgets.first);
+            });
+          },
+          builder: (BuildContext context, List<Object?> candidateData,
+              List<dynamic> rejectedData) {
+            return CircleAvatar(
+              backgroundColor: Colors.amberAccent,
+              radius: 35,
+              child: IconButton(
+                  onPressed: () {},
+                  color: Colors.black,
+                  icon: const Icon(Icons.delete)),
+            );
+          },
+        ));
   }
 
   Positioned createTextWidget(BuildContext context) {
     return Positioned(
-        bottom: 30,
-        right: 100,
-        child: CircleAvatar(
-          backgroundColor: Colors.amberAccent,
-          radius: 35,
-          child: IconButton(
-              color: Colors.black,
-              onPressed: () {
-                setState(() {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Açıklama girin"),
-                          content: TextField(
-                            controller: myController,
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    Navigator.of(context).pop();
-                                    widgets.add(DraggableWidget2(
-                                      getText: myController.text,
-                                    ));
-                                    myController.text = "";
-                                  });
-                                },
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text("Kaydet"),
-                                    Icon(Icons.save)
-                                  ],
-                                ))
-                          ],
-                        );
-                      });
-                  globalPosY = 0;
-                  globalPosX = 0;
-                });
-              },
-              icon: const Icon(Icons.text_fields)),
-        ),
-      );
+      bottom: 30,
+      right: 100,
+      child: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        radius: 35,
+        child: IconButton(
+            color: Colors.black,
+            onPressed: () {
+              setState(() {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Açıklama girin"),
+                        content: TextField(
+                          controller: myController,
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.of(context).pop();
+                                  widgets.add(DraggableWidget2(
+                                    getText: myController.text,
+                                  ));
+                                  myController.text = "";
+                                });
+                              },
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [Text("Kaydet"), Icon(Icons.save)],
+                              ))
+                        ],
+                      );
+                    });
+                globalPosY = 0;
+                globalPosX = 0;
+              });
+            },
+            icon: const Icon(Icons.text_fields)),
+      ),
+    );
   }
 
   Positioned get createWidget {
     return Positioned(
-        bottom: 30,
-        right: 30,
-        child: CircleAvatar(
-          backgroundColor: Colors.amberAccent,
-          radius: 35,
-          child: IconButton(
-              color: Colors.black,
-              onPressed: () {
-                setState(() {
-                  globalPosY = 0;
-                  globalPosX = 0;
-                  widgets.add(DraggableWidget(
-                    txtData: "Wid: $count",
-                    shouldRemove: false,
-                  ));
-                  count++;
-                });
-              },
-              icon: const Icon(Icons.add)),
-        ),
-      );
+      bottom: 30,
+      right: 30,
+      child: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        radius: 35,
+        child: IconButton(
+            color: Colors.black,
+            onPressed: () {
+              setState(() {
+                globalPosY = 0;
+                globalPosX = 0;
+                widgets.add(DraggableWidget(
+                  txtData: "Wid: $count",
+                  shouldRemove: false,
+                ));
+                count++;
+              });
+            },
+            icon: const Icon(Icons.add)),
+      ),
+    );
   }
 }
 
@@ -159,9 +159,10 @@ class _DraggableWidget2State extends State<DraggableWidget2> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: globalPosY + 50,
-      left: globalPosX + 50,
+      top: globalPosY + 100,
+      left: globalPosX + 100,
       child: Draggable(
+        data: "myDatatext",
         onDragUpdate: (details) {
           setState(() {
             posX = details.globalPosition.dx - DragContainer.sizeW / 2;
@@ -209,7 +210,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   Color brColor = Colors.black;
   double areaW1 = 0;
   double areaH1 = 0;
-  Key dragKey = Key("1a1a1a1a");
+  Key dragKey = const Key("1a1a1a1a");
 
   // double  posX = (areaW / 2) - (DragContainer.sizeW / 2);
   // double posY = (areaH / 2) - (DragContainer.sizeH / 2);
@@ -242,8 +243,8 @@ class _DraggableWidgetState extends State<DraggableWidget> {
         },
         data: globalKey,
         onDragEnd: (details) {
-          print(posX.toString());
-          print(posY.toString());
+          log(posX);
+          log(posY);
           setState(() {
             brColor = Colors.black;
             brWidth = 2;
@@ -263,7 +264,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
 }
 
 class DragContainer extends StatelessWidget {
-  DragContainer({
+  const DragContainer({
     super.key,
     required this.brWidth,
     required this.brColor,
