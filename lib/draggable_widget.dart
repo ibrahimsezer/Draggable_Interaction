@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 double globalPosX = 0;
 double globalPosY = 0;
 
-double posX = 0;
-double posY = 0;
-
 Key globalKey = const Key("");
 
 double containerWidth = 150; // Başlangıç genişliği
@@ -387,7 +384,6 @@ class _ReDragTextState extends State<ReDragText> {
   double localTextH = 100;
   double localTextW = 100;
   late double areaW;
-
   late double areaH;
 
   String resizeableText = "";
@@ -430,7 +426,6 @@ class _ReDragTextState extends State<ReDragText> {
             myPosY += details.delta.dy;
 
             if (isResizing) {
-             
               if ((containerWidth >= 50 && containerHeight >= 50) &&
                   (containerWidth <= (areaW - 10) &&
                       containerHeight <= (areaH - 10)) &&
@@ -501,7 +496,8 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   double areaW1 = 0;
   double areaH1 = 0;
   Key dragKey = const Key("1a1a1a1a");
-
+  double myPosX = 0;
+  double myPosY = 0;
   // double  posX = (areaW / 2) - (DragContainer.sizeW / 2);
   // double posY = (areaH / 2) - (DragContainer.sizeH / 2);
 
@@ -511,11 +507,13 @@ class _DraggableWidgetState extends State<DraggableWidget> {
     globalKey = dragKey;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: globalPosY,
-      left: globalPosX,
+      top: myPosY,
+      left: myPosX,
       child: Draggable(
         feedback: const SizedBox(),
         onDragStarted: () {},
@@ -523,18 +521,12 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           setState(() {
             brColor = Colors.black;
             brWidth = 2;
-
-            posX = details.globalPosition.dx - DragContainer.sizeW / 2;
-            posY = details.globalPosition.dy - DragContainer.sizeH / 2;
-
-            globalPosX = posX;
-            globalPosY = posY;
+            myPosX += details.delta.dx;
+            myPosY += details.delta.dy;
           });
         },
         data: globalKey,
         onDragEnd: (details) {
-          log(posX);
-          log(posY);
           setState(() {
             brColor = Colors.black;
             brWidth = 2;
