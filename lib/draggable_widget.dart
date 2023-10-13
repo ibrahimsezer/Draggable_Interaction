@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 double globalPosX = 0;
 double globalPosY = 0;
 
-Key globalKey = const Key("");
-
-double containerWidth = 150; // Başlangıç genişliği
-double containerHeight = 150; // Başlangıç yüksekliği
-double containerLeft = 0; // X pozisyonu
-double containerTop = 0; // Y pozisyonu
+double containerLeft = 0;
+double containerTop = 0;
 bool isResizing = false;
 Offset startPosition = Offset.zero;
 
@@ -26,15 +22,9 @@ class _PageDraggableState extends State<PageDraggable> {
 
   @override
   Widget build(BuildContext context) {
-    double areaW = MediaQuery.sizeOf(context).width;
-    double areaH = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
-          Positioned(
-              top: 0,
-              child: Container(
-                  height: areaH * 0.1, width: areaW, color: Colors.red)),
           ...widgets,
 
           ///Create Widget Button
@@ -98,8 +88,6 @@ class _PageDraggableState extends State<PageDraggable> {
           onAccept: (data) {
             setState(() {
               //Todo Silinecek eleman düzenlenmeli
-              print(data.toString());
-              print(widgets[0].key.toString());
               widgets.clear();
             });
           },
@@ -213,7 +201,6 @@ class _GrayContainerState extends State<GrayContainer> {
       child: GestureDetector(
         onPanUpdate: (details) {
           setState(() {
-            print("OnPanUPDATE_____-----");
             myPosX += details.delta.dx;
             myPosY += details.delta.dy;
           });
@@ -239,6 +226,9 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
   double myPosX = 0;
   double myPosY = 0;
 
+  double myWidth = 100;
+  double myHeight = 100;
+
   @override
   Widget build(BuildContext context) {
     double areaW = MediaQuery.sizeOf(context).width;
@@ -249,8 +239,8 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
       left: myPosX,
       child: GestureDetector(
         onPanStart: (details) {
-          if (details.localPosition.dx >= containerWidth - 20 &&
-              details.localPosition.dy >= containerHeight - 20) {
+          if (details.localPosition.dx >= myWidth - 20 &&
+              details.localPosition.dy >= myHeight - 20) {
             setState(() {
               isResizing = true;
               startPosition = details.localPosition;
@@ -260,33 +250,39 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
         onPanUpdate: (details) {
           setState(() {
             if (!isResizing) {
-              print("POSITION CHANGEDDDD123");
-
               myPosX += details.delta.dx;
               myPosY += details.delta.dy;
             }
 
             if (isResizing) {
-              if ((containerWidth >= 50 && containerHeight >= 50) &&
-                  (containerWidth <= (areaW - 10) &&
-                      containerHeight <= (areaH - 10)) &&
+              if ((myWidth >= 50 && myHeight >= 50) &&
+                  (myWidth <= (areaW - 10) && myHeight <= (areaH - 10)) &&
                   (startPosition.dx <= areaW && startPosition.dx >= 0) &&
                   (startPosition.dy <= areaH && startPosition.dy >= 0)) {
                 double dx = details.localPosition.dx - startPosition.dx;
                 double dy = details.localPosition.dy - startPosition.dy;
-                containerWidth += dx;
-                containerHeight += dy;
+                myWidth += dx;
+                myHeight += dy;
                 startPosition = details.localPosition;
-              } else if (containerHeight <= 50) {
-                containerHeight = 51;
-              } else if (containerWidth <= 50) {
-                containerWidth = 50;
+
+                print("width : $myWidth | dx : +$dx"
+                    "\nheight : $myHeight | dy : +$dy"
+                    "\nStartPosition : $startPosition");
+              } else if (myHeight <= 50) {
+                myHeight = 51;
+              } else if (myWidth <= 50) {
+                myWidth = 50;
               } else {
-                containerHeight = 51;
-                containerWidth = 51;
+                myHeight = 51;
+                myWidth = 51;
               }
             }
           });
+        },
+        onTap: () {
+          print("width : $myWidth | "
+              "\nheight : $myHeight | "
+              "\nStartPosition : $startPosition");
         },
         onPanEnd: (details) {
           setState(() {
@@ -294,8 +290,8 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
           });
         },
         child: Container(
-          width: containerWidth,
-          height: containerHeight,
+          width: myWidth,
+          height: myHeight,
           margin: EdgeInsets.only(left: containerLeft, top: containerTop),
           decoration: BoxDecoration(
             border: Border.all(width: 2, color: Colors.black),
@@ -379,9 +375,10 @@ class ReDragText extends StatefulWidget {
   State<ReDragText> createState() => _ReDragTextState();
 }
 
+//Create Text Widget with Resizeable
 class _ReDragTextState extends State<ReDragText> {
-  double localTextH = 100;
-  double localTextW = 100;
+  double myWidth = 100;
+  double myHeight = 100;
   late double areaW;
   late double areaH;
 
@@ -406,8 +403,8 @@ class _ReDragTextState extends State<ReDragText> {
       left: myPosX,
       child: GestureDetector(
         onPanStart: (details) {
-          if (details.localPosition.dx >= containerWidth - 20 &&
-              details.localPosition.dy >= containerHeight - 20) {
+          if (details.localPosition.dx >= myWidth - 20 &&
+              details.localPosition.dy >= myHeight - 20) {
             setState(() {
               isResizing = true;
               startPosition = details.localPosition;
@@ -417,32 +414,40 @@ class _ReDragTextState extends State<ReDragText> {
         onPanUpdate: (details) {
           setState(() {
             if (!isResizing) {
-              print("POSITION CHANGEDDD txt");
-
               myPosX += details.delta.dx;
               myPosY += details.delta.dy;
             }
             if (isResizing) {
-              if ((containerWidth >= 50 && containerHeight >= 50) &&
-                  (containerWidth <= (areaW - 10) &&
-                      containerHeight <= (areaH - 10)) &&
+              if ((myWidth >= 50 && myHeight >= 50) &&
+                  (myWidth <= (areaW - 10) && myHeight <= (areaH - 10)) &&
                   (startPosition.dx <= areaW && startPosition.dx >= 0) &&
                   (startPosition.dy <= areaH && startPosition.dy >= 0)) {
                 double dx = details.localPosition.dx - startPosition.dx;
                 double dy = details.localPosition.dy - startPosition.dy;
-                containerWidth += dx;
-                containerHeight += dy;
+                myWidth += dx;
+                myHeight += dy;
                 startPosition = details.localPosition;
-              } else if (containerHeight <= 50) {
-                containerHeight = 51;
-              } else if (containerWidth <= 50) {
-                containerWidth = 50;
+                print("width : $myWidth | dx : +$dx"
+                    "\nheight : $myHeight | dy : +$dy"
+                    "\nStartPosition : $startPosition");
+              } else if (myHeight <= 50) {
+                myHeight = 51;
+              } else if (myWidth <= 50) {
+                myWidth = 50;
               } else {
-                containerHeight = 51;
-                containerWidth = 51;
+                myHeight = 51;
+                myWidth = 51;
               }
             }
+            print("width : $myWidth | "
+                "\nheight : $myHeight | "
+                "\nStartPosition : $startPosition");
           });
+        },
+        onTap: () {
+          print("width : $myWidth | "
+              "\nheight : $myHeight | "
+              "\nStartPosition : $startPosition");
         },
         onPanEnd: (details) {
           setState(() {
@@ -450,8 +455,8 @@ class _ReDragTextState extends State<ReDragText> {
           });
         },
         child: Container(
-          width: containerWidth,
-          height: containerHeight,
+          width: myWidth,
+          height: myHeight,
           margin: EdgeInsets.only(left: containerLeft, top: containerTop),
           decoration: BoxDecoration(
             border: Border.all(width: 2, color: Colors.black),
@@ -502,7 +507,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   @override
   void initState() {
     super.initState();
-    globalKey = dragKey;
   }
 
   @override
@@ -523,7 +527,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
             }
           });
         },
-        data: globalKey,
+        data: "myData",
         onDragEnd: (details) {
           setState(() {
             brColor = Colors.black;
