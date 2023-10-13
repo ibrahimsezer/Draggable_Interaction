@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 
 double globalPosX = 0;
 double globalPosY = 0;
-
 double containerLeft = 0;
 double containerTop = 0;
 bool isResizing = false;
 Offset startPosition = Offset.zero;
 
 class PageDraggable extends StatefulWidget {
-  const PageDraggable({super.key});
+  PageDraggable({super.key});
+
+  static List<Widget> widgets = [];
 
   @override
   State<PageDraggable> createState() => _PageDraggableState();
 }
 
 class _PageDraggableState extends State<PageDraggable> {
-  List<Widget> widgets = [];
   int count = 0;
   TextEditingController myController = TextEditingController();
 
@@ -25,7 +25,7 @@ class _PageDraggableState extends State<PageDraggable> {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
-          ...widgets,
+          ...PageDraggable.widgets,
 
           ///Create Widget Button
           createWidget,
@@ -49,7 +49,7 @@ class _PageDraggableState extends State<PageDraggable> {
                     setState(() {
                       globalPosY = 0;
                       globalPosX = 0;
-                      widgets.add(const GrayContainer());
+                      PageDraggable.widgets.add(const GrayContainer());
                     });
                   },
                   icon: const Icon(Icons.new_label_rounded)),
@@ -67,7 +67,7 @@ class _PageDraggableState extends State<PageDraggable> {
                     setState(() {
                       globalPosY = 0;
                       globalPosX = 0;
-                      widgets.add(
+                      PageDraggable.widgets.add(
                         const ResizeableTextWidget(),
                       );
                     });
@@ -87,8 +87,8 @@ class _PageDraggableState extends State<PageDraggable> {
         child: DragTarget(
           onAccept: (data) {
             setState(() {
-              //Todo Silinecek eleman düzenlenmeli
-              widgets.clear();
+              //Todo Now AllWidgetDeleting !
+              PageDraggable.widgets.clear();
             });
           },
           builder: (BuildContext context, List<Object?> candidateData,
@@ -129,7 +129,7 @@ class _PageDraggableState extends State<PageDraggable> {
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).pop();
-                                  widgets.add(ReDragText(
+                                  PageDraggable.widgets.add(ReDragText(
                                     getText: myController.text,
                                   ));
                                   myController.text = "";
@@ -169,8 +169,8 @@ class _PageDraggableState extends State<PageDraggable> {
               setState(() {
                 globalPosY = 0;
                 globalPosX = 0;
-                widgets.add(DraggableWidget(
-                  txtData: "Wid: $count",
+                PageDraggable.widgets.add(DraggableWidget(
+                  txtData: "Widget: $count",
                   shouldRemove: false,
                 ));
                 count++;
@@ -215,6 +215,7 @@ class _GrayContainerState extends State<GrayContainer> {
   }
 }
 
+//Example Widget
 class ResizeableTextWidget extends StatefulWidget {
   const ResizeableTextWidget({super.key});
 
@@ -402,6 +403,22 @@ class _ReDragTextState extends State<ReDragText> {
       top: myPosY,
       left: myPosX,
       child: GestureDetector(
+        //Todo SetStateNotWorking !
+        onDoubleTap: () {
+          setState(() {
+            print("DTAP");
+            //Temp
+            String tempText = widget.getText;
+            List<Widget> tempList = [];
+            List<Widget> obj = PageDraggable.widgets;
+            Widget duplicateWidget = ReDragText(getText: tempText);
+
+            tempList.add(duplicateWidget);
+            obj.add(tempList[0]);
+            tempList.clear();
+            print(obj.toList());
+          });
+        },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 20 &&
               details.localPosition.dy >= myHeight - 20) {
