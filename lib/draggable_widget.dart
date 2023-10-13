@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 double globalPosX = 0;
@@ -61,7 +59,7 @@ class _PageDraggableState extends State<PageDraggable> {
                     setState(() {
                       globalPosY = 0;
                       globalPosX = 0;
-                      widgets.add(GrayContainer());
+                      widgets.add(const GrayContainer());
                     });
                   },
                   icon: const Icon(Icons.new_label_rounded)),
@@ -80,7 +78,7 @@ class _PageDraggableState extends State<PageDraggable> {
                       globalPosY = 0;
                       globalPosX = 0;
                       widgets.add(
-                        ResizeableTextWidget(),
+                        const ResizeableTextWidget(),
                       );
                     });
                   },
@@ -259,15 +257,14 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
             });
           }
         },
-        onTap: () {
-          myPosX = 100;
-          myPosY = 100;
-        },
         onPanUpdate: (details) {
           setState(() {
-            print("POSITION CHANGEDDDD");
-            myPosX += details.delta.dx;
-            myPosY += details.delta.dy;
+            if (!isResizing) {
+              print("POSITION CHANGEDDDD123");
+
+              myPosX += details.delta.dx;
+              myPosY += details.delta.dy;
+            }
 
             if (isResizing) {
               if ((containerWidth >= 50 && containerHeight >= 50) &&
@@ -348,8 +345,10 @@ class _DraggableWidget2State extends State<DraggableWidget2> {
           data: "myDatatext",
           onDragUpdate: (details) {
             setState(() {
-              myPosX = myPosX + details.delta.dx;
-              myPosY = myPosY + details.delta.dy;
+              if (!isResizing) {
+                myPosX += details.delta.dx;
+                myPosY += details.delta.dy;
+              }
             });
           },
           feedback: const SizedBox(),
@@ -404,7 +403,7 @@ class _ReDragTextState extends State<ReDragText> {
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
       top: myPosY,
-      right: myPosX,
+      left: myPosX,
       child: GestureDetector(
         onPanStart: (details) {
           if (details.localPosition.dx >= containerWidth - 20 &&
@@ -415,16 +414,14 @@ class _ReDragTextState extends State<ReDragText> {
             });
           }
         },
-        onTap: () {
-          myPosX = 100;
-          myPosY = 100;
-        },
         onPanUpdate: (details) {
           setState(() {
-            print("POSITION CHANGEDDDD");
-            myPosX -= details.delta.dx;
-            myPosY += details.delta.dy;
+            if (!isResizing) {
+              print("POSITION CHANGEDDD txt");
 
+              myPosX += details.delta.dx;
+              myPosY += details.delta.dy;
+            }
             if (isResizing) {
               if ((containerWidth >= 50 && containerHeight >= 50) &&
                   (containerWidth <= (areaW - 10) &&
@@ -498,6 +495,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   Key dragKey = const Key("1a1a1a1a");
   double myPosX = 0;
   double myPosY = 0;
+
   // double  posX = (areaW / 2) - (DragContainer.sizeW / 2);
   // double posY = (areaH / 2) - (DragContainer.sizeH / 2);
 
@@ -506,8 +504,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
     super.initState();
     globalKey = dragKey;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -521,8 +517,10 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           setState(() {
             brColor = Colors.black;
             brWidth = 2;
-            myPosX += details.delta.dx;
-            myPosY += details.delta.dy;
+            if (!isResizing) {
+              myPosX += details.delta.dx;
+              myPosY += details.delta.dy;
+            }
           });
         },
         data: globalKey,
