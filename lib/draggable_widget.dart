@@ -40,6 +40,11 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
         child: Stack(children: [
           Consumer<PageDraggable>(
             builder: (context, value, child) {
+              return const Positioned(top: 5, left: 150, child: Text(""));
+            },
+          ),
+          Consumer<PageDraggable>(
+            builder: (context, value, child) {
               return Stack(
                 children: [...PageDraggable.widgets],
               );
@@ -66,8 +71,6 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
                   color: Colors.black,
                   onPressed: () {
                     setState(() {
-                      globalPosY = 0;
-                      globalPosX = 0;
                       PageDraggable.widgets.add(const GrayContainer());
                     });
                   },
@@ -86,8 +89,6 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
                   color: Colors.black,
                   onPressed: () {
                     setState(() {
-                      globalPosY = 0;
-                      globalPosX = 0;
                       PageDraggable.widgets.add(
                         const ResizeableTextWidget(),
                       );
@@ -169,8 +170,6 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
                         ],
                       );
                     });
-                globalPosY = 0;
-                globalPosX = 0;
               });
             },
             icon: const Icon(Icons.text_fields)),
@@ -189,8 +188,6 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                globalPosY = 0;
-                globalPosX = 0;
                 PageDraggable.widgets.add(DraggableWidget(
                   txtData: "Widget: $count",
                   shouldRemove: false,
@@ -390,7 +387,10 @@ class _DraggableWidget2State extends State<DraggableWidget2> {
 }
 
 class ReDragText extends StatefulWidget {
-  const ReDragText({super.key, required this.getText});
+  ReDragText({
+    super.key,
+    required this.getText,
+  });
 
   final String getText;
 
@@ -400,15 +400,16 @@ class ReDragText extends StatefulWidget {
 
 //Create Text Widget with Resizeable
 class _ReDragTextState extends State<ReDragText> {
-  double myWidth = 100;
+  double myWidth = 150;
   double myHeight = 100;
+  double myPosX = 0;
+  double myPosY = 0;
+
   late double areaW;
   late double areaH;
   String resizeableText = "";
   bool isResizing = false;
   Offset startPosition = const Offset(0, 0);
-  double myPosX = 0;
-  double myPosY = 0;
 
   @override
   void initState() {
@@ -423,13 +424,10 @@ class _ReDragTextState extends State<ReDragText> {
       top: myPosY,
       left: myPosX,
       child: GestureDetector(
-        //Todo SetStateNotWorking !
         onDoubleTap: () {
-          context.read<PageDraggable>().addWidget(ReDragText(getText: widget.getText));
-          // PageDraggable.widgets.add(ReDragText(getText: tempText));
-          // Provider.of<PageDraggable>(context, listen: false)
-          //     .addWidget(Provider.of<ReDragText>(context, listen: false));
-          // notifyListeners();
+          context.read<PageDraggable>().addWidget(ReDragText(
+                getText: widget.getText,
+              ));
           print("Double TaP");
           //Temp
         },
@@ -473,6 +471,8 @@ class _ReDragTextState extends State<ReDragText> {
             print("width : $myWidth | "
                 "\nheight : $myHeight | "
                 "\nStartPosition : $startPosition");
+
+            print("\n$myWidth - $myHeight - $myPosX - $myPosY");
           });
         },
         onTap: () {
