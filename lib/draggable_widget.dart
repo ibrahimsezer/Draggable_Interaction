@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 double globalPosX = 0;
 double globalPosY = 0;
@@ -6,17 +7,29 @@ double containerLeft = 0;
 double containerTop = 0;
 bool isResizing = false;
 Offset startPosition = Offset.zero;
+String tempText = "";
 
-class PageDraggable extends StatefulWidget {
+class PageDraggable extends StatefulWidget with ChangeNotifier {
   PageDraggable({super.key});
 
   static List<Widget> widgets = [];
+
+  void addWidget(Widget widget) {
+    PageDraggable.widgets.add(widget);
+    notifyListeners();
+    print("${widgets.toList()}");
+  }
+
+  void removeWidget(Widget widget) {
+    PageDraggable.widgets.remove(widget);
+    // notifyListeners();
+  }
 
   @override
   State<PageDraggable> createState() => _PageDraggableState();
 }
 
-class _PageDraggableState extends State<PageDraggable> {
+class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
   int count = 0;
   TextEditingController myController = TextEditingController();
 
@@ -25,7 +38,13 @@ class _PageDraggableState extends State<PageDraggable> {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
-          ...PageDraggable.widgets,
+          Consumer<PageDraggable>(
+            builder: (context, value, child) {
+              return Stack(
+                children: [...PageDraggable.widgets],
+              );
+            },
+          ),
 
           ///Create Widget Button
           createWidget,
@@ -36,7 +55,7 @@ class _PageDraggableState extends State<PageDraggable> {
           ///Delete Button
           deleteWidget,
 
-          ///Resizeable Widget
+          ///Gray Container Widget
           Positioned(
             bottom: 30,
             right: 180,
@@ -55,6 +74,8 @@ class _PageDraggableState extends State<PageDraggable> {
                   icon: const Icon(Icons.new_label_rounded)),
             ),
           ),
+
+          ///Resizeable Widget
           Positioned(
             bottom: 105,
             right: 30,
@@ -129,6 +150,7 @@ class _PageDraggableState extends State<PageDraggable> {
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).pop();
+                                  tempText = myController.text;
                                   PageDraggable.widgets.add(ReDragText(
                                     getText: myController.text,
                                   ));
@@ -382,18 +404,16 @@ class _ReDragTextState extends State<ReDragText> {
   double myHeight = 100;
   late double areaW;
   late double areaH;
-
   String resizeableText = "";
   bool isResizing = false;
   Offset startPosition = const Offset(0, 0);
+  double myPosX = 0;
+  double myPosY = 0;
 
   @override
   void initState() {
     super.initState();
   }
-
-  double myPosX = 0;
-  double myPosY = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -405,19 +425,13 @@ class _ReDragTextState extends State<ReDragText> {
       child: GestureDetector(
         //Todo SetStateNotWorking !
         onDoubleTap: () {
-          setState(() {
-            print("DTAP");
-            //Temp
-            String tempText = widget.getText;
-            List<Widget> tempList = [];
-            List<Widget> obj = PageDraggable.widgets;
-            Widget duplicateWidget = ReDragText(getText: tempText);
-
-            tempList.add(duplicateWidget);
-            obj.add(tempList[0]);
-            tempList.clear();
-            print(obj.toList());
-          });
+          context.read<PageDraggable>().addWidget(ReDragText(getText: widget.getText));
+          // PageDraggable.widgets.add(ReDragText(getText: tempText));
+          // Provider.of<PageDraggable>(context, listen: false)
+          //     .addWidget(Provider.of<ReDragText>(context, listen: false));
+          // notifyListeners();
+          print("Double TaP");
+          //Temp
         },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 20 &&
