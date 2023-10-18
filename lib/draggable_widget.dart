@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +24,7 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
 
   void removeWidget(Widget widget) {
     PageDraggable.widgets.remove(widget);
-    // notifyListeners();
+    notifyListeners();
   }
 
   @override
@@ -201,6 +203,112 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
   }
 }
 
+class OpenerTopWidget extends StatefulWidget {
+  OpenerTopWidget({
+    super.key,
+  });
+
+  @override
+  State<OpenerTopWidget> createState() => _OpenerTopWidgetState();
+}
+
+class _OpenerTopWidgetState extends State<OpenerTopWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      height: 50,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          color: Colors.black87),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        OpenerButton(
+          barIcons: const Icon(Icons.copy),
+          action: () {
+            log("+++++++111");
+            context.read<PageDraggable>().addWidget(ReDragText(
+                  key: UniqueKey(),
+                  getText: tempText,
+                ));
+          },
+        ),
+        OpenerButton(
+          barIcons: const Icon(Icons.delete),
+          action: () {
+            context
+                .read<PageDraggable>()
+                .removeWidget(ReDragText(getText: tempText));
+          },
+        ),
+        OpenerButton(
+          barIcons: const Icon(Icons.format_size),
+          action: () {},
+        ),
+      ]),
+    );
+  }
+}
+
+class OpenerButton extends StatelessWidget {
+  final Icon barIcons;
+  final VoidCallback action;
+
+  const OpenerButton({
+    super.key,
+    required this.barIcons,
+    required this.action,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+          radius: 20,
+          backgroundColor: Colors.amberAccent,
+          child: IconButton(
+            iconSize: 20,
+            splashRadius: 25,
+            onPressed: () => action,
+            icon: barIcons,
+            color: Colors.black,
+          )),
+    );
+  }
+}
+
+class MyModel {
+  const MyModel(
+    this.posX,
+    this.posY,
+    this.text,
+    this.width,
+    this.height,
+    this.key,
+  );
+
+  final double posX;
+  final double posY;
+  final String text;
+  final double width;
+  final double height;
+  final Key key;
+
+  double get getPosX => posX;
+
+  double get getPosY => posY;
+
+  double get getWidth => width;
+
+  double get getHeight => height;
+
+  String get gettext => text;
+
+  Key get getKey => key;
+
+  Key getMyKey() => key;
+}
+
 class GrayContainer extends StatefulWidget {
   const GrayContainer({super.key});
 
@@ -300,6 +408,8 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
           });
         },
         onTap: () {
+          log("+++++++");
+
           print("width : $myWidth | "
               "\nheight : $myHeight | "
               "\nStartPosition : $startPosition");
@@ -309,25 +419,7 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
             isResizing = false;
           });
         },
-        child: Container(
-          width: myWidth,
-          height: myHeight,
-          margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-          decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.black),
-          ),
-          child: const Center(
-            child: Text(
-              textWidthBasis: TextWidthBasis.parent,
-              textScaleFactor: 1,
-              "Deneme123123123123123Deneme",
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20,
-                  decoration: TextDecoration.none),
-            ),
-          ),
-        ),
+        child: OpenerTopWidget(),
       ),
     );
   }
@@ -404,12 +496,22 @@ class _ReDragTextState extends State<ReDragText> {
   double myHeight = 100;
   double myPosX = 0;
   double myPosY = 0;
-
+  Key key = UniqueKey();
   late double areaW;
   late double areaH;
   String resizeableText = "";
   bool isResizing = false;
   Offset startPosition = const Offset(0, 0);
+
+  Offset get getTextOffset => Offset(myPosX, myPosY);
+
+  double get getTextWidth => myWidth;
+
+  double get getTextHeight => myHeight;
+
+  String get getText => widget.getText;
+
+  Key get getKey => key;
 
   @override
   void initState() {
@@ -420,15 +522,19 @@ class _ReDragTextState extends State<ReDragText> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
+    bool isVisible = false;
     return Positioned(
       top: myPosY,
       left: myPosX,
       child: GestureDetector(
         onDoubleTap: () {
           context.read<PageDraggable>().addWidget(ReDragText(
+                key: UniqueKey(),
                 getText: widget.getText,
               ));
-          print("Double TaP");
+          print(
+              "key : $key X : $myPosX Y: $myPosY Text: $getText Height: $myHeight Width : $myWidth");
+          print("Double TaP ");
           //Temp
         },
         onPanStart: (details) {
@@ -459,13 +565,13 @@ class _ReDragTextState extends State<ReDragText> {
                 print("width : $myWidth | dx : +$dx"
                     "\nheight : $myHeight | dy : +$dy"
                     "\nStartPosition : $startPosition");
-              } else if (myHeight <= 50) {
-                myHeight = 51;
-              } else if (myWidth <= 50) {
+              } else if (myHeight < 50) {
+                myHeight = 50;
+              } else if (myWidth < 50) {
                 myWidth = 50;
               } else {
-                myHeight = 51;
-                myWidth = 51;
+                myHeight = 50;
+                myWidth = 50;
               }
             }
             print("width : $myWidth | "
@@ -476,6 +582,11 @@ class _ReDragTextState extends State<ReDragText> {
           });
         },
         onTap: () {
+          setState(() {
+            //todo topWidget_visible = true;
+            isVisible = isVisible ? false : true;
+          });
+
           print("width : $myWidth | "
               "\nheight : $myHeight | "
               "\nStartPosition : $startPosition");
@@ -485,23 +596,44 @@ class _ReDragTextState extends State<ReDragText> {
             isResizing = false;
           });
         },
-        child: Container(
-          width: myWidth,
-          height: myHeight,
-          margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-          decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.black),
-          ),
-          child: Center(
-            child: Text(
-              textWidthBasis: TextWidthBasis.parent,
-              textScaleFactor: 1,
-              widget.getText,
-              style: const TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20,
-                  decoration: TextDecoration.none),
-            ),
+        //todo Stack yapısı kontrol edilecek, Widget oluşmuyor
+        child: Container(width: myWidth+170,height: myHeight,
+          child: Row(
+            children: [
+              Visibility(
+                  visible: true,
+                  child: Positioned(
+                      width: 175,
+                      height: 50,
+                      left: 0,
+                      top: 0,
+                      child: OpenerTopWidget())),
+              Positioned(
+                width: myWidth,
+                height: myHeight,
+                left: myPosX,
+                top: myPosY,
+                child: Container(
+                  width: myWidth,
+                  height: myHeight,
+                  margin: EdgeInsets.only(left: containerLeft, top: containerTop),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      textWidthBasis: TextWidthBasis.parent,
+                      textScaleFactor: 1,
+                      widget.getText,
+                      style: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          decoration: TextDecoration.none),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
