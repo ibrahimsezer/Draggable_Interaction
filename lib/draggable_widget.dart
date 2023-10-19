@@ -1,7 +1,8 @@
 import 'dart:developer';
-
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'interfaceButtons.dart';
 
 double globalPosX = 0;
 double globalPosY = 0;
@@ -33,16 +34,18 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
 
 class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
   int count = 0;
-  TextEditingController myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(children: [
+        child: Stack(children: <Widget>[
           Consumer<PageDraggable>(
             builder: (context, value, child) {
-              return const Positioned(top: 5, left: 150, child: Text(""));
+              return Positioned(
+                  top: 5,
+                  left: 300,
+                  child: Text("x: $globalPosX | y: $globalPosY "));
             },
           ),
           Consumer<PageDraggable>(
@@ -54,150 +57,17 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
           ),
 
           ///Create Widget Button
-          createWidget,
+          const CreateWidget(),
 
-          ///Create Text Button
-          createTextWidget(context),
+          ///Create Text Widget Button
+          const CreateTextWidget(),
 
           ///Delete Button
-          deleteWidget,
+          const DeleteWidget(),
 
-          ///Gray Container Widget
-          Positioned(
-            bottom: 30,
-            right: 180,
-            child: CircleAvatar(
-              backgroundColor: Colors.amberAccent,
-              radius: 35,
-              child: IconButton(
-                  color: Colors.black,
-                  onPressed: () {
-                    setState(() {
-                      PageDraggable.widgets.add(const GrayContainer());
-                    });
-                  },
-                  icon: const Icon(Icons.new_label_rounded)),
-            ),
-          ),
-
-          ///Resizeable Widget
-          Positioned(
-            bottom: 105,
-            right: 30,
-            child: CircleAvatar(
-              backgroundColor: Colors.amberAccent,
-              radius: 35,
-              child: IconButton(
-                  color: Colors.black,
-                  onPressed: () {
-                    setState(() {
-                      PageDraggable.widgets.add(
-                        const ResizeableTextWidget(),
-                      );
-                    });
-                  },
-                  icon: const Icon(Icons.text_rotation_angledown)),
-            ),
-          ),
+          ///Resizeable Widget Button
+          const ResizeableWidget(),
         ]),
-      ),
-    );
-  }
-
-  Positioned get deleteWidget {
-    return Positioned(
-        bottom: 30,
-        left: 30,
-        child: DragTarget(
-          onAccept: (data) {
-            setState(() {
-              //Todo Now AllWidgetDeleting !
-              PageDraggable.widgets.clear();
-            });
-          },
-          builder: (BuildContext context, List<Object?> candidateData,
-              List<dynamic> rejectedData) {
-            return CircleAvatar(
-              backgroundColor: Colors.amberAccent,
-              radius: 35,
-              child: IconButton(
-                  onPressed: () {},
-                  color: Colors.black,
-                  icon: const Icon(Icons.delete)),
-            );
-          },
-        ));
-  }
-
-  Positioned createTextWidget(BuildContext context) {
-    return Positioned(
-      bottom: 30,
-      right: 100,
-      child: CircleAvatar(
-        backgroundColor: Colors.amberAccent,
-        radius: 35,
-        child: IconButton(
-            color: Colors.black,
-            onPressed: () {
-              setState(() {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Açıklama girin"),
-                        content: TextField(
-                          controller: myController,
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.of(context).pop();
-                                  tempText = myController.text;
-                                  PageDraggable.widgets.add(ReDragText(
-                                    getText: myController.text,
-                                  ));
-                                  myController.text = "";
-
-                                  // widgets.add(DraggableWidget2(
-                                  //   getText: myController.text,
-                                  // ));
-                                  // myController.text = "";
-                                });
-                              },
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [Text("Kaydet"), Icon(Icons.save)],
-                              ))
-                        ],
-                      );
-                    });
-              });
-            },
-            icon: const Icon(Icons.text_fields)),
-      ),
-    );
-  }
-
-  Positioned get createWidget {
-    return Positioned(
-      bottom: 30,
-      right: 30,
-      child: CircleAvatar(
-        backgroundColor: Colors.amberAccent,
-        radius: 35,
-        child: IconButton(
-            color: Colors.black,
-            onPressed: () {
-              setState(() {
-                PageDraggable.widgets.add(DraggableWidget(
-                  txtData: "Widget: $count",
-                  shouldRemove: false,
-                ));
-                count++;
-              });
-            },
-            icon: const Icon(Icons.add)),
       ),
     );
   }
@@ -309,40 +179,6 @@ class MyModel {
   Key getMyKey() => key;
 }
 
-class GrayContainer extends StatefulWidget {
-  const GrayContainer({super.key});
-
-  @override
-  State<GrayContainer> createState() => _GrayContainerState();
-}
-
-class _GrayContainerState extends State<GrayContainer> {
-  double myPosX = 0;
-  double myPosY = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: myPosY,
-      left: myPosX,
-      child: GestureDetector(
-        onPanUpdate: (details) {
-          setState(() {
-            myPosX += details.delta.dx;
-            myPosY += details.delta.dy;
-          });
-        },
-        child: Container(
-          color: Colors.grey,
-          width: 100,
-          height: 100,
-        ),
-      ),
-    );
-  }
-}
-
-//Example Widget
 class ResizeableTextWidget extends StatefulWidget {
   const ResizeableTextWidget({super.key});
 
@@ -363,8 +199,11 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
     double areaH = MediaQuery.sizeOf(context).height;
 
     return Positioned(
+      //topwidget
       top: myPosY,
       left: myPosX,
+      width: 170,
+      height: 50,
       child: GestureDetector(
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 20 &&
@@ -409,7 +248,6 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
         },
         onTap: () {
           log("+++++++");
-
           print("width : $myWidth | "
               "\nheight : $myHeight | "
               "\nStartPosition : $startPosition");
@@ -501,6 +339,7 @@ class _ReDragTextState extends State<ReDragText> {
   late double areaH;
   String resizeableText = "";
   bool isResizing = false;
+  bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
 
   Offset get getTextOffset => Offset(myPosX, myPosY);
@@ -522,10 +361,12 @@ class _ReDragTextState extends State<ReDragText> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
-    bool isVisible = false;
+
     return Positioned(
       top: myPosY,
       left: myPosX,
+      width: areaW,
+      height: areaH,
       child: GestureDetector(
         onDoubleTap: () {
           context.read<PageDraggable>().addWidget(ReDragText(
@@ -549,12 +390,14 @@ class _ReDragTextState extends State<ReDragText> {
         onPanUpdate: (details) {
           setState(() {
             if (!isResizing) {
-              myPosX += details.delta.dx;
-              myPosY += details.delta.dy;
+              myPosX += details.delta.dx * 1 / 2;
+              myPosY += details.delta.dy * 1 / 2;
+              globalPosX = myPosX;
+              globalPosY = myPosY;
             }
             if (isResizing) {
               if ((myWidth >= 50 && myHeight >= 50) &&
-                  (myWidth <= (areaW - 10) && myHeight <= (areaH - 10)) &&
+                  (myWidth <= (areaW - 30) && myHeight <= (areaH - 30)) &&
                   (startPosition.dx <= areaW && startPosition.dx >= 0) &&
                   (startPosition.dy <= areaH && startPosition.dy >= 0)) {
                 double dx = details.localPosition.dx - startPosition.dx;
@@ -583,8 +426,8 @@ class _ReDragTextState extends State<ReDragText> {
         },
         onTap: () {
           setState(() {
+            isVisible = !isVisible;
             //todo topWidget_visible = true;
-            isVisible = isVisible ? false : true;
           });
 
           print("width : $myWidth | "
@@ -596,45 +439,39 @@ class _ReDragTextState extends State<ReDragText> {
             isResizing = false;
           });
         },
-        //todo Stack yapısı kontrol edilecek, Widget oluşmuyor
-        child: Container(width: myWidth+170,height: myHeight,
-          child: Row(
-            children: [
-              Visibility(
-                  visible: true,
-                  child: Positioned(
-                      width: 175,
-                      height: 50,
-                      left: 0,
-                      top: 0,
-                      child: OpenerTopWidget())),
-              Positioned(
-                width: myWidth,
-                height: myHeight,
-                left: myPosX,
-                top: myPosY,
-                child: Container(
-                  width: myWidth,
-                  height: myHeight,
-                  margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Colors.black),
-                  ),
-                  child: Center(
-                    child: Text(
-                      textWidthBasis: TextWidthBasis.parent,
-                      textScaleFactor: 1,
-                      widget.getText,
-                      style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          decoration: TextDecoration.none),
-                    ),
+        child: Stack(
+          children: [
+            Positioned(
+              top: myPosY - 60,
+              left: myPosX,
+              width: 170,
+              height: 50,
+              child: Visibility(visible: isVisible, child: OpenerTopWidget()),
+            ),
+            Positioned(
+              width: myWidth,
+              height: myHeight,
+              left: myPosX,
+              top: myPosY,
+              child: Container(
+                margin: EdgeInsets.only(left: containerLeft, top: containerTop),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.black),
+                ),
+                child: Center(
+                  child: Text(
+                    textWidthBasis: TextWidthBasis.parent,
+                    textScaleFactor: 1,
+                    widget.getText,
+                    style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                        decoration: TextDecoration.none),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
