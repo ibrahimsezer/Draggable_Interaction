@@ -57,9 +57,9 @@ class _ReDragTextState extends State<ReDragText> {
       child: GestureDetector(
         onDoubleTap: () {
           context.read<PageDraggable>().addWidget(ReDragText(
-            key: UniqueKey(),
-            getText: widget.getText,
-          ));
+                key: UniqueKey(),
+                getText: widget.getText,
+              ));
           print(
               "key : $key X : $myPosX Y: $myPosY Text: $getText Height: $myHeight Width : $myWidth");
           print("Double TaP ");
@@ -114,7 +114,6 @@ class _ReDragTextState extends State<ReDragText> {
         onTap: () {
           setState(() {
             isVisible = !isVisible;
-            //todo topWidget_visible = true;
           });
 
           print("width : $myWidth | "
@@ -164,4 +163,3 @@ class _ReDragTextState extends State<ReDragText> {
     );
   }
 }
-
