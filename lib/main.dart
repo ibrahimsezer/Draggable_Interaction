@@ -1,4 +1,4 @@
-import 'package:draggable_example/draggable_widget.dart';
+import 'package:draggable_example/pageDraggable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,6 +1,9 @@
+import 'package:draggable_example/ui/widgets/reDragText.dart';
+import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'draggable_widget.dart';
+import '../../pageDraggable.dart';
+import 'draggableWidgets.dart';
 
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
