@@ -68,22 +68,40 @@ class _ReDragTextState extends State<ReDragText> {
         },
         onPanUpdate: (details) {
           setState(() {
-            myPosX = myPosX.clamp(0, areaW);
-            myPosY = myPosY.clamp(0, areaH);
-            //todo right and bottom side update
-            // double lastX = myPosX + myWidth;
-            // double lastY = myPosY + myHeight;
-            // log("PosX Width :    $myPosX | $myWidth");
-            // log("PosY Heigth :    $myPosY | $myHeight");
-            // log("LAST :    $lastX | $lastY");
-            // lastX = lastX.clamp(0, areaW);
-            // lastY = lastY.clamp(0, areaH);
-
             if (!isResizing) {
               myPosX += details.delta.dx * 1 / 2;
               myPosY += details.delta.dy * 1 / 2;
               globalPosX = myPosX;
               globalPosY = myPosY;
+
+              myPosX = myPosX.clamp(0, areaW);
+              myPosY = myPosY.clamp(0, areaH);
+              //todo right and bottom side update
+              double right = myPosX + myWidth;
+              double bottom = myPosY + myHeight;
+
+              double clampedRight =
+                  right.clamp(0, areaW); // Sağ kenarın sıkıştırılması
+              double clampedBottom =
+                  bottom.clamp(0, areaH); // Alt kenarın sıkıştırılması
+
+              double clampedLeft = myPosX.clamp(
+                  0, areaW - myWidth); // Sol kenarın sıkıştırılması
+              double clampedTop = myPosY.clamp(
+                  0, areaH - myHeight); // Üst kenarın sıkıştırılması
+
+              myPosX = clampedLeft;
+              myPosY = clampedTop;
+              myWidth = clampedRight - myPosX;
+              myHeight = clampedBottom - myPosY;
+
+              // double lastX = myPosX + myWidth;
+              // double lastY = myPosY + myHeight;
+              // log("PosX Width :    $myPosX | $myWidth");
+              // log("PosY Heigth :    $myPosY | $myHeight");
+              // log("LAST :    $lastX | $lastY");
+              // lastX = lastX.clamp(0, areaW);
+              // lastY = lastY.clamp(0, areaH);
             }
             if (isResizing) {
               if ((myWidth >= 50 && myHeight >= 50) &&
