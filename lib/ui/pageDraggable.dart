@@ -1,7 +1,8 @@
 import 'package:draggable_example/ui/widgets/openerWidgets.dart';
+import 'package:draggable_example/utils/widgetAreaControl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'ui/widgets/interfaceButtons.dart';
+import 'widgets/interfaceButtons.dart';
 
 double globalPosX = 0;
 double globalPosY = 0;
@@ -39,12 +40,13 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: <Widget>[
+          // AreaControlWidget(),
           Consumer<PageDraggable>(
             builder: (context, value, child) {
               return Positioned(
                   top: 5,
-                  left: 300,
-                  child: Text("x: $globalPosX | y: $globalPosY "));
+                  left: 250,
+                  child: Text("| x: $globalPosX \n| y: $globalPosY "));
             },
           ),
           Consumer<PageDraggable>(

@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:draggable_example/ui/widgets/reDragText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../pageDraggable.dart';
+import '../pageDraggable.dart';
 
 ///Opener Widgets
 class OpenerTopWidget extends StatefulWidget {
@@ -29,7 +29,6 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
           action: () {
             log("+++++++111");
             context.read<PageDraggable>().addWidget(ReDragText(
-                  key: UniqueKey(),
                   getText: tempText,
                 ));
           },

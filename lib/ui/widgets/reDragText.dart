@@ -1,10 +1,11 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../pageDraggable.dart';
+import '../pageDraggable.dart';
 import 'openerWidgets.dart';
 
 class ReDragText extends StatefulWidget {
-  ReDragText({
+  const ReDragText({
     super.key,
     required this.getText,
   });
@@ -21,23 +22,15 @@ class _ReDragTextState extends State<ReDragText> {
   double myHeight = 100;
   double myPosX = 0;
   double myPosY = 0;
-  Key key = UniqueKey();
   late double areaW;
   late double areaH;
   String resizeableText = "";
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
-
-  Offset get getTextOffset => Offset(myPosX, myPosY);
-
-  double get getTextWidth => myWidth;
-
-  double get getTextHeight => myHeight;
+  GlobalKey myKey = GlobalKey();
 
   String get getText => widget.getText;
-
-  Key get getKey => key;
 
   @override
   void initState() {
@@ -48,20 +41,19 @@ class _ReDragTextState extends State<ReDragText> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
-
     return Positioned(
       top: myPosY,
       left: myPosX,
       width: areaW,
       height: areaH,
+      //height: areaH,
       child: GestureDetector(
         onDoubleTap: () {
           context.read<PageDraggable>().addWidget(ReDragText(
-                key: UniqueKey(),
                 getText: widget.getText,
               ));
           print(
-              "key : $key X : $myPosX Y: $myPosY Text: $getText Height: $myHeight Width : $myWidth");
+              " X : $myPosX Y: $myPosY Text: $getText Height: $myHeight Width : $myWidth");
           print("Double TaP ");
           //Temp
         },
@@ -76,6 +68,17 @@ class _ReDragTextState extends State<ReDragText> {
         },
         onPanUpdate: (details) {
           setState(() {
+            myPosX = myPosX.clamp(0, areaW);
+            myPosY = myPosY.clamp(0, areaH);
+            //todo right and bottom side update
+            // double lastX = myPosX + myWidth;
+            // double lastY = myPosY + myHeight;
+            // log("PosX Width :    $myPosX | $myWidth");
+            // log("PosY Heigth :    $myPosY | $myHeight");
+            // log("LAST :    $lastX | $lastY");
+            // lastX = lastX.clamp(0, areaW);
+            // lastY = lastY.clamp(0, areaH);
+
             if (!isResizing) {
               myPosX += details.delta.dx * 1 / 2;
               myPosY += details.delta.dy * 1 / 2;
@@ -98,9 +101,6 @@ class _ReDragTextState extends State<ReDragText> {
               } else if (myHeight < 50) {
                 myHeight = 50;
               } else if (myWidth < 50) {
-                myWidth = 50;
-              } else {
-                myHeight = 50;
                 myWidth = 50;
               }
             }
@@ -128,17 +128,15 @@ class _ReDragTextState extends State<ReDragText> {
         child: Stack(
           children: [
             Positioned(
-              top: myPosY - 60,
+              top: myPosY,
               left: myPosX,
-              width: 170,
-              height: 50,
               child: Visibility(visible: isVisible, child: OpenerTopWidget()),
             ),
             Positioned(
+              top: myPosY,
+              left: myPosX,
               width: myWidth,
               height: myHeight,
-              left: myPosX,
-              top: myPosY,
               child: Container(
                 margin: EdgeInsets.only(left: containerLeft, top: containerTop),
                 decoration: BoxDecoration(
@@ -150,7 +148,7 @@ class _ReDragTextState extends State<ReDragText> {
                     textScaleFactor: 1,
                     widget.getText,
                     style: const TextStyle(
-                        color: Colors.blue,
+                        color: Colors.black,
                         fontSize: 20,
                         decoration: TextDecoration.none),
                   ),

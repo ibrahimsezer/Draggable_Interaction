@@ -2,7 +2,7 @@ import 'package:draggable_example/ui/widgets/reDragText.dart';
 import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../pageDraggable.dart';
+import '../pageDraggable.dart';
 import 'draggableWidgets.dart';
 
 ///Create Widget Button '+'
@@ -118,7 +118,6 @@ class _DeleteWidgetState extends State<DeleteWidget> {
         left: 30,
         child: DragTarget(
           onAccept: (data) {
-            //Todo Now AllWidgetDeleting !
             context
                 .read<PageDraggable>()
                 .removeWidget(PageDraggable.widgets[0]);

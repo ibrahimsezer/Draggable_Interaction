@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../pageDraggable.dart';
+import '../pageDraggable.dart';
 
 class DraggableWidget extends StatefulWidget {
-  DraggableWidget({
-    Key? key,
+  const DraggableWidget({
+    super.key,
     required this.txtData,
     required this.shouldRemove,
-  }) : super(key: key ?? UniqueKey());
+  });
 
   final bool shouldRemove;
   final String txtData;
@@ -28,6 +28,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -84,15 +85,15 @@ class DragContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-      BoxDecoration(border: Border.all(width: brWidth, color: brColor)),
+          BoxDecoration(border: Border.all(width: brWidth, color: brColor)),
       width: sizeW,
       height: sizeH,
       child: Center(
           child: Text(
-            textData,
-            style: const TextStyle(
-                color: Colors.black, fontSize: 15, decoration: TextDecoration.none),
-          )),
+        textData,
+        style: const TextStyle(
+            color: Colors.black, fontSize: 15, decoration: TextDecoration.none),
+      )),
     );
   }
 }
