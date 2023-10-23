@@ -25,7 +25,7 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
     double areaH = MediaQuery.sizeOf(context).height;
 
     return Positioned(
-      //topwidget
+      //Top widget
       top: myPosY,
       left: myPosX,
       width: 170,

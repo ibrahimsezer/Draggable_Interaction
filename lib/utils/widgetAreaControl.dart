@@ -30,9 +30,9 @@ class AreaControlWidget extends StatelessWidget {
           Offset position = details.globalPosition;
           bool isInWidget = isPointInWidget(position, myKey);
           if (isInWidget) {
-            print("Widget içinde");
+            print("Widget inside");
           } else {
-            print("Widget dışında");
+            print("Widget outside");
           }
         },
         child: Container(color: Colors.amber,

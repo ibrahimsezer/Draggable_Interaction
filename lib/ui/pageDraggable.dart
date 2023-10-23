@@ -68,6 +68,7 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
 
           ///Resizeable Widget Button
           const ResizeableWidget(),
+
         ]),
       ),
     );

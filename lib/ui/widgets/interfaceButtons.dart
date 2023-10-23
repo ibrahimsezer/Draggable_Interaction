@@ -64,35 +64,13 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Açıklama girin"),
-                        content: TextField(
-                          controller: myController,
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.of(context).pop();
-                                  tempText = myController.text;
-                                  context
-                                      .read<PageDraggable>()
-                                      .addWidget(ReDragText(
-                                        getText: myController.text,
-                                      ));
-                                  myController.text = "";
-                                });
-                              },
-                              child: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [Text("Kaydet"), Icon(Icons.save)],
-                              ))
-                        ],
-                      );
-                    });
+                tempText = myController.text;
+                context
+                    .read<PageDraggable>()
+                    .addWidget(ReDragText(
+                  getText: myController.text,
+                ));
+                myController.text = "";
               });
             },
             icon: const Icon(Icons.text_fields)),
@@ -100,6 +78,8 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
     );
   }
 }
+
+
 
 ///Delete Button
 

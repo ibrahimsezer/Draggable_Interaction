@@ -58,8 +58,8 @@ class _ReDragTextState extends State<ReDragText> {
           //Temp
         },
         onPanStart: (details) {
-          if (details.localPosition.dx >= myWidth - 20 &&
-              details.localPosition.dy >= myHeight - 20) {
+          if (details.localPosition.dx >= myWidth - 15 &&
+              details.localPosition.dy >= myHeight - 15) {
             setState(() {
               isResizing = true;
               startPosition = details.localPosition;
@@ -73,39 +73,25 @@ class _ReDragTextState extends State<ReDragText> {
               myPosY += details.delta.dy * 1 / 2;
               globalPosX = myPosX;
               globalPosY = myPosY;
-
               myPosX = myPosX.clamp(0, areaW);
               myPosY = myPosY.clamp(0, areaH);
-              //todo right and bottom side update
-              double right = myPosX + myWidth;
-              double bottom = myPosY + myHeight;
-
-              double clampedRight =
-                  right.clamp(0, areaW); // Sağ kenarın sıkıştırılması
-              double clampedBottom =
-                  bottom.clamp(0, areaH); // Alt kenarın sıkıştırılması
-
-              double clampedLeft = myPosX.clamp(
-                  0, areaW - myWidth); // Sol kenarın sıkıştırılması
-              double clampedTop = myPosY.clamp(
-                  0, areaH - myHeight); // Üst kenarın sıkıştırılması
-
-              myPosX = clampedLeft;
-              myPosY = clampedTop;
-              myWidth = clampedRight - myPosX;
-              myHeight = clampedBottom - myPosY;
-
-              // double lastX = myPosX + myWidth;
-              // double lastY = myPosY + myHeight;
-              // log("PosX Width :    $myPosX | $myWidth");
-              // log("PosY Heigth :    $myPosY | $myHeight");
-              // log("LAST :    $lastX | $lastY");
-              // lastX = lastX.clamp(0, areaW);
-              // lastY = lastY.clamp(0, areaH);
+              //todo right and bottom side update notWorking
+              double myRight = myPosX + myWidth;
+              double myBottom = myPosY + myHeight;
+              if (myPosX < 0) {
+                myPosX = 0;
+              } else if (myRight > areaW) {
+                myRight = areaW;
+              }
+              if (myPosY < 0) {
+                myPosY = 0;
+              } else if (myBottom > areaH) {
+                myBottom = areaH;
+              }
             }
             if (isResizing) {
               if ((myWidth >= 50 && myHeight >= 50) &&
-                  (myWidth <= (areaW - 30) && myHeight <= (areaH - 30)) &&
+                  (myWidth <= (areaW) && myHeight <= (areaH)) &&
                   (startPosition.dx <= areaW && startPosition.dx >= 0) &&
                   (startPosition.dy <= areaH && startPosition.dy >= 0)) {
                 double dx = details.localPosition.dx - startPosition.dx;
@@ -148,11 +134,6 @@ class _ReDragTextState extends State<ReDragText> {
             Positioned(
               top: myPosY,
               left: myPosX,
-              child: Visibility(visible: isVisible, child: OpenerTopWidget()),
-            ),
-            Positioned(
-              top: myPosY,
-              left: myPosX,
               width: myWidth,
               height: myHeight,
               child: Container(
@@ -161,17 +142,36 @@ class _ReDragTextState extends State<ReDragText> {
                   border: Border.all(width: 2, color: Colors.black),
                 ),
                 child: Center(
-                  child: Text(
-                    textWidthBasis: TextWidthBasis.parent,
-                    textScaleFactor: 1,
-                    widget.getText,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        decoration: TextDecoration.none),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: myWidth - 10,
+                      height: myHeight - 10,
+                      color: Colors.orangeAccent,
+                      child: TextField(
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (value) {
+                          FocusScope.of(context).unfocus();
+                        },
+                        textAlign: TextAlign.center,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            decoration: TextDecoration.none),
+                      ),
+                    ),
                   ),
                 ),
               ),
+            ),
+            Positioned(
+              top: myPosY,
+              left: myPosX,
+              child: Visibility(visible: isVisible, child: OpenerTopWidget()),
             ),
           ],
         ),
