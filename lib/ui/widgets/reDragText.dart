@@ -138,9 +138,9 @@ class _ReDragTextState extends State<ReDragText> {
               height: myHeight,
               child: Container(
                 margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.black),
-                ),
+                // decoration: BoxDecoration(
+                //   border: Border.all(width: 2, color: Colors.black),
+                // ),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

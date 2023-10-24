@@ -1,7 +1,6 @@
-import 'package:draggable_example/ui/widgets/openerWidgets.dart';
-import 'package:draggable_example/utils/widgetAreaControl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:star_menu/star_menu.dart';
 import 'widgets/interfaceButtons.dart';
 
 double globalPosX = 0;
@@ -57,18 +56,45 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
             },
           ),
 
-          ///Create Widget Button
-          const CreateWidget(),
-
-          ///Create Text Widget Button
-          const CreateTextWidget(),
-
           ///Delete Button
           const DeleteWidget(),
 
-          ///Resizeable Widget Button
-          const ResizeableWidget(),
+            Positioned(
+              bottom: 60,
+              right: 30,
+              child: StarMenu(
+                params: const StarMenuParameters(
+                  shape: MenuShape.circle,
+                  circleShapeParams:
+                      CircleShapeParams(startAngle: 90, endAngle: 180),
+                  animationCurve: Curves.bounceInOut,
+                ),
+                onStateChanged: (state) => print("state changed"),
+                onItemTapped: (index, controller) {
+                  if (index == 7) {
+                    controller.closeMenu!();
+                  }
+                  print("Menu item $index tapped");
+                },
+                items: const [
+                  ///Create Widget Button
+                  CreateWidget(),
 
+                  ///Create Text Widget Button
+                  CreateTextWidget(),
+
+                  ///Resizeable Widget Button
+                  ResizeableWidget(),
+
+                  ///StickyNote Widget Button
+                  StickyNoteWidgetButton(),
+                ],
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: const Icon(Icons.looks_one),
+                ),
+              ),
+          )
         ]),
       ),
     );

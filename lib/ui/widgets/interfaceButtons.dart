@@ -1,5 +1,6 @@
 import 'package:draggable_example/ui/widgets/reDragText.dart';
 import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
+import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../pageDraggable.dart';
@@ -65,11 +66,9 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
             onPressed: () {
               setState(() {
                 tempText = myController.text;
-                context
-                    .read<PageDraggable>()
-                    .addWidget(ReDragText(
-                  getText: myController.text,
-                ));
+                context.read<PageDraggable>().addWidget(ReDragText(
+                      getText: myController.text,
+                    ));
                 myController.text = "";
               });
             },
@@ -78,8 +77,6 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
     );
   }
 }
-
-
 
 ///Delete Button
 
@@ -142,6 +139,38 @@ class _ResizeableWidgetState extends State<ResizeableWidget> {
                   .addWidget(const ResizeableTextWidget());
             },
             icon: const Icon(Icons.text_rotation_angledown)),
+      ),
+    );
+  }
+}
+
+///StickyNote Widget Button
+class StickyNoteWidgetButton extends StatefulWidget {
+  const StickyNoteWidgetButton({super.key});
+
+  @override
+  State<StickyNoteWidgetButton> createState() => _StickyNoteWidgetButtonState();
+}
+
+class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 60,
+      right: 100,
+      child: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        radius: 35,
+        child: IconButton(
+            color: Colors.black,
+            onPressed: () {
+              setState(() {
+                context
+                    .read<PageDraggable>()
+                    .addWidget(const StickyNoteWidget());
+              });
+            },
+            icon: const Icon(Icons.sticky_note_2_rounded)),
       ),
     );
   }
