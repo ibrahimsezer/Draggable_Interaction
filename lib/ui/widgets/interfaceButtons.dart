@@ -165,9 +165,9 @@ class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                context
+                for(int i=0;i<3;i++){context
                     .read<PageDraggable>()
-                    .addWidget(const StickyNoteWidget());
+                    .addWidget(StickyNoteWidget(position: (i*20)));}
               });
             },
             icon: const Icon(Icons.sticky_note_2_rounded)),

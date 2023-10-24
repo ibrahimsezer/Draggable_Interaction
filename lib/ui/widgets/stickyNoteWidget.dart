@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StickyNoteWidget extends StatefulWidget {
-  const StickyNoteWidget({super.key});
-
+  const StickyNoteWidget({super.key, required this.position});
+  final double position;
   @override
   State<StickyNoteWidget> createState() => _StickyNoteWidgetState();
 }
@@ -24,13 +24,13 @@ class _StickyNoteWidgetState extends State<StickyNoteWidget> {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
-      top: myPosY,
-      left: myPosX,
+      top: myPosY + widget.position,
+      left: myPosX + widget.position,
       width: myWidth,
       height: myHeight,
       child: GestureDetector(
         onDoubleTap: () {
-          context.read<PageDraggable>().addWidget(const StickyNoteWidget());
+          context.read<PageDraggable>().addWidget(const StickyNoteWidget(position: 0));
         },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 15 &&
