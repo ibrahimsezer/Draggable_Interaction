@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../pageDraggable.dart';
@@ -19,7 +18,7 @@ class ReDragText extends StatefulWidget {
 //Create Text Widget with Resizeable
 class _ReDragTextState extends State<ReDragText> {
   double myWidth = 150;
-  double myHeight = 100;
+  double myHeight = 150;
   double myPosX = 0;
   double myPosY = 0;
   late double areaW;
@@ -29,6 +28,7 @@ class _ReDragTextState extends State<ReDragText> {
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
   GlobalKey myKey = GlobalKey();
+  TextEditingController txtController = TextEditingController();
 
   String get getText => widget.getText;
 
@@ -41,6 +41,9 @@ class _ReDragTextState extends State<ReDragText> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
+    if (getText != null) {
+      txtController.text = getText;
+    }
     return Positioned(
       top: myPosY,
       left: myPosX,
@@ -138,9 +141,9 @@ class _ReDragTextState extends State<ReDragText> {
               height: myHeight,
               child: Container(
                 margin: EdgeInsets.only(left: containerLeft, top: containerTop),
-                // decoration: BoxDecoration(
-                //   border: Border.all(width: 2, color: Colors.black),
-                // ),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.black),
+                ),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -149,6 +152,7 @@ class _ReDragTextState extends State<ReDragText> {
                       height: myHeight - 10,
                       color: Colors.orangeAccent,
                       child: TextField(
+                        controller: txtController,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (value) {
                           FocusScope.of(context).unfocus();
@@ -171,7 +175,8 @@ class _ReDragTextState extends State<ReDragText> {
             Positioned(
               top: myPosY,
               left: myPosX,
-              child: Visibility(visible: isVisible, child: OpenerTopWidget()),
+              child: Visibility(
+                  visible: isVisible, child: const OpenerTopWidget()),
             ),
           ],
         ),

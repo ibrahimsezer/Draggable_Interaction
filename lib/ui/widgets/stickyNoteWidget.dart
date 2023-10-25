@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StickyNoteWidget extends StatefulWidget {
-  const StickyNoteWidget({super.key, required this.position});
-  final double position;
+  const StickyNoteWidget({
+    super.key,
+  });
+
   @override
   State<StickyNoteWidget> createState() => _StickyNoteWidgetState();
 }
@@ -18,19 +20,44 @@ class _StickyNoteWidgetState extends State<StickyNoteWidget> {
   late double areaH;
   bool isResizing = false;
   Offset startPosition = const Offset(0, 0);
+  bool isVisible = false;
+  Color selectedColor = Colors.redAccent;
+  List<Color> stickyColors = [
+    Colors.white,
+    Colors.red,
+    Colors.blue,
+    Colors.lightBlueAccent,
+    Colors.blueGrey,
+    Colors.redAccent,
+    Colors.green,
+    Colors.lightGreen,
+    Colors.greenAccent,
+    Colors.yellowAccent,
+    Colors.yellow,
+    Colors.purple,
+    Colors.purpleAccent,
+    Colors.pink,
+    Colors.pinkAccent,
+    Colors.amber,
+    Colors.limeAccent,
+    Colors.indigo,
+    Colors.indigoAccent,
+    Colors.deepOrangeAccent,
+    Colors.orange,
+  ];
 
   @override
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
-      top: myPosY + widget.position,
-      left: myPosX + widget.position,
+      top: myPosY,
+      left: myPosX,
       width: myWidth,
       height: myHeight,
       child: GestureDetector(
         onDoubleTap: () {
-          context.read<PageDraggable>().addWidget(const StickyNoteWidget(position: 0));
+          context.read<PageDraggable>().addWidget(const StickyNoteWidget());
         },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 15 &&
@@ -72,7 +99,8 @@ class _StickyNoteWidgetState extends State<StickyNoteWidget> {
             isResizing = false;
           });
         },
-        child: Card(color: Colors.redAccent,
+        child: Card(
+          color: selectedColor,
           elevation: 5,
           shadowColor: Colors.black,
           shape:

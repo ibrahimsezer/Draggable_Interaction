@@ -1,3 +1,4 @@
+import 'package:draggable_example/ui/widgets/prioritizationTableWidget.dart';
 import 'package:draggable_example/ui/widgets/reDragText.dart';
 import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
@@ -95,9 +96,7 @@ class _DeleteWidgetState extends State<DeleteWidget> {
         left: 30,
         child: DragTarget(
           onAccept: (data) {
-            context
-                .read<PageDraggable>()
-                .removeWidget(PageDraggable.widgets[0]);
+            context.read<PageDraggable>().allRemoveWidget();
           },
           builder: (BuildContext context, List<Object?> candidateData,
               List<dynamic> rejectedData) {
@@ -110,6 +109,35 @@ class _DeleteWidgetState extends State<DeleteWidget> {
                   icon: const Icon(Icons.delete)),
             );
           },
+        ));
+  }
+}
+
+///Example Widget Button
+class ExampleWidgetButton extends StatefulWidget {
+  const ExampleWidgetButton({super.key});
+
+  @override
+  State<ExampleWidgetButton> createState() => _ExampleWidgetButtonState();
+}
+
+class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        bottom: 30,
+        left: 60,
+        child: CircleAvatar(
+          backgroundColor: Colors.amberAccent,
+          radius: 35,
+          child: IconButton(
+              onPressed: () {
+                context
+                    .read<PageDraggable>()
+                    .addWidget(const PrioritizationTableWidget());
+              },
+              color: Colors.black,
+              icon: const Icon(Icons.pix)),
         ));
   }
 }
@@ -153,6 +181,9 @@ class StickyNoteWidgetButton extends StatefulWidget {
 }
 
 class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
+  double posX = 0;
+  double posY = 0;
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -165,9 +196,11 @@ class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                for(int i=0;i<3;i++){context
-                    .read<PageDraggable>()
-                    .addWidget(StickyNoteWidget(position: (i*20)));}
+                for (int i = 0; i < 3; i++) {
+                  context
+                      .read<PageDraggable>()
+                      .addWidget(const StickyNoteWidget());
+                }
               });
             },
             icon: const Icon(Icons.sticky_note_2_rounded)),

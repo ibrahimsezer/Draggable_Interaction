@@ -28,7 +28,7 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
       //Top widget
       top: myPosY,
       left: myPosX,
-      width: 170,
+      width: 230,
       height: 50,
       child: GestureDetector(
         onPanStart: (details) {
@@ -83,7 +83,7 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
             isResizing = false;
           });
         },
-        child: OpenerTopWidget(),
+        child: const OpenerTopWidget(),
       ),
     );
   }
