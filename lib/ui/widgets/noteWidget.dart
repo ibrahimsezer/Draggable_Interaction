@@ -1,26 +1,27 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../pageDraggable.dart';
 import 'openerWidgets.dart';
 
-class ReDragText extends StatefulWidget {
-  const ReDragText({
+class NoteWidget extends StatefulWidget {
+  const NoteWidget({
     super.key,
-    required this.getText,
+    required getText,
   });
 
-  final String getText;
-
   @override
-  State<ReDragText> createState() => _ReDragTextState();
+  State<NoteWidget> createState() => _NoteWidgetState();
 }
 
 //Create Text Widget with Resizeable
-class _ReDragTextState extends State<ReDragText> {
+class _NoteWidgetState extends State<NoteWidget> {
   double myWidth = 150;
   double myHeight = 150;
   double myPosX = 0;
   double myPosY = 0;
+  late double right;
   late double areaW;
   late double areaH;
   String resizeableText = "";
@@ -29,8 +30,6 @@ class _ReDragTextState extends State<ReDragText> {
   Offset startPosition = const Offset(0, 0);
   GlobalKey myKey = GlobalKey();
   TextEditingController txtController = TextEditingController();
-
-  String get getText => widget.getText;
 
   @override
   void initState() {
@@ -41,9 +40,7 @@ class _ReDragTextState extends State<ReDragText> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
-    if (getText != null) {
-      txtController.text = getText;
-    }
+
     return Positioned(
       top: myPosY,
       left: myPosX,
@@ -52,11 +49,11 @@ class _ReDragTextState extends State<ReDragText> {
       //height: areaH,
       child: GestureDetector(
         onDoubleTap: () {
-          context.read<PageDraggable>().addWidget(ReDragText(
-                getText: widget.getText,
-              ));
+          context
+              .read<PageDraggable>()
+              .addWidget(NoteWidget(getText: tempText));
           print(
-              " X : $myPosX Y: $myPosY Text: $getText Height: $myHeight Width : $myWidth");
+              " X : $myPosX Y: $myPosY Text: ${txtController.text} Height: $myHeight Width : $myWidth");
           print("Double TaP ");
           //Temp
         },
@@ -78,19 +75,8 @@ class _ReDragTextState extends State<ReDragText> {
               globalPosY = myPosY;
               myPosX = myPosX.clamp(0, areaW);
               myPosY = myPosY.clamp(0, areaH);
-              //todo right and bottom side update notWorking
-              double myRight = myPosX + myWidth;
-              double myBottom = myPosY + myHeight;
-              if (myPosX < 0) {
-                myPosX = 0;
-              } else if (myRight > areaW) {
-                myRight = areaW;
-              }
-              if (myPosY < 0) {
-                myPosY = 0;
-              } else if (myBottom > areaH) {
-                myBottom = areaH;
-              }
+              right = myPosX + myWidth;
+              right.clamp(0, areaW);
             }
             if (isResizing) {
               if ((myWidth >= 50 && myHeight >= 50) &&
@@ -137,8 +123,6 @@ class _ReDragTextState extends State<ReDragText> {
             Positioned(
               top: myPosY,
               left: myPosX,
-              width: myWidth,
-              height: myHeight,
               child: Container(
                 margin: EdgeInsets.only(left: containerLeft, top: containerTop),
                 decoration: BoxDecoration(
@@ -152,6 +136,11 @@ class _ReDragTextState extends State<ReDragText> {
                       height: myHeight - 10,
                       color: Colors.orangeAccent,
                       child: TextField(
+                        onChanged: (value) {
+                          log(txtController.text);
+                          log("tempText : $tempText");
+                          tempText = txtController.text;
+                        },
                         controller: txtController,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (value) {

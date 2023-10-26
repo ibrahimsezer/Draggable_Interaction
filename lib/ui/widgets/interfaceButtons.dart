@@ -1,5 +1,6 @@
+import 'package:draggable_example/ui/widgets/note2Widget.dart';
 import 'package:draggable_example/ui/widgets/prioritizationTableWidget.dart';
-import 'package:draggable_example/ui/widgets/reDragText.dart';
+import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
             onPressed: () {
               setState(() {
                 tempText = myController.text;
-                context.read<PageDraggable>().addWidget(ReDragText(
+                context.read<PageDraggable>().addWidget(NoteWidget(
                       getText: myController.text,
                     ));
                 myController.text = "";
@@ -134,7 +135,7 @@ class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
               onPressed: () {
                 context
                     .read<PageDraggable>()
-                    .addWidget(const PrioritizationTableWidget());
+                    .addWidget(const Note2Widget());
               },
               color: Colors.black,
               icon: const Icon(Icons.pix)),
