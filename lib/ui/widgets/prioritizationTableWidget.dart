@@ -1,3 +1,4 @@
+import 'package:draggable_example/ui/pageDraggable.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -29,22 +30,22 @@ class _PrioritizationTableWidgetState extends State<PrioritizationTableWidget> {
           Positioned(
             left: 0,
             top: 0,
-            child: NoteWidget(getText: defaultText[0]),
+            child: NoteWidget(getText: defaultText[0],myid: ++PageDraggable.id),
           ),
           Positioned(
             left: 0,
             top: 160,
-            child: NoteWidget(getText: defaultText[1]),
+            child: NoteWidget(getText: defaultText[1],myid: ++PageDraggable.id),
           ),
           Positioned(
             left: 160,
             top: 0,
-            child: NoteWidget(getText: defaultText[2]),
+            child: NoteWidget(getText: defaultText[2],myid: ++PageDraggable.id),
           ),
           Positioned(
             left: 160,
             top: 160,
-            child: NoteWidget(getText: defaultText[3]),
+            child: NoteWidget(getText: defaultText[3],myid: ++PageDraggable.id),
           ),
         ],
       ),

@@ -18,7 +18,7 @@ class CreateWidget extends StatefulWidget {
 
 class _CreateWidgetState extends State<CreateWidget> {
   int count = 0;
-
+  int myid = -1;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -31,11 +31,15 @@ class _CreateWidgetState extends State<CreateWidget> {
             color: Colors.black,
             onPressed: () {
               context.read<PageDraggable>().addWidget(DraggableWidget(
-                    txtData: "Widget: $count",
+                    txtData: "Widget: $myid",
                     shouldRemove: false,
                   ));
               setState(() {
+                myid = PageDraggable.id ;
                 count++;
+                PageDraggable.id++;
+                print("${PageDraggable.id}");
+                print("${count}");
               });
             },
             icon: const Icon(Icons.add)),
@@ -68,9 +72,11 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
             onPressed: () {
               setState(() {
                 tempText = myController.text;
-                context.read<PageDraggable>().addWidget(NoteWidget(
-                      getText: myController.text,
+                print(tempText);
+                context.read<PageDraggable>().addWidget(NoteWidget(myid :PageDraggable.id,
+                      getText: tempText,
                     ));
+                PageDraggable.id++;
                 myController.text = "";
               });
             },

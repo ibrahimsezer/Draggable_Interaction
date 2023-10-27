@@ -16,9 +16,10 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
   PageDraggable({super.key});
 
   static List<Widget> widgets = [];
-
+  static int id = 0;
   void addWidget(Widget widget) {
     PageDraggable.widgets.add(widget);
+    id++;
     notifyListeners();
     print("${widgets.toList()}");
   }

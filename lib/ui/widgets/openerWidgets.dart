@@ -1,6 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
+
+import '../pageDraggable.dart';
+import 'noteWidget.dart';
 
 ///Opener Widgets
 class OpenerTopWidget extends StatefulWidget {
@@ -32,30 +36,37 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.copy),
           action: () {
-            log("Copied.");
+            context.read<PageDraggable>().addWidget(NoteWidget(
+                  getText: tempText,
+                  myid: PageDraggable.id,
+                ));
+            PageDraggable.id++;
+            print("copyy.");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
-            log("Deleted.");
+            context.read<PageDraggable>().removeWidget(PageDraggable.widgets
+                .firstWhere((element) => element == PageDraggable.id));
+            print("Deleted.");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.format_size),
           action: () {
-            log("Tt Active");
+            print("Tt Active");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.color_lens),
           action: () {
-            log("Color Active");
+            print("Color Active");
             showDialog(
                 builder: (context) => AlertDialog(
                       title: const Text('Pick a Color'),
                       content: SingleChildScrollView(
-                        child: ColorPicker(
+                        child: MaterialPicker(
                           pickerColor: pickerColor,
                           onColorChanged: changeColor,
                         ),
@@ -78,7 +89,7 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
   }
 }
 
-class OpenerButton extends StatelessWidget {
+class OpenerButton extends StatefulWidget {
   final Icon barIcons;
   final VoidCallback action;
 
@@ -89,23 +100,24 @@ class OpenerButton extends StatelessWidget {
   });
 
   @override
+  State<OpenerButton> createState() => _OpenerButtonState();
+}
+
+class _OpenerButtonState extends State<OpenerButton> {
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print("INKWELL");
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () {
+          print("action");
+          widget.action.call();
+        },
         child: CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.amberAccent,
-            child: IconButton(
-              iconSize: 20,
-              splashRadius: 25,
-              onPressed: () => action,
-              icon: barIcons,
-              color: Colors.black,
-            )),
+          radius: 20,
+          backgroundColor: Colors.amberAccent,
+          child: widget.barIcons,
+        ),
       ),
     );
   }

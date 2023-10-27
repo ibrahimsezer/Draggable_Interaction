@@ -72,12 +72,6 @@ class _ResizeableTextWidgetState extends State<ResizeableTextWidget> {
             }
           });
         },
-        onTap: () {
-          log("+++++++");
-          print("width : $myWidth | "
-              "\nheight : $myHeight | "
-              "\nStartPosition : $startPosition");
-        },
         onPanEnd: (details) {
           setState(() {
             isResizing = false;

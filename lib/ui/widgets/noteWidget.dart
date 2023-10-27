@@ -6,10 +6,11 @@ import '../pageDraggable.dart';
 import 'openerWidgets.dart';
 
 class NoteWidget extends StatefulWidget {
-  const NoteWidget({
+   const NoteWidget({
     super.key,
-    required getText,
+    required getText, required this.myid,
   });
+   final int myid;
 
   @override
   State<NoteWidget> createState() => _NoteWidgetState();
@@ -17,6 +18,7 @@ class NoteWidget extends StatefulWidget {
 
 //Create Text Widget with Resizeable
 class _NoteWidgetState extends State<NoteWidget> {
+
   double myWidth = 150;
   double myHeight = 150;
   double myPosX = 0;
@@ -46,17 +48,7 @@ class _NoteWidgetState extends State<NoteWidget> {
       left: myPosX,
       width: areaW,
       height: areaH,
-      //height: areaH,
       child: GestureDetector(
-        onDoubleTap: () {
-          context
-              .read<PageDraggable>()
-              .addWidget(NoteWidget(getText: tempText));
-          print(
-              " X : $myPosX Y: $myPosY Text: ${txtController.text} Height: $myHeight Width : $myWidth");
-          print("Double TaP ");
-          //Temp
-        },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 15 &&
               details.localPosition.dy >= myHeight - 15) {
