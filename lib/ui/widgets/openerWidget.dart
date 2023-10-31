@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:draggable_example/model/example.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -46,20 +47,38 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
                   getText: tempText,
                 )));
             print("copyy.");
+            log("${WidgetModel.widgetModelList.toList()}");
+            log("${WidgetModel.widgetModelList.length}");
+            log("${WidgetModel.idCount}");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
+             int getCount(){return WidgetModel.idCount;}
             // context
             //     .read<PageDraggable>()
             //     .removeWidget(PageDraggable.widgets[0]);
-            if (WidgetModel.idCount ==
-                WidgetModel.widgetModelList.indexWhere(
-                    (element) => element.myId == WidgetModel.idCount)) {
-              context.read<WidgetFunctions>().deleteItem(WidgetModel.idCount);
-            } else {null;}
-            print("Deleted.");
+            int val = WidgetModel.widgetModelList
+                .indexWhere((element) => element.myId == getCount());
+            log(val.toString());
+            if (val != null) {
+              log(val.toString());
+              log("${WidgetModel.widgetModelList.toList()}");
+              log("${WidgetModel.widgetModelList.length}");
+              log("${WidgetModel.idCount}");
+
+              context
+                  .read<WidgetFunctions>()
+                  .deleteItem(WidgetModel.idCount - 1);
+              log("Deleted.");
+            } else {
+              log("Null.");
+              log(val.toString());
+              log("${WidgetModel.widgetModelList.toList()}");
+              log("${WidgetModel.widgetModelList.length}");
+              log("${WidgetModel.idCount}");
+            }
           },
         ),
         OpenerButton(

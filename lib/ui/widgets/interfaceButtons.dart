@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:draggable_example/ui/widgets/note2Widget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
-import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
+import 'package:draggable_example/ui/widgets/resizableWidget.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../pageDraggable.dart';
-import 'draggableWidgets.dart';
+import 'draggableWidget.dart';
 
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
@@ -60,7 +60,7 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 30,
+      bottom: 110,
       right: 100,
       child: CircleAvatar(
         backgroundColor: Colors.amberAccent,
@@ -82,6 +82,8 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
                     getText: tempText,
                   )));
               log("${WidgetModel.widgetModelList.toList()}");
+              log("${WidgetModel.widgetModelList.length}");
+              log("${WidgetModel.idCount}");
             },
             icon: const Icon(Icons.text_fields)),
       ),
@@ -135,8 +137,8 @@ class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        bottom: 30,
-        left: 60,
+        bottom: 60,
+        right: 165,
         child: CircleAvatar(
           backgroundColor: Colors.amberAccent,
           radius: 35,
@@ -162,7 +164,7 @@ class _ResizeableWidgetState extends State<ResizeableWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 105,
+      bottom: 110,
       right: 30,
       child: CircleAvatar(
         backgroundColor: Colors.amberAccent,
@@ -195,7 +197,7 @@ class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 60,
+      bottom: 30,
       right: 100,
       child: CircleAvatar(
         backgroundColor: Colors.amberAccent,

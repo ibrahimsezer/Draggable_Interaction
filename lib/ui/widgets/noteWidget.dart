@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../pageDraggable.dart';
-import 'openerWidgets.dart';
+import 'openerWidget.dart';
 
 class NoteWidget extends StatefulWidget {
     const NoteWidget({

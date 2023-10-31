@@ -37,7 +37,7 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
   State<PageDraggable> createState() => _PageDraggableState();
 }
 
-class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
+class _PageDraggableState extends State<PageDraggable> {
   int count = 0;
   Color pickerColor = const Color(0xff443a49);
   Color currentColor = const Color(0xff443a49);
@@ -60,13 +60,13 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
                   child: Text("| x: $globalPosX \n| y: $globalPosY "));
             },
           ),
-          Consumer<PageDraggable>(
+          Consumer<WidgetFunctions>(
             builder: (context, value, child) {
               return Stack(
                 children: [
                   ...WidgetModel.widgetModelList
                       .map((model) => model.widget)
-                    .toList()
+                      .toList()
                 ],
               );
             },
@@ -104,45 +104,20 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
                   },
                   child: const Text("Click"))),
 
-          ///
-          Positioned(
-            bottom: 60,
-            right: 30,
-            child: StarMenu(
-              params: const StarMenuParameters(
-                shape: MenuShape.circle,
-                circleShapeParams:
-                    CircleShapeParams(startAngle: 90, endAngle: 180),
-                animationCurve: Curves.bounceInOut,
-              ),
-              onStateChanged: (state) => print("state changed"),
-              onItemTapped: (index, controller) {
-                controller.closeMenu!();
+          ///Create Widget Button
+          CreateWidget(),
 
-                print("Menu item $index tapped");
-              },
-              items: <Widget>[
-                ///Create Widget Button
-                CreateWidget(),
+          ///Create Text Widget Button
+          const CreateTextWidget(),
 
-                ///Create Text Widget Button
-                const CreateTextWidget(),
+          ///Resizeable Widget Button
+          const ResizeableWidget(),
 
-                ///Resizeable Widget Button
-                const ResizeableWidget(),
+          ///StickyNote Widget Button
+          const StickyNoteWidgetButton(),
 
-                ///StickyNote Widget Button
-                const StickyNoteWidgetButton(),
-
-                ///Example Widget Button
-                const ExampleWidgetButton(),
-              ],
-              child: FloatingActionButton(
-                onPressed: () {},
-                child: const Icon(Icons.looks_one),
-              ),
-            ),
-          )
+          ///Example Widget Button
+          const ExampleWidgetButton()
         ]),
       ),
     );
