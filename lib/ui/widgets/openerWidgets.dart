@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
@@ -36,19 +37,28 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.copy),
           action: () {
-            context.read<PageDraggable>().addWidget(NoteWidget(
+            // context.read<PageDraggable>().addWidget(NoteWidget(
+            //   getText: tempText,
+            // ));
+            context.read<WidgetFunctions>().addItem(WidgetModel(
+                myId: WidgetModel.widgetModelList.length,
+                widget: NoteWidget(
                   getText: tempText,
-                  myid: PageDraggable.id,
-                ));
-            PageDraggable.id++;
+                )));
             print("copyy.");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
-            context.read<PageDraggable>().removeWidget(PageDraggable.widgets
-                .firstWhere((element) => element == PageDraggable.id));
+            // context
+            //     .read<PageDraggable>()
+            //     .removeWidget(PageDraggable.widgets[0]);
+            if (WidgetModel.idCount ==
+                WidgetModel.widgetModelList.indexWhere(
+                    (element) => element.myId == WidgetModel.idCount)) {
+              context.read<WidgetFunctions>().deleteItem(WidgetModel.idCount);
+            } else {null;}
             print("Deleted.");
           },
         ),

@@ -1,5 +1,6 @@
+import 'dart:developer';
+import 'package:draggable_example/model/widgetModel.dart';
 import 'package:draggable_example/ui/widgets/note2Widget.dart';
-import 'package:draggable_example/ui/widgets/prioritizationTableWidget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:draggable_example/ui/widgets/resizableWidgets.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
@@ -10,15 +11,16 @@ import 'draggableWidgets.dart';
 
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
-  const CreateWidget({super.key});
-
+  CreateWidget({super.key});
+  int myid = -1;
   @override
   State<CreateWidget> createState() => _CreateWidgetState();
 }
 
 class _CreateWidgetState extends State<CreateWidget> {
   int count = 0;
-  int myid = -1;
+
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -31,15 +33,11 @@ class _CreateWidgetState extends State<CreateWidget> {
             color: Colors.black,
             onPressed: () {
               context.read<PageDraggable>().addWidget(DraggableWidget(
-                    txtData: "Widget: $myid",
+                    txtData: "Widget: ${widget.myid}",
                     shouldRemove: false,
                   ));
               setState(() {
-                myid = PageDraggable.id ;
                 count++;
-                PageDraggable.id++;
-                print("${PageDraggable.id}");
-                print("${count}");
               });
             },
             icon: const Icon(Icons.add)),
@@ -73,12 +71,17 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
               setState(() {
                 tempText = myController.text;
                 print(tempText);
-                context.read<PageDraggable>().addWidget(NoteWidget(myid :PageDraggable.id,
-                      getText: tempText,
-                    ));
-                PageDraggable.id++;
+                // context.read<PageDraggable>().addWidget(NoteWidget(
+                //       getText: tempText,
+                //     ));
                 myController.text = "";
               });
+              context.read<WidgetFunctions>().addItem(WidgetModel(
+                  myId: WidgetModel.widgetModelList.length,
+                  widget: NoteWidget(
+                    getText: tempText,
+                  )));
+              log("${WidgetModel.widgetModelList.toList()}");
             },
             icon: const Icon(Icons.text_fields)),
       ),
@@ -139,9 +142,7 @@ class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
           radius: 35,
           child: IconButton(
               onPressed: () {
-                context
-                    .read<PageDraggable>()
-                    .addWidget(const Note2Widget());
+                context.read<PageDraggable>().addWidget(const Note2Widget());
               },
               color: Colors.black,
               icon: const Icon(Icons.pix)),

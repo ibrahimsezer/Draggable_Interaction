@@ -6,11 +6,10 @@ import '../pageDraggable.dart';
 import 'openerWidgets.dart';
 
 class NoteWidget extends StatefulWidget {
-   const NoteWidget({
+    const NoteWidget({
     super.key,
-    required getText, required this.myid,
+    required getText,
   });
-   final int myid;
 
   @override
   State<NoteWidget> createState() => _NoteWidgetState();
@@ -18,7 +17,6 @@ class NoteWidget extends StatefulWidget {
 
 //Create Text Widget with Resizeable
 class _NoteWidgetState extends State<NoteWidget> {
-
   double myWidth = 150;
   double myHeight = 150;
   double myPosX = 0;

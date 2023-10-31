@@ -1,3 +1,4 @@
+import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
@@ -16,21 +17,19 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
   PageDraggable({super.key});
 
   static List<Widget> widgets = [];
-  static int id = 0;
+
   void addWidget(Widget widget) {
-    PageDraggable.widgets.add(widget);
-    id++;
+    widgets.add(widget);
     notifyListeners();
-    print("${widgets.toList()}");
   }
 
   void removeWidget(Widget widget) {
-    PageDraggable.widgets.remove(widget);
+    widgets.remove(widget);
     notifyListeners();
   }
 
   void allRemoveWidget() {
-    PageDraggable.widgets.clear();
+    widgets.clear();
     notifyListeners();
   }
 
@@ -64,7 +63,11 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
           Consumer<PageDraggable>(
             builder: (context, value, child) {
               return Stack(
-                children: [...PageDraggable.widgets],
+                children: [
+                  ...WidgetModel.widgetModelList
+                      .map((model) => model.widget)
+                    .toList()
+                ],
               );
             },
           ),
@@ -118,21 +121,21 @@ class _PageDraggableState extends State<PageDraggable> with ChangeNotifier {
 
                 print("Menu item $index tapped");
               },
-              items: const [
+              items: <Widget>[
                 ///Create Widget Button
                 CreateWidget(),
 
                 ///Create Text Widget Button
-                CreateTextWidget(),
+                const CreateTextWidget(),
 
                 ///Resizeable Widget Button
-                ResizeableWidget(),
+                const ResizeableWidget(),
 
                 ///StickyNote Widget Button
-                StickyNoteWidgetButton(),
+                const StickyNoteWidgetButton(),
 
                 ///Example Widget Button
-                ExampleWidgetButton(),
+                const ExampleWidgetButton(),
               ],
               child: FloatingActionButton(
                 onPressed: () {},

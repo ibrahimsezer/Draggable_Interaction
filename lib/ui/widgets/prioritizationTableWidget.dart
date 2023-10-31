@@ -30,22 +30,22 @@ class _PrioritizationTableWidgetState extends State<PrioritizationTableWidget> {
           Positioned(
             left: 0,
             top: 0,
-            child: NoteWidget(getText: defaultText[0],myid: ++PageDraggable.id),
+            child: NoteWidget(getText: defaultText[0],),
           ),
           Positioned(
             left: 0,
             top: 160,
-            child: NoteWidget(getText: defaultText[1],myid: ++PageDraggable.id),
+            child: NoteWidget(getText: defaultText[1],),
           ),
           Positioned(
             left: 160,
             top: 0,
-            child: NoteWidget(getText: defaultText[2],myid: ++PageDraggable.id),
+            child: NoteWidget(getText: defaultText[2],),
           ),
           Positioned(
             left: 160,
             top: 160,
-            child: NoteWidget(getText: defaultText[3],myid: ++PageDraggable.id),
+            child: NoteWidget(getText: defaultText[3],),
           ),
         ],
       ),
