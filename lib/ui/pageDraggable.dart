@@ -2,7 +2,6 @@ import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
-import 'package:star_menu/star_menu.dart';
 import 'widgets/interfaceButtons.dart';
 
 double globalPosX = 0;
@@ -28,6 +27,10 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeWidgetInt(int id){
+    widgets.removeAt(id);
+    notifyListeners();
+  }
   void allRemoveWidget() {
     widgets.clear();
     notifyListeners();
@@ -66,8 +69,15 @@ class _PageDraggableState extends State<PageDraggable> {
                 children: [
                   ...WidgetModel.widgetModelList
                       .map((model) => model.widget)
-                      .toList()
+                      .toList(),
                 ],
+              );
+            },
+          ),
+          Consumer<PageDraggable>(
+            builder: (context, value, child) {
+              return Stack(
+                children: [...PageDraggable.widgets.toList()],
               );
             },
           ),

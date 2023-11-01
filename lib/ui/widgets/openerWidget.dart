@@ -46,6 +46,7 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
                 widget: NoteWidget(
                   getText: tempText,
                 )));
+            WidgetModel.idCount++;
             print("copyy.");
             log("${WidgetModel.widgetModelList.toList()}");
             log("${WidgetModel.widgetModelList.length}");
@@ -55,22 +56,22 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
-             int getCount(){return WidgetModel.idCount;}
+            int getCount() {
+              return WidgetModel.idCount - 1;
+            }
+
             // context
             //     .read<PageDraggable>()
             //     .removeWidget(PageDraggable.widgets[0]);
             int val = WidgetModel.widgetModelList
                 .indexWhere((element) => element.myId == getCount());
             log(val.toString());
-            if (val != null) {
+            if (val != -1) {
               log(val.toString());
               log("${WidgetModel.widgetModelList.toList()}");
               log("${WidgetModel.widgetModelList.length}");
               log("${WidgetModel.idCount}");
-
-              context
-                  .read<WidgetFunctions>()
-                  .deleteItem(WidgetModel.idCount - 1);
+              context.read<WidgetFunctions>().deleteItem(val);
               log("Deleted.");
             } else {
               log("Null.");

@@ -6,7 +6,7 @@ import '../pageDraggable.dart';
 import 'openerWidget.dart';
 
 class NoteWidget extends StatefulWidget {
-    const NoteWidget({
+  const NoteWidget({
     super.key,
     required getText,
   });

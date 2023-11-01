@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:draggable_example/model/widgetModel.dart';
+import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
 import 'package:draggable_example/ui/widgets/note2Widget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:draggable_example/ui/widgets/resizableWidget.dart';
@@ -12,14 +13,15 @@ import 'draggableWidget.dart';
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
   CreateWidget({super.key});
+
   int myid = -1;
+
   @override
   State<CreateWidget> createState() => _CreateWidgetState();
 }
 
 class _CreateWidgetState extends State<CreateWidget> {
   int count = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,12 @@ class _CreateWidgetState extends State<CreateWidget> {
         child: IconButton(
             color: Colors.black,
             onPressed: () {
-              context.read<PageDraggable>().addWidget(DraggableWidget(
-                    txtData: "Widget: ${widget.myid}",
-                    shouldRemove: false,
-                  ));
+              UniqueKey myKey = UniqueKey();
+              context.read<PageDraggable>().addWidget(ListViewWidget(mykey: myKey,));
+              // context.read<PageDraggable>().addWidget(DraggableWidget(
+              //       txtData: "Widget: ${widget.myid}",
+              //       shouldRemove: false,
+              //     ));
               setState(() {
                 count++;
               });
@@ -75,6 +79,7 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
                 //       getText: tempText,
                 //     ));
                 myController.text = "";
+                WidgetModel.idCount++;
               });
               context.read<WidgetFunctions>().addItem(WidgetModel(
                   myId: WidgetModel.widgetModelList.length,
