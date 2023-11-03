@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 
-import '../pageDraggable.dart';
+import '../mainBoard.dart';
 import 'noteWidget.dart';
 
 ///Opener Widgets
@@ -45,7 +45,8 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
                 myId: WidgetModel.widgetModelList.length,
                 widget: NoteWidget(
                   getText: tempText,
-                )));
+                ),
+                isSelected: true));
             WidgetModel.idCount++;
             print("copyy.");
             log("${WidgetModel.widgetModelList.toList()}");
@@ -56,30 +57,9 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
-            int getCount() {
-              return WidgetModel.idCount - 1;
-            }
-
-            // context
-            //     .read<PageDraggable>()
-            //     .removeWidget(PageDraggable.widgets[0]);
-            int val = WidgetModel.widgetModelList
-                .indexWhere((element) => element.myId == getCount());
-            log(val.toString());
-            if (val != -1) {
-              log(val.toString());
-              log("${WidgetModel.widgetModelList.toList()}");
-              log("${WidgetModel.widgetModelList.length}");
-              log("${WidgetModel.idCount}");
-              context.read<WidgetFunctions>().deleteItem(val);
-              log("Deleted.");
-            } else {
-              log("Null.");
-              log(val.toString());
-              log("${WidgetModel.widgetModelList.toList()}");
-              log("${WidgetModel.widgetModelList.length}");
-              log("${WidgetModel.idCount}");
-            }
+            setState(() {
+              WidgetFunctions().deleteSelectedWidget();
+            });
           },
         ),
         OpenerButton(

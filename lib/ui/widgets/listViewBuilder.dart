@@ -1,21 +1,19 @@
-import 'dart:math';
-import 'package:draggable_example/model/example.dart';
-import 'package:draggable_example/ui/pageDraggable.dart';
+import 'dart:developer';
+
+import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListViewWidget extends StatefulWidget {
-  const ListViewWidget({super.key, required this.mykey});
-
-  final UniqueKey mykey;
+  const ListViewWidget({super.key});
 
   @override
   State<ListViewWidget> createState() => _ListViewWidgetState();
 }
 
 class _ListViewWidgetState extends State<ListViewWidget> {
-  double myWidth = 200;
-  double myHeight = 200;
+  double myWidth = 100;
+  double myHeight = 100;
   double myPosX = 0;
   double myPosY = 0;
   late double right;
@@ -25,8 +23,6 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
-  UniqueKey myKey = UniqueKey();
-  List deleteKeyList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +34,23 @@ class _ListViewWidgetState extends State<ListViewWidget> {
         width: myWidth,
         height: myHeight,
         child: GestureDetector(
-          key: myKey,
           child: Container(
             color: Colors.black,
           ),
           onTap: () {
             setState(() {
-              UniqueKey deleteKey = myKey;
-              var listKey = deleteKey;
-              deleteKeyList.add(listKey);
-              print("$deleteKey");
-              for (int i = 0; i < deleteKeyList.length; i++) {
-                print(deleteKeyList.toList());
-                if (deleteKey == deleteKeyList[i]) {
-                  context.read<PageDraggable>().removeWidgetInt(i);
-                  deleteKeyList.removeAt(i);
-                }
-              }
+
+              var a = WidgetModel.widgetModelList.map((e) => e.widget).toList();
+              var b = WidgetModel.widgetModelList.map((e) => e.myId).toList();
+              log(a.toList().toString());
+              log(b.toList().toString());
+
+              // for (int i = 0; i < WidgetModel.modelIdList.length; i++) {
+              //   if (WidgetModel.widgetModelList[i] ==
+              //       WidgetModel.widgetModelList.map((e) => e.myId)) {
+              //     context.read<WidgetFunctions>().deleteItem(i);
+              //   }
+              // }
             });
           },
           onPanStart: (details) {

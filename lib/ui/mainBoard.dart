@@ -12,8 +12,8 @@ bool isResizing = false;
 Offset startPosition = Offset.zero;
 String tempText = "";
 
-class PageDraggable extends StatefulWidget with ChangeNotifier {
-  PageDraggable({super.key});
+class MainBoard extends StatefulWidget with ChangeNotifier {
+  MainBoard({super.key});
 
   static List<Widget> widgets = [];
 
@@ -27,20 +27,21 @@ class PageDraggable extends StatefulWidget with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeWidgetInt(int id){
+  void removeWidgetInt(int id) {
     widgets.removeAt(id);
     notifyListeners();
   }
+
   void allRemoveWidget() {
     widgets.clear();
     notifyListeners();
   }
 
   @override
-  State<PageDraggable> createState() => _PageDraggableState();
+  State<MainBoard> createState() => _MainBoardState();
 }
 
-class _PageDraggableState extends State<PageDraggable> {
+class _MainBoardState extends State<MainBoard> {
   int count = 0;
   Color pickerColor = const Color(0xff443a49);
   Color currentColor = const Color(0xff443a49);
@@ -55,7 +56,7 @@ class _PageDraggableState extends State<PageDraggable> {
       body: SafeArea(
         child: Stack(children: <Widget>[
           // AreaControlWidget(),
-          Consumer<PageDraggable>(
+          Consumer<MainBoard>(
             builder: (context, value, child) {
               return Positioned(
                   top: 5,
@@ -67,17 +68,8 @@ class _PageDraggableState extends State<PageDraggable> {
             builder: (context, value, child) {
               return Stack(
                 children: [
-                  ...WidgetModel.widgetModelList
-                      .map((model) => model.widget)
-                      .toList(),
+                  ...WidgetModel.widgetModelList.map((e) => e.widget)
                 ],
-              );
-            },
-          ),
-          Consumer<PageDraggable>(
-            builder: (context, value, child) {
-              return Stack(
-                children: [...PageDraggable.widgets.toList()],
               );
             },
           ),
@@ -85,7 +77,7 @@ class _PageDraggableState extends State<PageDraggable> {
           ///Delete Button
           const DeleteWidget(),
 
-          ///
+          ///Color Button
           Positioned(
               bottom: 40,
               left: 120,

@@ -1,20 +1,19 @@
 import 'dart:developer';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
-import 'package:draggable_example/ui/widgets/note2Widget.dart';
+import 'package:draggable_example/ui/widgets/tableWidget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:draggable_example/ui/widgets/resizableWidget.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../pageDraggable.dart';
-import 'draggableWidget.dart';
+import '../mainBoard.dart';
 
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
   CreateWidget({super.key});
 
-  int myid = -1;
+  int myid = 0;
 
   @override
   State<CreateWidget> createState() => _CreateWidgetState();
@@ -34,12 +33,19 @@ class _CreateWidgetState extends State<CreateWidget> {
         child: IconButton(
             color: Colors.black,
             onPressed: () {
-              UniqueKey myKey = UniqueKey();
-              context.read<PageDraggable>().addWidget(ListViewWidget(mykey: myKey,));
-              // context.read<PageDraggable>().addWidget(DraggableWidget(
-              //       txtData: "Widget: ${widget.myid}",
-              //       shouldRemove: false,
-              //     ));
+              WidgetModel widgetModel = WidgetModel(
+                  myId: widget.myid++,
+                  widget: ListViewWidget(),
+                  isSelected: true);
+
+              context.read<WidgetFunctions>().addItem(WidgetModel(
+                  myId: widget.myid++,
+                  widget: const ListViewWidget(),
+                  isSelected: false));
+              WidgetModel.modelIdList =
+                  WidgetModel.widgetModelList.map((e) => e.myId).toList();
+              log("modelIdList : ${WidgetModel.modelIdList}");
+              log("${WidgetModel.widgetModelList.toList()}");
               setState(() {
                 count++;
               });
@@ -85,7 +91,8 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
                   myId: WidgetModel.widgetModelList.length,
                   widget: NoteWidget(
                     getText: tempText,
-                  )));
+                  ),
+                  isSelected: true));
               log("${WidgetModel.widgetModelList.toList()}");
               log("${WidgetModel.widgetModelList.length}");
               log("${WidgetModel.idCount}");
@@ -113,7 +120,7 @@ class _DeleteWidgetState extends State<DeleteWidget> {
         left: 30,
         child: DragTarget(
           onAccept: (data) {
-            context.read<PageDraggable>().allRemoveWidget();
+            context.read<MainBoard>().allRemoveWidget();
           },
           builder: (BuildContext context, List<Object?> candidateData,
               List<dynamic> rejectedData) {
@@ -149,7 +156,7 @@ class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
           radius: 35,
           child: IconButton(
               onPressed: () {
-                context.read<PageDraggable>().addWidget(const Note2Widget());
+                context.read<MainBoard>().addWidget(const TableWidget());
               },
               color: Colors.black,
               icon: const Icon(Icons.pix)),
@@ -177,9 +184,7 @@ class _ResizeableWidgetState extends State<ResizeableWidget> {
         child: IconButton(
             color: Colors.black,
             onPressed: () {
-              context
-                  .read<PageDraggable>()
-                  .addWidget(const ResizeableTextWidget());
+              context.read<MainBoard>().addWidget(const ResizeableTextWidget());
             },
             icon: const Icon(Icons.text_rotation_angledown)),
       ),
@@ -212,9 +217,7 @@ class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
             onPressed: () {
               setState(() {
                 for (int i = 0; i < 3; i++) {
-                  context
-                      .read<PageDraggable>()
-                      .addWidget(const StickyNoteWidget());
+                  context.read<MainBoard>().addWidget(const StickyNoteWidget());
                 }
               });
             },

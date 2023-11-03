@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
-import '../pageDraggable.dart';
+import '../mainBoard.dart';
 import 'openerWidget.dart';
 
 ///Resizeable Widgets

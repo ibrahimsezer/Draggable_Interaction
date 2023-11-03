@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../pageDraggable.dart';
+import '../mainBoard.dart';
 import 'openerWidget.dart';
 
 class NoteWidget extends StatefulWidget {
@@ -90,7 +91,6 @@ class _NoteWidgetState extends State<NoteWidget> {
             print("width : $myWidth | "
                 "\nheight : $myHeight | "
                 "\nStartPosition : $startPosition");
-
             print("\n$myWidth - $myHeight - $myPosX - $myPosY");
           });
         },
@@ -108,7 +108,8 @@ class _NoteWidgetState extends State<NoteWidget> {
             isResizing = false;
           });
         },
-        child: Stack(
+        child: IndexedStack(
+          index: WidgetModel.idCount,
           children: [
             Positioned(
               top: myPosY,

@@ -1,4 +1,4 @@
-import 'package:draggable_example/ui/pageDraggable.dart';
+import 'package:draggable_example/ui/mainBoard.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:flutter/cupertino.dart';
 

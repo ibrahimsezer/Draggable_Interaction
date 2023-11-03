@@ -1,4 +1,4 @@
-import 'package:draggable_example/ui/pageDraggable.dart';
+import 'package:draggable_example/ui/mainBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +57,7 @@ class _StickyNoteWidgetState extends State<StickyNoteWidget> {
       height: myHeight,
       child: GestureDetector(
         onDoubleTap: () {
-          context.read<PageDraggable>().addWidget(const StickyNoteWidget());
+          context.read<MainBoard>().addWidget(const StickyNoteWidget());
         },
         onPanStart: (details) {
           if (details.localPosition.dx >= myWidth - 15 &&

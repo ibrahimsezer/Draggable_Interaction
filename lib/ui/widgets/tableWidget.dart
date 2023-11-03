@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class Note2Widget extends StatefulWidget {
-  const Note2Widget({super.key});
+class TableWidget extends StatefulWidget {
+  const TableWidget({super.key});
 
   @override
-  State<Note2Widget> createState() => _Note2WidgetState();
+  State<TableWidget> createState() => _TableWidgetState();
 }
 
-class _Note2WidgetState extends State<Note2Widget> {
+class _TableWidgetState extends State<TableWidget> {
   double width = 100;
   double height = 100;
   double posx = 0;
