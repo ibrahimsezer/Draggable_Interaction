@@ -57,9 +57,7 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.delete),
           action: () {
-            setState(() {
-              WidgetFunctions().deleteSelectedWidget();
-            });
+            setState(() {});
           },
         ),
         OpenerButton(

@@ -1,10 +1,9 @@
 import 'dart:developer';
-import 'package:draggable_example/model/example.dart';
-import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
+import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:flutter/material.dart';
 
 class WidgetModel {
-  int myId;
+  final int myId;
   Widget widget;
   bool isSelected;
 
@@ -15,7 +14,7 @@ class WidgetModel {
   static int idCount = widgetModelList.length;
   static List<int> modelIdList = [];
 
-  void onTap(){
+  void onTap() {
     int onTapId = myId;
     print("OnTapId : $onTapId");
   }
@@ -28,43 +27,39 @@ class WidgetFunctions with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteItem(int myId) {
-    WidgetModel.widgetModelList.remove(WidgetModel.widgetModelList[myId]);
-    log(WidgetModel.widgetModelList.toString());
+  void deleteWidget(WidgetModel widgetModel) {
+    WidgetModel.widgetModelList.remove(widgetModel);
+  }
+
+  void deleteItem(int id) {
+    WidgetModel.widgetModelList.removeWhere((model) => model.myId == id);
     notifyListeners();
   }
 
-  void deleteSelectedWidget() {
-    int selectedIndex =
-        WidgetModel.widgetModelList.indexWhere((model) => model.isSelected);
-    if (selectedIndex != -1) {
-      WidgetModel.widgetModelList.removeAt(selectedIndex);
+  void addThisModel(ThisModel model) {
+    ThisModel.thisModelList.add(model);
+    notifyListeners();
+  }
+
+  void addThisModelActive(bool active) {
+    ThisModel.thisModelActiveList.add(active);
+    notifyListeners();
+  }
+
+  void deleteThisModel(ThisModel model) {
+    model.isActive = true;
+    if (model.isActive == true && ThisModel.thisModelActiveList != null) {
+      ThisModel.thisModelList.removeAt(model.id);
+    }
+    notifyListeners();
+  }
+
+  void deleteThisModelActive(ThisModel model) {
+    model.isActive = true;
+    log("first : ${ThisModel.thisModelActiveList}");
+    if (model.isActive == true && ThisModel.thisModelActiveList != null) {
+      ThisModel.thisModelActiveList.removeLast();
+      log("last : ${ThisModel.thisModelActiveList}");
     }
   }
 }
-
-// class MyModel {
-//   int id;
-//   Widget widget;
-//
-//   MyModel({required this.id, required this.widget});
-//
-//   // Yeni onTap fonksiyonu
-//   void onTap() {
-//     // Burada widget'ın id'sini kullanabilirsiniz
-//     print("Widget id: $id tıkladı.");
-//   }
-// }
-
-//MyModel myModel = MyModel(
-//   id: 1, // İstediğiniz id değerini burada belirleyin
-//   widget: GestureDetector(
-//     onTap: () {
-//       myModel.onTap(); // Bu tıklanabilir widget'ın id'sini alır
-//     },
-//     child: YourWidget(), // Tıklanabilir widget'ınız
-//   ),
-// );
-//
-// // Şimdi bu myModel nesnesini bir listeye ekleyebilirsiniz.
-// List<MyModel> modelList = [myModel];

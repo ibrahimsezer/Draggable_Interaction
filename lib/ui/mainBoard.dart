@@ -1,3 +1,4 @@
+import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -68,7 +69,8 @@ class _MainBoardState extends State<MainBoard> {
             builder: (context, value, child) {
               return Stack(
                 children: [
-                  ...WidgetModel.widgetModelList.map((e) => e.widget)
+                  ...ThisModel.thisModelList.map((e) => e.widget)
+                  //...WidgetModel.widgetModelList.map((e) => e.widget)
                 ],
               );
             },

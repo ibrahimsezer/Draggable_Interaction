@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,20 +39,12 @@ class _ListViewWidgetState extends State<ListViewWidget> {
             color: Colors.black,
           ),
           onTap: () {
-            setState(() {
-
-              var a = WidgetModel.widgetModelList.map((e) => e.widget).toList();
-              var b = WidgetModel.widgetModelList.map((e) => e.myId).toList();
-              log(a.toList().toString());
-              log(b.toList().toString());
-
-              // for (int i = 0; i < WidgetModel.modelIdList.length; i++) {
-              //   if (WidgetModel.widgetModelList[i] ==
-              //       WidgetModel.widgetModelList.map((e) => e.myId)) {
-              //     context.read<WidgetFunctions>().deleteItem(i);
-              //   }
-              // }
-            });
+            context
+                .read<WidgetFunctions>()
+                .deleteThisModel(ThisModel.thisModelList.last);
+            // context
+            //     .read<WidgetFunctions>()
+            //     .deleteThisModelActive(ThisModel.thisModelList.last);
           },
           onPanStart: (details) {
             if (details.localPosition.dx >= myWidth - 15 &&

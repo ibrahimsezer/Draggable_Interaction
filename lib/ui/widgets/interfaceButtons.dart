@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
 import 'package:draggable_example/ui/widgets/tableWidget.dart';
@@ -13,14 +14,12 @@ import '../mainBoard.dart';
 class CreateWidget extends StatefulWidget {
   CreateWidget({super.key});
 
-  int myid = 0;
-
   @override
   State<CreateWidget> createState() => _CreateWidgetState();
 }
 
 class _CreateWidgetState extends State<CreateWidget> {
-  int count = 0;
+  int idCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +32,15 @@ class _CreateWidgetState extends State<CreateWidget> {
         child: IconButton(
             color: Colors.black,
             onPressed: () {
-              WidgetModel widgetModel = WidgetModel(
-                  myId: widget.myid++,
-                  widget: ListViewWidget(),
-                  isSelected: true);
+              ThisModel myModel = ThisModel(
+                  id: idCount, widget: const ListViewWidget(), isActive: false);
 
-              context.read<WidgetFunctions>().addItem(WidgetModel(
-                  myId: widget.myid++,
-                  widget: const ListViewWidget(),
-                  isSelected: false));
-              WidgetModel.modelIdList =
-                  WidgetModel.widgetModelList.map((e) => e.myId).toList();
-              log("modelIdList : ${WidgetModel.modelIdList}");
-              log("${WidgetModel.widgetModelList.toList()}");
-              setState(() {
-                count++;
-              });
+              context.read<WidgetFunctions>().addThisModel(myModel);
+
+              context
+                  .read<WidgetFunctions>()
+                  .addThisModelActive(myModel.isActive);
+              log(ThisModel.thisModelList.toString());
             },
             icon: const Icon(Icons.add)),
       ),
