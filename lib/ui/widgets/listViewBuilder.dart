@@ -20,7 +20,6 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   late double right;
   late double areaW;
   late double areaH;
-  String resizeableText = "";
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
@@ -39,9 +38,18 @@ class _ListViewWidgetState extends State<ListViewWidget> {
             color: Colors.black,
           ),
           onTap: () {
-            context
-                .read<WidgetFunctions>()
-                .deleteThisModel(ThisModel.thisModelList.last);
+            int index = ThisModel.thisModelList.indexOf(
+                ThisModel(
+                    id: 1, widget: const ListViewWidget(), isActive: false),
+                0);
+            for (int i = 0; i < ThisModel.thisModelList.length; i++) {
+              if (ThisModel.thisModelList[i] == MyWidgetWithListView.widIndex) {
+                context.read<WidgetFunctions>().deleteThisModel(
+                    ThisModel.thisModelList[MyWidgetWithListView.widIndex]);
+              } else
+                print("not found...");
+            }
+            print("For loop is over");
             // context
             //     .read<WidgetFunctions>()
             //     .deleteThisModelActive(ThisModel.thisModelList.last);
@@ -89,5 +97,23 @@ class _ListViewWidgetState extends State<ListViewWidget> {
             });
           },
         ));
+  }
+}
+
+class MyWidgetWithListView extends StatelessWidget {
+  static int widIndex = 0;
+
+  const MyWidgetWithListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 1,
+      itemBuilder: (context, index) {
+        widIndex = index;
+        return const ListViewWidget();
+      },
+    );
   }
 }

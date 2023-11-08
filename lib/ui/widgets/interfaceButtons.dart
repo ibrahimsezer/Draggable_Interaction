@@ -1,26 +1,27 @@
-import 'dart:developer';
 import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
+import 'package:draggable_example/ui/widgets/draggableWidget.dart';
 import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
-import 'package:draggable_example/ui/widgets/tableWidget.dart';
+import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
-import 'package:draggable_example/ui/widgets/resizableWidget.dart';
+import 'package:draggable_example/ui/widgets/openerWidget.dart';
+import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../mainBoard.dart';
 
+int idCounter = 0;
+
 ///Create Widget Button '+'
 class CreateWidget extends StatefulWidget {
-  CreateWidget({super.key});
+  const CreateWidget({super.key});
 
   @override
   State<CreateWidget> createState() => _CreateWidgetState();
 }
 
 class _CreateWidgetState extends State<CreateWidget> {
-  int idCount = 0;
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -33,14 +34,10 @@ class _CreateWidgetState extends State<CreateWidget> {
             color: Colors.black,
             onPressed: () {
               ThisModel myModel = ThisModel(
-                  id: idCount, widget: const ListViewWidget(), isActive: false);
-
+                  id: idCounter,
+                  widget: const ListViewWidget(),
+                  isActive: false);
               context.read<WidgetFunctions>().addThisModel(myModel);
-
-              context
-                  .read<WidgetFunctions>()
-                  .addThisModelActive(myModel.isActive);
-              log(ThisModel.thisModelList.toString());
             },
             icon: const Icon(Icons.add)),
       ),
@@ -72,22 +69,19 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
             onPressed: () {
               setState(() {
                 tempText = myController.text;
-                print(tempText);
-                // context.read<PageDraggable>().addWidget(NoteWidget(
-                //       getText: tempText,
-                //     ));
                 myController.text = "";
                 WidgetModel.idCount++;
               });
-              context.read<WidgetFunctions>().addItem(WidgetModel(
-                  myId: WidgetModel.widgetModelList.length,
-                  widget: NoteWidget(
-                    getText: tempText,
-                  ),
-                  isSelected: true));
-              log("${WidgetModel.widgetModelList.toList()}");
-              log("${WidgetModel.widgetModelList.length}");
-              log("${WidgetModel.idCount}");
+              ThisModel myModel = ThisModel(
+                  id: idCounter,
+                  widget: ModulerWidget(
+                      widgetVariable: const RectangleShapeWidget(),
+                      myPosY: 0,
+                      myPosX: 0,
+                      initialWidth: 100,
+                      initialHeight: 100),
+                  isActive: false);
+              context.read<WidgetFunctions>().addThisModel(myModel);
             },
             icon: const Icon(Icons.text_fields)),
       ),
@@ -141,14 +135,23 @@ class _ExampleWidgetButtonState extends State<ExampleWidgetButton> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        bottom: 60,
-        right: 165,
+        bottom: 30,
+        right: 170,
         child: CircleAvatar(
           backgroundColor: Colors.amberAccent,
           radius: 35,
           child: IconButton(
               onPressed: () {
-                context.read<MainBoard>().addWidget(const TableWidget());
+                ThisModel myModel = ThisModel(
+                    id: idCounter,
+                    widget: ModulerWidget(
+                        initialHeight: 100,
+                        initialWidth: 100,
+                        myPosX: 0,
+                        myPosY: 0,
+                        widgetVariable: const RectangleShapeWidget()),
+                    isActive: false);
+                context.read<WidgetFunctions>().addThisModel(myModel);
               },
               color: Colors.black,
               icon: const Icon(Icons.pix)),
@@ -176,7 +179,16 @@ class _ResizeableWidgetState extends State<ResizeableWidget> {
         child: IconButton(
             color: Colors.black,
             onPressed: () {
-              context.read<MainBoard>().addWidget(const ResizeableTextWidget());
+              ThisModel myModel = ThisModel(
+                  isActive: false,
+                  id: idCounter,
+                  widget: ModulerWidget(
+                      myPosX: 0,
+                      myPosY: 0,
+                      initialHeight: 120,
+                      initialWidth: 120,
+                      widgetVariable: const NoteWidget()));
+              context.read<WidgetFunctions>().addThisModel(myModel);
             },
             icon: const Icon(Icons.text_rotation_angledown)),
       ),
@@ -208,12 +220,60 @@ class _StickyNoteWidgetButtonState extends State<StickyNoteWidgetButton> {
             color: Colors.black,
             onPressed: () {
               setState(() {
-                for (int i = 0; i < 3; i++) {
-                  context.read<MainBoard>().addWidget(const StickyNoteWidget());
-                }
+                ThisModel myModel = ThisModel(
+                    id: idCounter,
+                    widget: ModulerWidget(
+                        myPosX: 0,
+                        myPosY: 0,
+                        initialWidth: 100,
+                        initialHeight: 100,
+                        widgetVariable: const StickyNoteWidget(
+                          initialColor: Colors.deepPurple,
+                        )),
+                    isActive: false);
+                context.read<WidgetFunctions>().addThisModel(myModel);
               });
             },
             icon: const Icon(Icons.sticky_note_2_rounded)),
+      ),
+    );
+  }
+}
+
+///Opener Widget Button
+class OpenerWidgetButton extends StatefulWidget {
+  const OpenerWidgetButton({super.key});
+
+  @override
+  State<OpenerWidgetButton> createState() => _OpenerWidgetButtonState();
+}
+
+class _OpenerWidgetButtonState extends State<OpenerWidgetButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 110,
+      right: 170,
+      child: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        radius: 35,
+        child: IconButton(
+            color: Colors.black,
+            onPressed: () {
+              setState(() {
+                ThisModel myModel = ThisModel(
+                    id: idCounter,
+                    widget: ModulerWidget(
+                        myPosX: 0,
+                        myPosY: 0,
+                        initialWidth: 230,
+                        initialHeight: 50,
+                        widgetVariable: const OpenerTopWidget()),
+                    isActive: false);
+                context.read<WidgetFunctions>().addThisModel(myModel);
+              });
+            },
+            icon: const Icon(Icons.open_in_new_rounded)),
       ),
     );
   }

@@ -25,28 +25,28 @@ class _PrioritizationTableWidgetState extends State<PrioritizationTableWidget> {
       top: 0,
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height,
-      child: Stack(
+      child: const Stack(
         children: [
-          Positioned(
-            left: 0,
-            top: 0,
-            child: NoteWidget(getText: defaultText[0],),
-          ),
-          Positioned(
-            left: 0,
-            top: 160,
-            child: NoteWidget(getText: defaultText[1],),
-          ),
-          Positioned(
-            left: 160,
-            top: 0,
-            child: NoteWidget(getText: defaultText[2],),
-          ),
-          Positioned(
-            left: 160,
-            top: 160,
-            child: NoteWidget(getText: defaultText[3],),
-          ),
+          // Positioned(
+          //   left: 0,
+          //   top: 0,
+          //   child: NoteWidget(),
+          // ),
+          // Positioned(
+          //   left: 0,
+          //   top: 160,
+          //   child: NoteWidget(),
+          // ),
+          // Positioned(
+          //   left: 160,
+          //   top: 0,
+          //   child: NoteWidget(),
+          // ),
+          // Positioned(
+          //   left: 160,
+          //   top: 160,
+          //   child: NoteWidget(),
+          // ),
         ],
       ),
     );

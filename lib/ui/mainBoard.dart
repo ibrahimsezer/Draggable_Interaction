@@ -34,6 +34,8 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
   }
 
   void allRemoveWidget() {
+    ThisModel.thisModelList.clear();
+    ThisModel.thisModelActiveList.clear();
     widgets.clear();
     notifyListeners();
   }
@@ -81,8 +83,8 @@ class _MainBoardState extends State<MainBoard> {
 
           ///Color Button
           Positioned(
-              bottom: 40,
-              left: 120,
+              bottom: 120,
+              left: 35,
               child: ElevatedButton(
                   onPressed: () {
                     showDialog(
@@ -106,10 +108,10 @@ class _MainBoardState extends State<MainBoard> {
                             ),
                         context: context);
                   },
-                  child: const Text("Click"))),
+                  child: const Text("Colors"))),
 
           ///Create Widget Button
-          CreateWidget(),
+          const CreateWidget(),
 
           ///Create Text Widget Button
           const CreateTextWidget(),
@@ -121,7 +123,10 @@ class _MainBoardState extends State<MainBoard> {
           const StickyNoteWidgetButton(),
 
           ///Example Widget Button
-          const ExampleWidgetButton()
+          const ExampleWidgetButton(),
+
+          ///Opener Widget Button
+          const OpenerWidgetButton()
         ]),
       ),
     );

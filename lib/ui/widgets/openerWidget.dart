@@ -43,9 +43,7 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
             // ));
             context.read<WidgetFunctions>().addItem(WidgetModel(
                 myId: WidgetModel.widgetModelList.length,
-                widget: NoteWidget(
-                  getText: tempText,
-                ),
+                widget: const NoteWidget(),
                 isSelected: true));
             WidgetModel.idCount++;
             print("copyy.");
