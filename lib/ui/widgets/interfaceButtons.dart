@@ -75,7 +75,7 @@ class _CreateTextWidgetState extends State<CreateTextWidget> {
               ThisModel myModel = ThisModel(
                   id: idCounter,
                   widget: ModulerWidget(
-                      widgetVariable: const RectangleShapeWidget(),
+                      widgetVariable: const RoundedRectangleShapeWidget(),
                       myPosY: 0,
                       myPosX: 0,
                       initialWidth: 100,
@@ -274,6 +274,46 @@ class _OpenerWidgetButtonState extends State<OpenerWidgetButton> {
               });
             },
             icon: const Icon(Icons.open_in_new_rounded)),
+      ),
+    );
+  }
+}
+
+
+///Ellipse Widget Button
+class EllipseShapeWidgetButton extends StatefulWidget {
+  const EllipseShapeWidgetButton({super.key});
+
+  @override
+  State<EllipseShapeWidgetButton> createState() => _EllipseShapeWidgetButtonState();
+}
+
+class _EllipseShapeWidgetButtonState extends State<EllipseShapeWidgetButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 30,
+      right: 250,
+      child: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        radius: 25,
+        child: IconButton(
+            color: Colors.black,
+            onPressed: () {
+              setState(() {
+                ThisModel myModel = ThisModel(
+                    id: idCounter,
+                    widget: ModulerWidget(
+                        myPosX: 0,
+                        myPosY: 0,
+                        initialWidth: 230,
+                        initialHeight: 50,
+                        widgetVariable: const EllipseShapeWidget()),
+                    isActive: false);
+                context.read<WidgetFunctions>().addThisModel(myModel);
+              });
+            },
+            icon: const Icon(Icons.circle)),
       ),
     );
   }

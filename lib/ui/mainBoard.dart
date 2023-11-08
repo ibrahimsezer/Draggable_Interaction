@@ -126,7 +126,10 @@ class _MainBoardState extends State<MainBoard> {
           const ExampleWidgetButton(),
 
           ///Opener Widget Button
-          const OpenerWidgetButton()
+          const OpenerWidgetButton(),
+
+          ///EllipseShape Button
+          const EllipseShapeWidgetButton(),
         ]),
       ),
     );

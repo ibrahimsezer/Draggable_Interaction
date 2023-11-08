@@ -97,8 +97,33 @@ class _RoundedRectangleShapeWidgetState
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          shape: BoxShape.rectangle,
+          border: Border.all(
+            width: 2,
+            color: Colors.black,
+          )),
+    );
+  }
+}
+
+class EllipseShapeWidget extends StatefulWidget {
+  const EllipseShapeWidget({super.key});
+
+  @override
+  State<EllipseShapeWidget> createState() => _EllipseShapeWidgetState();
+}
+
+class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(width: 2, color: Colors.black)),
+          border: Border.all(
+            width: 2,
+            color: Colors.black,
+          )),
     );
   }
 }
