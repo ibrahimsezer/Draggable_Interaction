@@ -60,11 +60,13 @@ class _MainBoardState extends State<MainBoard> {
         child: Stack(children: <Widget>[
           Consumer<WidgetFunctions>(
             builder: (context, value, child) {
-              return Stack(
-                children: [
-                  ...ThisModel.thisModelList.map((e) => e.widget)
-                  //...WidgetModel.widgetModelList.map((e) => e.widget)
-                ],
+              return InteractiveViewer(minScale: 1,maxScale: 1000,
+                child: Stack(
+                  children: [
+                    ...ThisModel.thisModelList.map((e) => e.widget)
+                    //...WidgetModel.widgetModelList.map((e) => e.widget)
+                  ],
+                ),
               );
             },
           ),
