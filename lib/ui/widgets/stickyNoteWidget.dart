@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StickyNoteWidget extends StatefulWidget {
-  final MaterialColor initialColor;
+  final Color initialColor;
 
   const StickyNoteWidget({
     super.key,

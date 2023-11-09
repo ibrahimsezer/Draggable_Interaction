@@ -25,6 +25,7 @@ class _ModulerWidgetState extends State<ModulerWidget> {
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
+  double rotationAngle = 0.0; // Döndürme açısı
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +38,8 @@ class _ModulerWidgetState extends State<ModulerWidget> {
         width: widget.initialWidth,
         child: GestureDetector(
           onPanStart: (details) {
-            if (details.localPosition.dx >= widget.initialWidth - 15 &&
-                details.localPosition.dy >= widget.initialHeight - 15) {
+            if (details.localPosition.dx >= widget.initialWidth - 30 &&
+                details.localPosition.dy >= widget.initialHeight - 30) {
               setState(() {
                 isResizing = true;
                 startPosition = details.localPosition;
@@ -72,6 +73,19 @@ class _ModulerWidgetState extends State<ModulerWidget> {
                 }
               }
             });
+
+            //
+            // double centerX = widget.myPosX + widget.initialWidth / 2;
+            // double centerY = widget.myPosY + widget.initialHeight / 2;
+            // double angle = -1 * (startPosition.dx - details.localPosition.dx) /
+            //     100; // Döndürme açısını hesaplayın
+            // setState(() {
+            //   var variable = Transform.rotate(angle: angle,child: widget.widgetVariable);
+            //   rotationAngle += angle;
+            //   variable.transform =
+            //   Matrix4.identity()..rotateZ(rotationAngle);
+            // });
+            // startPosition = details.localPosition;
           },
           onPanEnd: (details) {
             setState(() {
@@ -83,47 +97,4 @@ class _ModulerWidgetState extends State<ModulerWidget> {
   }
 }
 
-class RoundedRectangleShapeWidget extends StatefulWidget {
-  const RoundedRectangleShapeWidget({super.key});
-
-  @override
-  State<RoundedRectangleShapeWidget> createState() =>
-      _RoundedRectangleShapeWidgetState();
-}
-
-class _RoundedRectangleShapeWidgetState
-    extends State<RoundedRectangleShapeWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          shape: BoxShape.rectangle,
-          border: Border.all(
-            width: 2,
-            color: Colors.black,
-          )),
-    );
-  }
-}
-
-class EllipseShapeWidget extends StatefulWidget {
-  const EllipseShapeWidget({super.key});
-
-  @override
-  State<EllipseShapeWidget> createState() => _EllipseShapeWidgetState();
-}
-
-class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 2,
-            color: Colors.black,
-          )),
-    );
-  }
-}
+///

@@ -14,6 +14,9 @@ class OpenerTopWidget extends StatefulWidget {
     super.key,
   });
 
+  final double myWidth = 230;
+  final double myHeight = 50;
+
   @override
   State<OpenerTopWidget> createState() => _OpenerTopWidgetState();
 }
@@ -29,8 +32,8 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 230,
-      height: 50,
+      width: widget.myWidth,
+      height: widget.myHeight,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.black87),

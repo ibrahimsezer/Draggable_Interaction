@@ -1,9 +1,4 @@
-import 'dart:developer';
-
-import 'package:draggable_example/exmp/thisModel.dart';
-import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ListViewWidget extends StatefulWidget {
   const ListViewWidget({super.key});
@@ -31,29 +26,11 @@ class _ListViewWidgetState extends State<ListViewWidget> {
     return Positioned(
         top: myPosY,
         left: myPosX,
-        width: myWidth,
-        height: myHeight,
         child: GestureDetector(
           child: Container(
-            color: Colors.black,
+            color: Colors.limeAccent,
           ),
-          onTap: () {
-            int index = ThisModel.thisModelList.indexOf(
-                ThisModel(
-                    id: 1, widget: const ListViewWidget(), isActive: false),
-                0);
-            for (int i = 0; i < ThisModel.thisModelList.length; i++) {
-              if (ThisModel.thisModelList[i] == MyWidgetWithListView.widIndex) {
-                context.read<WidgetFunctions>().deleteThisModel(
-                    ThisModel.thisModelList[MyWidgetWithListView.widIndex]);
-              } else
-                print("not found...");
-            }
-            print("For loop is over");
-            // context
-            //     .read<WidgetFunctions>()
-            //     .deleteThisModelActive(ThisModel.thisModelList.last);
-          },
+          onTap: () {},
           onPanStart: (details) {
             if (details.localPosition.dx >= myWidth - 15 &&
                 details.localPosition.dy >= myHeight - 15) {
@@ -70,8 +47,6 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                 myPosY += details.delta.dy;
                 myPosX = myPosX.clamp(0, areaW);
                 myPosY = myPosY.clamp(0, areaH);
-                right = myPosX + myWidth;
-                right.clamp(0, areaW);
               }
               if (isResizing) {
                 if ((myWidth >= 50 && myHeight >= 50) &&
@@ -97,23 +72,5 @@ class _ListViewWidgetState extends State<ListViewWidget> {
             });
           },
         ));
-  }
-}
-
-class MyWidgetWithListView extends StatelessWidget {
-  static int widIndex = 0;
-
-  const MyWidgetWithListView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 1,
-      itemBuilder: (context, index) {
-        widIndex = index;
-        return const ListViewWidget();
-      },
-    );
   }
 }

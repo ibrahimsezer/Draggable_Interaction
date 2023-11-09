@@ -58,15 +58,6 @@ class _MainBoardState extends State<MainBoard> {
     return Scaffold(
       body: SafeArea(
         child: Stack(children: <Widget>[
-          // AreaControlWidget(),
-          Consumer<MainBoard>(
-            builder: (context, value, child) {
-              return Positioned(
-                  top: 5,
-                  left: 250,
-                  child: Text("| x: $globalPosX \n| y: $globalPosY "));
-            },
-          ),
           Consumer<WidgetFunctions>(
             builder: (context, value, child) {
               return Stack(
@@ -77,9 +68,6 @@ class _MainBoardState extends State<MainBoard> {
               );
             },
           ),
-
-          ///Delete Button
-          const DeleteWidget(),
 
           ///Color Button
           Positioned(
@@ -110,26 +98,8 @@ class _MainBoardState extends State<MainBoard> {
                   },
                   child: const Text("Colors"))),
 
-          ///Create Widget Button
-          const CreateWidget(),
-
-          ///Create Text Widget Button
-          const CreateTextWidget(),
-
-          ///Resizeable Widget Button
-          const ResizeableWidget(),
-
-          ///StickyNote Widget Button
-          const StickyNoteWidgetButton(),
-
-          ///Example Widget Button
-          const ExampleWidgetButton(),
-
-          ///Opener Widget Button
-          const OpenerWidgetButton(),
-
-          ///EllipseShape Button
-          const EllipseShapeWidgetButton(),
+          ///Widget Button Class
+          const WidgetButtonClass(),
         ]),
       ),
     );

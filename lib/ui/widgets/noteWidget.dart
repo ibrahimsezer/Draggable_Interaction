@@ -1,8 +1,5 @@
 import 'dart:developer';
-
-import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../mainBoard.dart';
 import 'openerWidget.dart';
 
