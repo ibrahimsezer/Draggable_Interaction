@@ -23,54 +23,22 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   Widget build(BuildContext context) {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
-    return Positioned(
-        top: myPosY,
-        left: myPosX,
-        child: GestureDetector(
-          child: Container(
-            color: Colors.limeAccent,
-          ),
-          onTap: () {},
-          onPanStart: (details) {
-            if (details.localPosition.dx >= myWidth - 15 &&
-                details.localPosition.dy >= myHeight - 15) {
-              setState(() {
-                isResizing = true;
-                startPosition = details.localPosition;
-              });
-            }
-          },
-          onPanUpdate: (details) {
-            setState(() {
-              if (!isResizing) {
-                myPosX += details.delta.dx;
-                myPosY += details.delta.dy;
-                myPosX = myPosX.clamp(0, areaW);
-                myPosY = myPosY.clamp(0, areaH);
-              }
-              if (isResizing) {
-                if ((myWidth >= 50 && myHeight >= 50) &&
-                    (myWidth <= (areaW) && myHeight <= (areaH)) &&
-                    (startPosition.dx <= areaW && startPosition.dx >= 0) &&
-                    (startPosition.dy <= areaH && startPosition.dy >= 0)) {
-                  double dx = details.localPosition.dx - startPosition.dx;
-                  double dy = details.localPosition.dy - startPosition.dy;
-                  myWidth += dx;
-                  myHeight += dy;
-                  startPosition = details.localPosition;
-                } else if (myHeight < 50) {
-                  myHeight = 50;
-                } else if (myWidth < 50) {
-                  myWidth = 50;
-                }
-              }
-            });
-          },
-          onPanEnd: (details) {
-            setState(() {
-              isResizing = false;
-            });
-          },
-        ));
+    return Container(
+      color: Colors.indigoAccent,
+      child: TextField(
+        onChanged: (value) {},
+        textInputAction: TextInputAction.done,
+        onSubmitted: (value) {
+          FocusScope.of(context).unfocus();
+        },
+        textAlign: TextAlign.center,
+        maxLines: null,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+        ),
+        style: const TextStyle(
+            color: Colors.black, fontSize: 20, decoration: TextDecoration.none),
+      ),
+    );
   }
 }

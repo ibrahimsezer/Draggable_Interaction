@@ -103,6 +103,13 @@ class _WidgetButtonClassState extends State<WidgetButtonClass> {
           widgetButtonIcon: Icons.layers_rounded,
           posX: 300,
           posY: 30,
+        ),WidgetButtonModule(
+          myHeight: 200,
+          myWidth: 150,
+          widgetButtonName: RightArrowWidget(),
+          widgetButtonIcon: Icons.arrow_forward,
+          posX: 30,
+          posY: 150,
         ),
       ],
     );

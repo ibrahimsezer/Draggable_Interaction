@@ -159,6 +159,56 @@ class CustomTriangleClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, 0);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+///-----------------------------------------------
+class RightArrowWidget extends StatefulWidget {
+  const RightArrowWidget({super.key});
+
+  @override
+  State<RightArrowWidget> createState() => _RightArrowWidgetState();
+}
+
+class _RightArrowWidgetState extends State<RightArrowWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+        clipper: RightArrowClipper(),
+        child: Container(
+          color: Colors.grey,
+        ));
+  }
+}
+
+///-----------------------------------------------
+
+class RightArrowClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.moveTo(size.width, size.height / 2);
+    path.lineTo(0, size.height / 4);
+    path.lineTo(0, 3 * size.height / 4);
+    path.close();
+
+    path.moveTo(0, size.height / 4);
+    path.lineTo(size.width / 5, size.height / 2);
+    path.lineTo(0, 3 * size.height / 4);
+
+    path.moveTo(0, size.height / 4);
+    path.lineTo(-50, size.height / 4);
+    path.lineTo(-50, 3 * size.height / 4);
+    path.lineTo(0, 3 * size.height / 4);
+    path.close();
+
     return path;
   }
 

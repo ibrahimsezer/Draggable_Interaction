@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'widgets/interfaceButtons.dart';
 
@@ -16,7 +17,10 @@ String tempText = "";
 class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
 
+  bool myState = false;
   static List<Widget> widgets = [];
+  ThisModel myButtonModel =
+      ThisModel(id: 0, widget: const WidgetButtonClass(), isActive: false);
 
   void addWidget(Widget widget) {
     widgets.add(widget);
@@ -28,15 +32,20 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeWidgetInt(int id) {
-    widgets.removeAt(id);
-    notifyListeners();
-  }
-
   void allRemoveWidget() {
     ThisModel.thisModelList.clear();
     ThisModel.thisModelActiveList.clear();
     widgets.clear();
+    notifyListeners();
+  }
+
+  void shapesButtonOpener() {
+    myState = !myState;
+    if (myState) {
+      ThisModel.thisModelList.add(myButtonModel);
+    } else {
+      ThisModel.thisModelList.remove(myButtonModel);
+    }
     notifyListeners();
   }
 
@@ -60,7 +69,9 @@ class _MainBoardState extends State<MainBoard> {
         child: Stack(children: <Widget>[
           Consumer<WidgetFunctions>(
             builder: (context, value, child) {
-              return InteractiveViewer(minScale: 1,maxScale: 1000,
+              return InteractiveViewer(
+                minScale: 1,
+                maxScale: 1000,
                 child: Stack(
                   children: [
                     ...ThisModel.thisModelList.map((e) => e.widget)
@@ -71,37 +82,15 @@ class _MainBoardState extends State<MainBoard> {
             },
           ),
 
-          ///Color Button
+          ///Widget Button Class
           Positioned(
               bottom: 120,
               left: 35,
               child: ElevatedButton(
                   onPressed: () {
-                    showDialog(
-                        builder: (context) => AlertDialog(
-                              title: const Text('Pick a Color'),
-                              content: SingleChildScrollView(
-                                child: MaterialPicker(
-                                  pickerColor: pickerColor,
-                                  onColorChanged: changeColor,
-                                ),
-                              ),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  child: const Text('Got it'),
-                                  onPressed: () {
-                                    setState(() => currentColor = pickerColor);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            ),
-                        context: context);
+                    context.read<MainBoard>().shapesButtonOpener();
                   },
-                  child: const Text("Colors"))),
-
-          ///Widget Button Class
-          const WidgetButtonClass(),
+                  child: const Text("Shapes"))),
         ]),
       ),
     );
