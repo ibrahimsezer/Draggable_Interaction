@@ -181,26 +181,11 @@ class _RightArrowWidgetState extends State<RightArrowWidget> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
-        clipper: RightArrowClipper(),
-        child:  Container(
-          decoration:
-          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
-          child: TextField(
-            textInputAction: TextInputAction.done,
-            onSubmitted: (value) {
-              FocusScope.of(context).unfocus();
-            },
-            textAlign: TextAlign.center,
-            maxLines: null,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-            ),
-            style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                decoration: TextDecoration.none),
-          ),
-        ),);
+      clipper: RightArrowClipper(),
+      child: Container(
+        color: Colors.orangeAccent,
+      ),
+    );
   }
 }
 
@@ -210,20 +195,15 @@ class RightArrowClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    path.moveTo(size.width, size.height / 2);
-    path.lineTo(0, size.height / 4);
-    path.lineTo(0, 3 * size.height / 4);
-    path.close();
 
-    path.moveTo(0, size.height / 4);
-    path.lineTo(size.width / 5, size.height / 2);
-    path.lineTo(0, 3 * size.height / 4);
-
-    path.moveTo(0, size.height / 4);
-    path.lineTo(-50, size.height / 4);
-    path.lineTo(-50, 3 * size.height / 4);
-    path.lineTo(0, 3 * size.height / 4);
-    path.close();
+    path.lineTo(size.width, size.height / 2);
+    path.lineTo(size.width / 2, size.height);
+    path.lineTo(size.width / 2, size.height * 3 / 4);
+    path.lineTo(0, size.height * 3 / 4);
+    path.lineTo(0, size.height * 1 / 4);
+    path.lineTo(size.width / 2, size.height * 1 / 4);
+    path.lineTo(size.width / 2, 0);
+    path.lineTo(size.width, size.height / 2);
 
     return path;
   }
