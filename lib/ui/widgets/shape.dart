@@ -91,18 +91,27 @@ class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
             width: 2,
             color: Colors.black,
           )),
-      child: TextField(
-        textInputAction: TextInputAction.done,
-        onSubmitted: (value) {
-          FocusScope.of(context).unfocus();
-        },
-        textAlign: TextAlign.center,
-        maxLines: null,
-        decoration: const InputDecoration(
-          border: InputBorder.none,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipOval(
+            child: TextField(
+              textInputAction: TextInputAction.done,
+              onSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
+              textAlign: TextAlign.center,
+              maxLines: null,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  decoration: TextDecoration.none),
+            ),
+          ),
         ),
-        style: const TextStyle(
-            color: Colors.black, fontSize: 20, decoration: TextDecoration.none),
       ),
     );
   }
@@ -184,6 +193,26 @@ class _RightArrowWidgetState extends State<RightArrowWidget> {
       clipper: RightArrowClipper(),
       child: Container(
         color: Colors.orangeAccent,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: TextField(
+              textInputAction: TextInputAction.done,
+              onSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
+              textAlign: TextAlign.center,
+              maxLines: null,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  decoration: TextDecoration.none),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -245,6 +274,61 @@ class _RhombusShapeWidgetState extends State<RhombusShapeWidget> {
               color: Colors.black,
               fontSize: 20,
               decoration: TextDecoration.none),
+        ),
+      ),
+    );
+  }
+}
+
+///-----------------------------------------------
+
+class CircleClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+
+    path.addOval(Rect.fromCircle(center: center, radius: radius));
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+class CircleWidget extends StatelessWidget {
+  const CircleWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: CircleClipper(),
+      child: Container(
+        width: 100,
+        height: 100,
+        color: Colors.blue,
+        child: ClipOval(
+          child: Center(
+            child: TextField(
+              textInputAction: TextInputAction.done,
+              onSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
+              textAlign: TextAlign.center,
+              maxLines: null,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  decoration: TextDecoration.none),
+            ),
+          ),
         ),
       ),
     );

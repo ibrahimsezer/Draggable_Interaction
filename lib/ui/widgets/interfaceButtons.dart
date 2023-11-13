@@ -34,7 +34,7 @@ class _WidgetButtonClassState extends State<WidgetButtonClass> {
         WidgetButtonModule(
           myHeight: 100,
           myWidth: 100,
-          widgetButtonName: EllipseShapeWidget(),
+          widgetButtonName: CircleWidget(),
           widgetButtonIcon: Icons.circle,
           posX: 240,
           posY: 30,
@@ -103,7 +103,8 @@ class _WidgetButtonClassState extends State<WidgetButtonClass> {
           widgetButtonIcon: Icons.layers_rounded,
           posX: 300,
           posY: 30,
-        ),WidgetButtonModule(
+        ),
+        WidgetButtonModule(
           myHeight: 200,
           myWidth: 150,
           widgetButtonName: RightArrowWidget(),
