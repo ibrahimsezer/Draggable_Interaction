@@ -17,15 +17,15 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
 
   bool myState = false;
-  static List<Widget> widgets = [];
+  static List<ThisModel> widgets = [];
 
-  void addWidget(Widget widget) {
-    widgets.add(widget);
+  void addWidget(ThisModel model) {
+    widgets.add(model);
     notifyListeners();
   }
 
-  void removeWidget(Widget widget) {
-    widgets.remove(widget);
+  void removeWidget(ThisModel model) {
+    widgets.remove(model);
     notifyListeners();
   }
 
@@ -61,13 +61,14 @@ class _MainBoardState extends State<MainBoard> {
                 maxScale: 1000,
                 child: Stack(
                   children: [
-                    ...ThisModel.thisModelList.map((e) => e.widget)
+                    ...ThisModel.thisModelList.map((e) => e.widget),
                     //...WidgetModel.widgetModelList.map((e) => e.widget)
                   ],
                 ),
               );
             },
           ),
+          ...MainBoard.widgets.map((e) => e.widget),
 
           ///Widget Button Class
           Positioned(
@@ -76,20 +77,16 @@ class _MainBoardState extends State<MainBoard> {
               child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      print(ThisModel.thisModelList.toString());
                       ThisModel myButtonModel = ThisModel(
                           id: 0,
                           widget: const WidgetButtonClass(),
                           isActive: false);
                       widget.myState = !widget.myState;
                       if (widget.myState) {
-                        ThisModel.thisModelList.add(myButtonModel);
-                        print("added");
+                        MainBoard.widgets.add(myButtonModel);
                       } else {
-                        print(ThisModel.thisModelList.toString());
-                        ThisModel.thisModelList.removeWhere((element) =>
+                        MainBoard.widgets.removeWhere((element) =>
                             element.widget == myButtonModel.widget);
-                        print("removed");
                       }
                     });
                   },

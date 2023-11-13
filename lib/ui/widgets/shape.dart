@@ -182,9 +182,25 @@ class _RightArrowWidgetState extends State<RightArrowWidget> {
   Widget build(BuildContext context) {
     return ClipPath(
         clipper: RightArrowClipper(),
-        child: Container(
-          color: Colors.grey,
-        ));
+        child:  Container(
+          decoration:
+          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+          child: TextField(
+            textInputAction: TextInputAction.done,
+            onSubmitted: (value) {
+              FocusScope.of(context).unfocus();
+            },
+            textAlign: TextAlign.center,
+            maxLines: null,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+            style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                decoration: TextDecoration.none),
+          ),
+        ),);
   }
 }
 
