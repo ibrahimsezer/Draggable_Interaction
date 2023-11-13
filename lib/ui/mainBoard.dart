@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +18,6 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
 
   bool myState = false;
   static List<Widget> widgets = [];
-  ThisModel myButtonModel =
-      ThisModel(id: 0, widget: const WidgetButtonClass(), isActive: false);
 
   void addWidget(Widget widget) {
     widgets.add(widget);
@@ -36,16 +33,6 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
     ThisModel.thisModelList.clear();
     ThisModel.thisModelActiveList.clear();
     widgets.clear();
-    notifyListeners();
-  }
-
-  void shapesButtonOpener() {
-    myState = !myState;
-    if (myState) {
-      ThisModel.thisModelList.add(myButtonModel);
-    } else {
-      ThisModel.thisModelList.remove(myButtonModel);
-    }
     notifyListeners();
   }
 
@@ -88,7 +75,23 @@ class _MainBoardState extends State<MainBoard> {
               left: 35,
               child: ElevatedButton(
                   onPressed: () {
-                    context.read<MainBoard>().shapesButtonOpener();
+                    setState(() {
+                      print(ThisModel.thisModelList.toString());
+                      ThisModel myButtonModel = ThisModel(
+                          id: 0,
+                          widget: const WidgetButtonClass(),
+                          isActive: false);
+                      widget.myState = !widget.myState;
+                      if (widget.myState) {
+                        ThisModel.thisModelList.add(myButtonModel);
+                        print("added");
+                      } else {
+                        print(ThisModel.thisModelList.toString());
+                        ThisModel.thisModelList.removeWhere((element) =>
+                            element.widget == myButtonModel.widget);
+                        print("removed");
+                      }
+                    });
                   },
                   child: const Text("Shapes"))),
         ]),
