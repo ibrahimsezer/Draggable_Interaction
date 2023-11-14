@@ -72,7 +72,7 @@ class _MainBoardState extends State<MainBoard> {
 
           ///Widget Button Class
           Positioned(
-              bottom: 120,
+              bottom: 150,
               left: 35,
               child: ElevatedButton(
                   onPressed: () {

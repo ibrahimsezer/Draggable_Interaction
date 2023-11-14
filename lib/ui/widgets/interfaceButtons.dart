@@ -1,5 +1,6 @@
 import 'package:draggable_example/exmp/thisModel.dart';
 import 'package:draggable_example/model/widgetModel.dart';
+import 'package:draggable_example/ui/widgets/imageWidget.dart';
 import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:draggable_example/ui/widgets/noteWidget.dart';
@@ -112,6 +113,29 @@ class _WidgetButtonClassState extends State<WidgetButtonClass> {
           posX: 30,
           posY: 150,
         ),
+        WidgetButtonModule(
+            widgetButtonName: StarWidget(),
+            widgetButtonIcon: Icons.star,
+            posX: 350,
+            posY: 30,
+            myWidth: 80,
+            myHeight: 80),
+        WidgetButtonModule(
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/sqldeveloper.svg'),
+            widgetButtonIcon: Icons.data_saver_off_outlined,
+            posX: 350,
+            posY: 90,
+            myWidth: 80,
+            myHeight: 80),
+        WidgetButtonModule(
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/outline-cloud.svg'),
+            widgetButtonIcon: Icons.cloud,
+            posX: 300,
+            posY: 90,
+            myWidth: 80,
+            myHeight: 80),
       ],
     );
   }

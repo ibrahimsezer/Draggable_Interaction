@@ -311,25 +311,95 @@ class CircleWidget extends StatelessWidget {
         width: 100,
         height: 100,
         color: Colors.blue,
-        child: ClipOval(
-          child: Center(
-            child: TextField(
-              textInputAction: TextInputAction.done,
-              onSubmitted: (value) {
-                FocusScope.of(context).unfocus();
-              },
-              textAlign: TextAlign.center,
-              maxLines: null,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-              ),
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  decoration: TextDecoration.none),
-            ),
+        child: const OvalTextWidget(),
+      ),
+    );
+  }
+}
+
+class OvalTextWidget extends StatelessWidget {
+  const OvalTextWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: Center(
+        child: TextField(
+          textInputAction: TextInputAction.done,
+          onSubmitted: (value) {
+            FocusScope.of(context).unfocus();
+          },
+          textAlign: TextAlign.center,
+          maxLines: null,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
           ),
+          style: const TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              decoration: TextDecoration.none),
         ),
+      ),
+    );
+  }
+}
+
+///-----------------------------------------------
+class StarClipper extends CustomClipper<Path> {
+  int starPoints = 5;
+
+  @override
+  Path getClip(Size size) {
+    double centerX = size.width / 2;
+    double centerY = size.height / 2;
+
+    Path path = Path();
+
+    double radius = size.width / 2;
+    double inner = radius / 2;
+    double rotation = pi / 2 * 3;
+    double step = pi / starPoints;
+
+    path.lineTo(centerX, centerY - radius);
+
+    for (int i = 0; i < starPoints; i++) {
+      double x = centerX + cos(rotation) * radius;
+      double y = centerY + sin(rotation) * radius;
+      path.lineTo(x, y);
+      rotation += step;
+
+      x = centerX + cos(rotation) * inner;
+      y = centerY + sin(rotation) * inner;
+      path.lineTo(x, y);
+      rotation += step;
+    }
+    path.lineTo(centerX, centerY - radius);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+class StarWidget extends StatefulWidget {
+  const StarWidget({super.key});
+
+  @override
+  State<StarWidget> createState() => _StarWidgetState();
+}
+
+class _StarWidgetState extends State<StarWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: StarClipper(),
+      child: Container(
+        color: Colors.orangeAccent,
+        child: const OvalTextWidget(),
       ),
     );
   }

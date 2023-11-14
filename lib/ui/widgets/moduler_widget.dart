@@ -38,8 +38,8 @@ class _ModulerWidgetState extends State<ModulerWidget> {
         width: widget.initialWidth,
         child: GestureDetector(
           onPanStart: (details) {
-            if (details.localPosition.dx >= widget.initialWidth - 30 &&
-                details.localPosition.dy >= widget.initialHeight - 30) {
+            if (details.localPosition.dx >= widget.initialWidth - 20 &&
+                details.localPosition.dy >= widget.initialHeight - 20) {
               setState(() {
                 isResizing = true;
                 startPosition = details.localPosition;
@@ -55,8 +55,7 @@ class _ModulerWidgetState extends State<ModulerWidget> {
                 widget.myPosY = widget.myPosY.clamp(0, areaH);
               }
               if (isResizing) {
-                if ((widget.initialWidth >= 100 &&
-                        widget.initialHeight >= 100) &&
+                if ((widget.initialWidth >= 25 && widget.initialHeight >= 25) &&
                     (widget.initialWidth <= areaW &&
                         widget.initialHeight <= areaH) &&
                     (startPosition.dx <= areaW && startPosition.dy >= 0) &&
@@ -66,10 +65,10 @@ class _ModulerWidgetState extends State<ModulerWidget> {
                   widget.initialWidth += dx;
                   widget.initialHeight += dy;
                   startPosition = details.localPosition;
-                } else if (widget.initialHeight < 100) {
-                  widget.initialHeight = 100;
-                } else if (widget.initialWidth < 100) {
-                  widget.initialWidth = 100;
+                } else if (widget.initialHeight < 25) {
+                  widget.initialHeight = 25;
+                } else if (widget.initialWidth < 25) {
+                  widget.initialWidth = 25;
                 }
               }
             });
