@@ -1,3 +1,4 @@
+import 'package:draggable_example/model/menuActivity.dart';
 import 'package:draggable_example/model/widgetModel.dart';
 import 'package:draggable_example/ui/mainBoard.dart';
 import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
@@ -11,7 +12,9 @@ void main() => runApp(MultiProvider(
           ),
           ChangeNotifierProvider(
             create: (context) => WidgetFunctions(),
-          )
+          ), ChangeNotifierProvider(
+            create: (context) => MenuActivity(),
+          ),
         ],
         child: MaterialApp(
           home: MainBoard(),
