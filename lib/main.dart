@@ -1,7 +1,6 @@
-import 'package:draggable_example/model/menuActivity.dart';
-import 'package:draggable_example/model/widgetModel.dart';
-import 'package:draggable_example/ui/mainBoard.dart';
-import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
+import 'package:draggable_example/model/menu_activity.dart';
+import 'package:draggable_example/model/widget_model.dart';
+import 'package:draggable_example/ui/main_board.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

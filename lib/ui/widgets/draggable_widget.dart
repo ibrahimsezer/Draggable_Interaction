@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../mainBoard.dart';
+import '../main_board.dart';
 
 class DraggableWidget extends StatefulWidget {
   const DraggableWidget({

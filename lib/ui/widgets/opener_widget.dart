@@ -1,12 +1,9 @@
 import 'dart:developer';
-import 'package:draggable_example/model/example.dart';
-import 'package:draggable_example/model/widgetModel.dart';
+import 'package:draggable_example/model/widget_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
-
-import '../mainBoard.dart';
-import 'noteWidget.dart';
+import 'note_widget.dart';
 
 ///Opener Widgets
 class OpenerTopWidget extends StatefulWidget {
@@ -49,7 +46,6 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
                 widget: const NoteWidget(),
                 isSelected: true));
             WidgetModel.idCount++;
-            print("copyy.");
             log("${WidgetModel.widgetModelList.toList()}");
             log("${WidgetModel.widgetModelList.length}");
             log("${WidgetModel.idCount}");
@@ -64,13 +60,11 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.format_size),
           action: () {
-            print("Tt Active");
           },
         ),
         OpenerButton(
           barIcons: const Icon(Icons.color_lens),
           action: () {
-            print("Color Active");
             showDialog(
                 builder: (context) => AlertDialog(
                       title: const Text('Pick a Color'),
@@ -119,7 +113,6 @@ class _OpenerButtonState extends State<OpenerButton> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          print("action");
           widget.action.call();
         },
         child: CircleAvatar(

@@ -1,5 +1,3 @@
-import 'package:draggable_example/ui/mainBoard.dart';
-import 'package:draggable_example/ui/widgets/noteWidget.dart';
 import 'package:flutter/cupertino.dart';
 
 class PrioritizationTableWidget extends StatefulWidget {
@@ -27,26 +25,6 @@ class _PrioritizationTableWidgetState extends State<PrioritizationTableWidget> {
       height: MediaQuery.sizeOf(context).height,
       child: const Stack(
         children: [
-          // Positioned(
-          //   left: 0,
-          //   top: 0,
-          //   child: NoteWidget(),
-          // ),
-          // Positioned(
-          //   left: 0,
-          //   top: 160,
-          //   child: NoteWidget(),
-          // ),
-          // Positioned(
-          //   left: 160,
-          //   top: 0,
-          //   child: NoteWidget(),
-          // ),
-          // Positioned(
-          //   left: 160,
-          //   top: 160,
-          //   child: NoteWidget(),
-          // ),
         ],
       ),
     );

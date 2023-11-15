@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import '../mainBoard.dart';
-import 'openerWidget.dart';
+import '../main_board.dart';
+import 'opener_widget.dart';
 
 class NoteWidget extends StatefulWidget {
   const NoteWidget({

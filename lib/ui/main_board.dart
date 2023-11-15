@@ -1,16 +1,14 @@
-import 'dart:math';
-import 'package:draggable_example/exmp/thisModel.dart';
-import 'package:draggable_example/model/menuActivity.dart';
-import 'package:draggable_example/model/widgetModel.dart';
-import 'package:draggable_example/ui/widgets/imageWidget.dart';
-import 'package:draggable_example/ui/widgets/listViewBuilder.dart';
-import 'package:draggable_example/ui/widgets/noteWidget.dart';
-import 'package:draggable_example/ui/widgets/openerWidget.dart';
+import 'package:draggable_example/model/this_model.dart';
+import 'package:draggable_example/model/menu_activity.dart';
+import 'package:draggable_example/model/widget_model.dart';
+import 'package:draggable_example/ui/widgets/image_widget.dart';
+import 'package:draggable_example/ui/widgets/note_widget.dart';
+import 'package:draggable_example/ui/widgets/opener_widget.dart';
 import 'package:draggable_example/ui/widgets/shape.dart';
-import 'package:draggable_example/ui/widgets/stickyNoteWidget.dart';
+import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'widgets/interfaceButtons.dart';
+import 'widgets/interface_buttons.dart';
 
 double globalPosX = 0;
 double globalPosY = 0;
@@ -22,8 +20,6 @@ String tempText = "";
 
 class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
-
-  bool myState = false;
   static List<ThisModel> widgets = [];
 
   void addWidget(ThisModel model) {
@@ -48,14 +44,6 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
 }
 
 class _MainBoardState extends State<MainBoard> {
-  int count = 0;
-  Color pickerColor = const Color(0xff443a49);
-  Color currentColor = const Color(0xff443a49);
-
-  void changeColor(Color color) {
-    setState(() => pickerColor = color);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +57,6 @@ class _MainBoardState extends State<MainBoard> {
                 child: Stack(
                   children: [
                     ...ThisModel.thisModelList.map((e) => e.widget),
-                    //...WidgetModel.widgetModelList.map((e) => e.widget)
                   ],
                 ),
               );
@@ -78,7 +65,8 @@ class _MainBoardState extends State<MainBoard> {
           ...MainBoard.widgets.map((e) => e.widget),
           Consumer<MenuActivity>(
             builder: (context, value, child) {
-              return MenuIconButton(buttonPosX: 80,
+              return const MenuIconButton(
+                buttonPosX: 80,
                 menuIcon: Icons.arrow_downward,
               ).openBottomWidget();
             },
@@ -92,23 +80,24 @@ class _MainBoardState extends State<MainBoard> {
 class MenuIconButton extends StatefulWidget {
   final IconData menuIcon;
   final double buttonPosX;
-  MenuIconButton({super.key, required this.menuIcon, required this.buttonPosX});
+
+  const MenuIconButton(
+      {super.key, required this.menuIcon, required this.buttonPosX});
 
   @override
   State<MenuIconButton> createState() => _MenuIconButtonState();
 
   Widget openBottomWidget() {
     if (MenuActivity.isActive) {
-      print("If -> isActive : ${MenuActivity.isActive}");
       return Stack(
         children: [
           const BottomMenuWidget(),
-          MenuIconButton(menuIcon: menuIcon,buttonPosX: 80),
+          MenuIconButton(menuIcon: menuIcon, buttonPosX: 80),
         ],
       );
     } else {
-      print("Else -> isActive : ${MenuActivity.isActive}");
-      return MenuIconButton(buttonPosX: 0,
+      return const MenuIconButton(
+        buttonPosX: 0,
         menuIcon: Icons.arrow_upward,
       );
     }
@@ -116,8 +105,6 @@ class MenuIconButton extends StatefulWidget {
 }
 
 class _MenuIconButtonState extends State<MenuIconButton> {
-
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -126,7 +113,6 @@ class _MenuIconButtonState extends State<MenuIconButton> {
         child: InkWell(
           onTap: () {
             context.read<MenuActivity>().openButton();
-            print("read....");
           },
           child: Container(
             decoration: const BoxDecoration(
