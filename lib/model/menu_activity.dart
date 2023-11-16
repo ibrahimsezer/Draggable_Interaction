@@ -6,10 +6,10 @@ class MenuActivity with ChangeNotifier {
 
   MenuActivity();
 
-  Widget openButton() {
-    isActive = !isActive;
-    notifyListeners();
-    return const MenuIconButton(menuIcon: Icons.arrow_upward, buttonPosX: 0)
-        .openBottomWidget();
-  }
+  // Widget openButton() {
+  //   isActive = !isActive;
+  //   notifyListeners();
+  //   return const MenuIconButton(menuIcon: Icons.arrow_upward, buttonPosX: 0)
+  //       .openBottomWidget();
+  // }
 }

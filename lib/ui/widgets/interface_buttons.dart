@@ -39,8 +39,8 @@ class _WidgetButtonModuleState extends State<WidgetButtonModule> {
               ThisModel myModel = ThisModel(
                   id: idCounter,
                   widget: ModulerWidget(
-                      myPosX: 0,
-                      myPosY: 0,
+                      myPosX: MediaQuery.sizeOf(context).width/2,
+                      myPosY: MediaQuery.sizeOf(context).height/2,
                       initialWidth: widget.myWidth,
                       initialHeight: widget.myHeight,
                       widgetVariable: widget.widgetButtonName),
@@ -50,5 +50,53 @@ class _WidgetButtonModuleState extends State<WidgetButtonModule> {
             icon: Icon(widget.widgetButtonIcon)),
       ),
     );
+  }
+}
+
+///-------------------------Activity_Bar--------------------------------
+class ActivityBarIcon extends StatefulWidget {
+  const ActivityBarIcon({
+    super.key,
+    required this.widgetButtonName,
+    required this.widgetButtonIcon,
+    required this.myWidth,
+    required this.myHeight,
+  });
+
+  final Widget widgetButtonName;
+  final IconData widgetButtonIcon;
+  final double myWidth;
+  final double myHeight;
+
+  @override
+  State<ActivityBarIcon> createState() => _ActivityBarIconState();
+}
+
+class _ActivityBarIconState extends State<ActivityBarIcon> {
+  Color selectedColor = Colors.black;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          ThisModel myModel = ThisModel(
+              id: idCounter,
+              widget: ModulerWidget(
+                  myPosX: MediaQuery.sizeOf(context).width*0.4,
+                  myPosY: MediaQuery.sizeOf(context).height*0.4,
+                  initialWidth: 100,
+                  initialHeight: 100,
+                  widgetVariable: widget.widgetButtonName),
+              isActive: false);
+          context.read<WidgetFunctions>().addThisModel(myModel);
+        },
+        child: Container(
+            color: Colors.white,
+            width: 45,
+            height: 45,
+            child: Icon(
+              widget.widgetButtonIcon,
+              color: selectedColor,
+            )));
   }
 }
