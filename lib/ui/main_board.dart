@@ -1,6 +1,7 @@
 import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/menu_activity.dart';
 import 'package:draggable_example/model/widget_model.dart';
+import 'package:draggable_example/ui/widgets/grid_view_background.dart';
 import 'package:draggable_example/ui/widgets/image_widget.dart';
 import 'package:draggable_example/ui/widgets/note_widget.dart';
 import 'package:draggable_example/ui/widgets/opener_widget.dart';
@@ -20,6 +21,7 @@ String tempText = "";
 
 class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
+
   static List<ThisModel> widgets = [];
 
   void addWidget(ThisModel model) {
@@ -56,13 +58,13 @@ class _MainBoardState extends State<MainBoard> {
                 maxScale: 1000,
                 child: Stack(
                   children: [
+                    const AbsorbPointer(child: GridViewBackground()),
                     ...ThisModel.thisModelList.map((e) => e.widget),
                   ],
                 ),
               );
             },
           ),
-          ...MainBoard.widgets.map((e) => e.widget),
           Consumer<MenuActivity>(
             builder: (context, value, child) {
               return const MenuIconButton(
@@ -70,7 +72,8 @@ class _MainBoardState extends State<MainBoard> {
                 menuIcon: Icons.arrow_downward,
               ).openBottomWidget();
             },
-          )
+          ),
+          ...MainBoard.widgets.map((e) => e.widget),
         ]),
       ),
     );
