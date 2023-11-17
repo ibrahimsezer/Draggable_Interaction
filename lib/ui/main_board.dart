@@ -43,6 +43,7 @@ class _MainBoardState extends State<MainBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: SafeArea(
         child: Stack(children: <Widget>[
           Consumer<WidgetFunctions>(
@@ -57,7 +58,9 @@ class _MainBoardState extends State<MainBoard> {
                   ],
                 ),
               );
-            },///_________________BOTTOM MENU CODES
+            },
+
+            ///_________________BOTTOM MENU CODES
           ),
           // Consumer<MenuActivity>(
           //   builder: (context, value, child) {
@@ -67,14 +70,13 @@ class _MainBoardState extends State<MainBoard> {
           //     ).openBottomWidget();
           //   },
           // ),
-          const Positioned(top: 100,left: 5, child: ActivityBar()),
+          const Positioned(top: 100, left: 5, child: ActivityBar()),
           ...MainBoard.widgets.map((e) => e.widget),
         ]),
       ),
     );
   }
 }
-
 
 ///_________________BOTTOM MENU CODES
 // class MenuIconButton extends StatefulWidget {

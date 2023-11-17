@@ -65,6 +65,18 @@ flutter:
   assets:
      - lib/assets/images/sqldeveloper.svg
      - lib/assets/images/outline-cloud.svg
+     - lib/assets/images/azurefunctions.svg
+     - lib/assets/images/azuresqldatabase.svg
+     - lib/assets/images/firewall-outline-alerted.svg
+     - lib/assets/images/firewall-outline-badged.svg
+     - lib/assets/images/folder-type-azure-opened.svg
+     - lib/assets/images/outline-cloud-done.svg
+     - lib/assets/images/person-16-filled.svg
+     - lib/assets/images/process.svg
+     - lib/assets/images/security.svg
+     - lib/assets/images/security1.svg
+     - lib/assets/images/upload-web.svg
+     - lib/assets/images/user-security-fill.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

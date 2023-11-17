@@ -1,12 +1,9 @@
-import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
-
 import 'image_widget.dart';
 import 'interface_buttons.dart';
 import 'note_widget.dart';
-import 'opener_widget.dart';
 
 class ActivityBar extends StatelessWidget {
   const ActivityBar({super.key});
@@ -37,8 +34,92 @@ class ActivityBar extends StatelessWidget {
             myHeight: 100,
             myWidth: 100,
             widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/azurefunctions.svg'),
+            widgetButtonIcon: Icons.functions,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/azuresqldatabase.svg'),
+            widgetButtonIcon: Icons.data_saver_off_outlined,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/firewall-outline-alerted.svg'),
+            widgetButtonIcon: Icons.bus_alert,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/firewall-outline-badged.svg'),
+            widgetButtonIcon: Icons.confirmation_num,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/folder-type-azure-opened.svg'),
+            widgetButtonIcon: Icons.open_in_browser,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/outline-cloud-done.svg'),
+            widgetButtonIcon: Icons.cloud_done,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/person-16-filled.svg'),
+            widgetButtonIcon: Icons.supervised_user_circle,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName:
+                CreateImageWidget(assetName: 'lib/assets/images/process.svg'),
+            widgetButtonIcon: Icons.engineering_outlined,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName:
+                CreateImageWidget(assetName: 'lib/assets/images/security.svg'),
+            widgetButtonIcon: Icons.security,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/upload-web.svg'),
+            widgetButtonIcon: Icons.upload_file,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
+                assetName: 'lib/assets/images/user-security-fill.svg'),
+            widgetButtonIcon: Icons.supervised_user_circle,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName: CreateImageWidget(
                 assetName: 'lib/assets/images/outline-cloud.svg'),
-            widgetButtonIcon: Icons.cloud,
+            widgetButtonIcon: Icons.cloud_circle_outlined,
+          ),
+          ActivityBarIcon(
+            myHeight: 100,
+            myWidth: 100,
+            widgetButtonName:
+                CreateImageWidget(assetName: 'lib/assets/images/security1.svg'),
+            widgetButtonIcon: Icons.security_update_good,
           ),
           ActivityBarIcon(
             myHeight: 100,
