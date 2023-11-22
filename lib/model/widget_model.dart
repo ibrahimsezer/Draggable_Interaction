@@ -12,7 +12,6 @@ class WidgetModel {
 
   static List<WidgetModel> widgetModelList = [];
   static int idCount = widgetModelList.length;
-  static List<int> modelIdList = [];
 }
 
 class WidgetFunctions with ChangeNotifier {
@@ -26,4 +25,5 @@ class WidgetFunctions with ChangeNotifier {
     ThisModel.thisModelList.add(model);
     notifyListeners();
   }
+
 }

@@ -5,8 +5,16 @@ import 'package:draggable_example/ui/widgets/grid_view_background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-double globalPosX = 0;
+//todo Widget frames remain unclickable after resizing
+//todo Widget delete with using topBarmenu
+//todo Right and bottom frames not locked. Lock this
+//todo Edit widget button folder
+//todo Save widget info in database
+//todo Group widgets
+//todo Add widget in board
+//todo Move widget to front or back
 double globalPosY = 0;
+double globalPosX = 0;
 double containerLeft = 0;
 double containerTop = 0;
 bool isResizing = false;
@@ -17,6 +25,7 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
 
   static List<ThisModel> widgets = [];
+  static List<Widget> activeWidgetList = [];
 
   void addWidget(ThisModel model) {
     widgets.add(model);
@@ -35,11 +44,27 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
     notifyListeners();
   }
 
+  void activeWidgetListAdd() {
+    for (int i = 0; i < ThisModel.thisModelList.length; i++) {
+      if (ThisModel.thisModelList[i].isActive == true) {
+        activeWidgetList.add(ThisModel.thisModelList[i].widget);
+      }
+    }
+  }
+
+  void activePosition() {
+    for (int i = 0; i < activeWidgetList.length; i++) {
+      activeWidgetList[i];
+    }
+  }
+
   @override
   State<MainBoard> createState() => _MainBoardState();
 }
 
 class _MainBoardState extends State<MainBoard> {
+  Widget getGridWidget = const GridViewBackground();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +78,7 @@ class _MainBoardState extends State<MainBoard> {
                 maxScale: 1000,
                 child: Stack(
                   children: [
-                    const AbsorbPointer(child: GridViewBackground()),
+                    AbsorbPointer(child: getGridWidget),
                     ...ThisModel.thisModelList.map((e) => e.widget),
                   ],
                 ),
@@ -71,6 +96,16 @@ class _MainBoardState extends State<MainBoard> {
           //   },
           // ),
           const Positioned(top: 100, left: 5, child: ActivityBar()),
+          const Positioned(
+            top: 100,
+            left: 60,
+            child: ActivityGridBar(),
+          ),
+          const Positioned(
+            top: 260,
+            left: 60,
+            child: ActivityGridSvgBar(),
+          ),
           ...MainBoard.widgets.map((e) => e.widget),
         ]),
       ),

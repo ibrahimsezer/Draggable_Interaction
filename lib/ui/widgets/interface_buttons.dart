@@ -39,11 +39,13 @@ class _WidgetButtonModuleState extends State<WidgetButtonModule> {
               ThisModel myModel = ThisModel(
                   id: idCounter,
                   widget: ModulerWidget(
-                      myPosX: MediaQuery.sizeOf(context).width / 2,
-                      myPosY: MediaQuery.sizeOf(context).height / 2,
-                      initialWidth: widget.myWidth,
-                      initialHeight: widget.myHeight,
-                      widgetVariable: widget.widgetButtonName),
+                    myPosX: MediaQuery.sizeOf(context).width / 2,
+                    myPosY: MediaQuery.sizeOf(context).height / 2,
+                    initialWidth: widget.myWidth,
+                    initialHeight: widget.myHeight,
+                    widgetVariable: widget.widgetButtonName,
+                    id: idCounter++,
+                  ),
                   isActive: false);
               context.read<WidgetFunctions>().addThisModel(myModel);
             },
@@ -82,11 +84,13 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
           ThisModel myModel = ThisModel(
               id: idCounter,
               widget: ModulerWidget(
-                  myPosX: MediaQuery.sizeOf(context).width * 0.4,
-                  myPosY: MediaQuery.sizeOf(context).height * 0.4,
-                  initialWidth: 100,
-                  initialHeight: 100,
-                  widgetVariable: widget.widgetButtonName),
+                myPosX: MediaQuery.sizeOf(context).width * 0.4,
+                myPosY: MediaQuery.sizeOf(context).height * 0.4,
+                initialWidth: 100,
+                initialHeight: 100,
+                widgetVariable: widget.widgetButtonName,
+                id: idCounter++,
+              ),
               isActive: false);
           context.read<WidgetFunctions>().addThisModel(myModel);
         },

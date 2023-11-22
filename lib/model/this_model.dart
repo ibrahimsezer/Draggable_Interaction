@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ThisModel {
+class ThisModel extends ChangeNotifier{
   final int id;
   final Widget widget;
   bool isActive;

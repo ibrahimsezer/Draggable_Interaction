@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:draggable_example/model/this_model.dart';
 import 'package:flutter/material.dart';
 
 class ModulerWidget extends StatefulWidget {
@@ -6,6 +9,7 @@ class ModulerWidget extends StatefulWidget {
   double myPosX;
   double myPosY;
   final Widget widgetVariable;
+  final int id;
 
   ModulerWidget(
       {super.key,
@@ -13,7 +17,8 @@ class ModulerWidget extends StatefulWidget {
       required this.myPosY,
       required this.initialHeight,
       required this.initialWidth,
-      required this.widgetVariable});
+      required this.widgetVariable,
+      required this.id});
 
   @override
   State<ModulerWidget> createState() => _ModulerWidgetState();
@@ -37,6 +42,20 @@ class _ModulerWidgetState extends State<ModulerWidget> {
         height: widget.initialHeight,
         width: widget.initialWidth,
         child: GestureDetector(
+          onTap: () {
+            print("onTap");
+            print("ThisModel.thisModelList: ${ThisModel.thisModelList}");
+            ThisModel.thisModelList.map((e){
+              print("e: ${e}");
+              print("e.id: ${e.id}");
+              print("e.isActive: ${e.isActive}");
+              if(e.id == widget.id){
+                print("e.id == widget.id");
+                e.isActive = !e.isActive;
+                print("IsActive changed");
+              }
+            });
+          },
           onPanStart: (details) {
             if (details.localPosition.dx >= widget.initialWidth - 20 &&
                 details.localPosition.dy >= widget.initialHeight - 20) {
@@ -65,26 +84,13 @@ class _ModulerWidgetState extends State<ModulerWidget> {
                   widget.initialWidth += dx;
                   widget.initialHeight += dy;
                   startPosition = details.localPosition;
-                } else if (widget.initialHeight < 25) {
-                  widget.initialHeight = 25;
-                } else if (widget.initialWidth < 25) {
-                  widget.initialWidth = 25;
+                } else if (widget.initialHeight < 1) {
+                  widget.initialHeight += 1;
+                } else if (widget.initialWidth < 1) {
+                  widget.initialWidth += 1;
                 }
               }
             });
-
-            //
-            // double centerX = widget.myPosX + widget.initialWidth / 2;
-            // double centerY = widget.myPosY + widget.initialHeight / 2;
-            // double angle = -1 * (startPosition.dx - details.localPosition.dx) /
-            //     100; // Döndürme açısını hesaplayın
-            // setState(() {
-            //   var variable = Transform.rotate(angle: angle,child: widget.widgetVariable);
-            //   rotationAngle += angle;
-            //   variable.transform =
-            //   Matrix4.identity()..rotateZ(rotationAngle);
-            // });
-            // startPosition = details.localPosition;
           },
           onPanEnd: (details) {
             setState(() {
@@ -95,5 +101,3 @@ class _ModulerWidgetState extends State<ModulerWidget> {
         ));
   }
 }
-
-///

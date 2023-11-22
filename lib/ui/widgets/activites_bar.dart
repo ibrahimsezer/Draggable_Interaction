@@ -12,17 +12,140 @@ class ActivityBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 50,
-      height: 500,
+      height: 310,
       color: Colors.white,
       child: GridView(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
-        children: const [
+        children: [
+          const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.near_me,
+              myWidth: 0,
+              myHeight: 0),
           ActivityBarIcon(
-              widgetButtonName: TriangleShapeWidget(),
-              widgetButtonIcon: Icons.play_arrow_rounded,
+              widgetButtonName: SizedBox(
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (value) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  textAlign: TextAlign.center,
+                  maxLines: null,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      decoration: TextDecoration.none),
+                ),
+              ),
+              widgetButtonIcon: Icons.title,
+              myWidth: 20,
+              myHeight: 20),
+          const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.check_box_outline_blank,
+              myWidth: 0,
+              myHeight: 0)
+        ],
+      ),
+    );
+  }
+}
+
+class ActivityGridBar extends StatelessWidget {
+  const ActivityGridBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      color: Colors.white,
+      child: GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4),
+          children: const [
+            ActivityBarIcon(
+              myHeight: 100,
               myWidth: 100,
-              myHeight: 100),
+              widgetButtonName: NoteWidget(),
+              widgetButtonIcon: Icons.note,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: StickyNoteWidget(
+                  initialColor: Color.fromRGBO(190, 49, 68, 1)),
+              widgetButtonIcon: Icons.sticky_note_2,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: StarWidget(),
+              widgetButtonIcon: Icons.star,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: RightArrowWidget(),
+              widgetButtonIcon: Icons.arrow_right_alt,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: EllipseShapeWidget(),
+              widgetButtonIcon: Icons.circle_outlined,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: RectangleShapeWidget(),
+              widgetButtonIcon: Icons.rectangle,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: RoundedRectangleShapeWidget(),
+              widgetButtonIcon: Icons.rounded_corner,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: RhombusShapeWidget(),
+              widgetButtonIcon: Icons.format_shapes,
+            ),
+            ActivityBarIcon(
+              myHeight: 100,
+              myWidth: 100,
+              widgetButtonName: CircleWidget(),
+              widgetButtonIcon: Icons.circle,
+            ),
+            ActivityBarIcon(
+                widgetButtonName: TriangleShapeWidget(),
+                widgetButtonIcon: Icons.play_arrow_rounded,
+                myWidth: 100,
+                myHeight: 100),
+          ]),
+    );
+  }
+}
+
+class ActivityGridSvgBar extends StatelessWidget {
+  const ActivityGridSvgBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      color: Colors.white,
+      child: GridView(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+        children: const [
           ActivityBarIcon(
             myHeight: 100,
             myWidth: 100,
@@ -120,61 +243,6 @@ class ActivityBar extends StatelessWidget {
             widgetButtonName:
                 CreateImageWidget(assetName: 'lib/assets/images/security1.svg'),
             widgetButtonIcon: Icons.security_update_good,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: RectangleShapeWidget(),
-            widgetButtonIcon: Icons.rectangle,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: RoundedRectangleShapeWidget(),
-            widgetButtonIcon: Icons.rounded_corner,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: RhombusShapeWidget(),
-            widgetButtonIcon: Icons.format_shapes,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: CircleWidget(),
-            widgetButtonIcon: Icons.circle,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: NoteWidget(),
-            widgetButtonIcon: Icons.note,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName:
-                StickyNoteWidget(initialColor: Color.fromRGBO(190, 49, 68, 1)),
-            widgetButtonIcon: Icons.sticky_note_2,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: StarWidget(),
-            widgetButtonIcon: Icons.star,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: RightArrowWidget(),
-            widgetButtonIcon: Icons.arrow_right_alt,
-          ),
-          ActivityBarIcon(
-            myHeight: 100,
-            myWidth: 100,
-            widgetButtonName: EllipseShapeWidget(),
-            widgetButtonIcon: Icons.circle_outlined,
           ),
         ],
       ),
