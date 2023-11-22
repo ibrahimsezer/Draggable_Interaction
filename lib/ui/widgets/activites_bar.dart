@@ -1,12 +1,15 @@
 import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'image_widget.dart';
 import 'interface_buttons.dart';
 import 'note_widget.dart';
 
 class ActivityBar extends StatelessWidget {
-  const ActivityBar({super.key});
+  ActivityBar({super.key});
+
+  bool activeWidgets = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +47,27 @@ class ActivityBar extends StatelessWidget {
               widgetButtonIcon: Icons.title,
               myWidth: 20,
               myHeight: 20),
-          const ActivityBarIcon(
-              widgetButtonName: SizedBox(),
+          ActivityBarIcon(
+              widgetButtonName:
+                  activeWidgets ? const ActivityGridBar() : const SizedBox(),
               widgetButtonIcon: Icons.check_box_outline_blank,
               myWidth: 0,
-              myHeight: 0)
+              myHeight: 0),
+          const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.insert_emoticon,
+              myWidth: 0,
+              myHeight: 0),
+          const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.undo,
+              myWidth: 0,
+              myHeight: 0),
+          const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.redo,
+              myWidth: 0,
+              myHeight: 0),
         ],
       ),
     );
@@ -72,7 +91,7 @@ class ActivityGridBar extends StatelessWidget {
               myHeight: 100,
               myWidth: 100,
               widgetButtonName: NoteWidget(),
-              widgetButtonIcon: Icons.note,
+              widgetButtonIcon: FontAwesomeIcons.noteSticky,
             ),
             ActivityBarIcon(
               myHeight: 100,

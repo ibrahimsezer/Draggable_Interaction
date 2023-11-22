@@ -1,5 +1,8 @@
+import 'dart:math';
+import 'dart:developer';
 import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
+import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,6 +84,7 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
+          print("${ActivityBar().activeWidgets}");
           ThisModel myModel = ThisModel(
               id: idCounter,
               widget: ModulerWidget(
