@@ -10,6 +10,7 @@ class ActivityBar extends StatelessWidget {
   ActivityBar({super.key});
 
   bool activeWidgets = false;
+  List gridView = [];
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 int idCounter = 0;
+bool widgetBarActiveGrid = false;
+bool widgetBarActiveSvg = false;
 
 ///-------------------------Widget_Button_Module--------------------------------
 class WidgetButtonModule extends StatefulWidget {
@@ -79,6 +81,7 @@ class ActivityBarIcon extends StatefulWidget {
 
 class _ActivityBarIconState extends State<ActivityBarIcon> {
   Color selectedColor = Colors.black;
+  List buttonId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +99,12 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
                 id: idCounter++,
               ),
               isActive: false);
+          if (widget.widgetButtonIcon == Icons.check_box_outline_blank) {
+            widgetBarActiveGrid = !widgetBarActiveGrid;
+          }
+          if (widget.widgetButtonIcon == Icons.insert_emoticon) {
+            widgetBarActiveSvg = !widgetBarActiveSvg;
+          }
           context.read<WidgetFunctions>().addThisModel(myModel);
         },
         child: Container(

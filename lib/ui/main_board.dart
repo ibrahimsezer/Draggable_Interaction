@@ -2,11 +2,13 @@ import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/grid_view_background.dart';
+import 'package:draggable_example/ui/widgets/interface_buttons.dart';
+import 'package:draggable_example/ui/widgets/priorty_status.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 //todo Widget frames remain unclickable after resizing
-//todo Widget delete with using topBarmenu
+//todo Widget delete with using topBarMenu
 //todo Right and bottom frames not locked. Lock this
 //todo Edit widget button folder
 //todo Save widget info in database
@@ -86,10 +88,59 @@ class _MainBoardState extends State<MainBoard> {
               );
             },
           ),
-           Positioned(top: 100, left: 5, child: ActivityBar()),
-          const Positioned(top: 100, left: 60, child: ActivityGridBar()),
-          const Positioned(top: 260, left: 60, child: ActivityGridSvgBar()),
+          Positioned(top: 100, left: 5, child: ActivityBar()),
           ...MainBoard.widgets.map((e) => e.widget),
+          Consumer<WidgetFunctions>(
+            builder:
+                (BuildContext context, WidgetFunctions value, Widget? child) {
+              return widgetBarActiveGrid
+                  ? const Positioned(
+                      top: 100, left: 60, child: ActivityGridBar())
+                  : const SizedBox();
+            },
+          ),
+          Consumer<WidgetFunctions>(
+            builder:
+                (BuildContext context, WidgetFunctions value, Widget? child) {
+              return widgetBarActiveSvg
+                  ? const Positioned(
+                      top: 260, left: 60, child: ActivityGridSvgBar())
+                  : const SizedBox();
+            },
+          ),
+          Positioned(
+              top: 450,
+              left: 100,
+              child: Stack(
+                children: [
+                  Container(
+                    width: 250,
+                    height: 250,
+                    color: Colors.white,
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              PriorityStatus(prioTitle: "Ideas"),
+                              PriorityStatus(prioTitle: "In Progress"),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              PriorityStatus(prioTitle: "Postponed"),
+                              PriorityStatus(prioTitle: "Completed"),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ))
         ]),
       ),
     );

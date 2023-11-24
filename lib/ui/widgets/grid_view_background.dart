@@ -19,8 +19,8 @@ class _GridViewBackgroundState extends State<GridViewBackground> {
       itemCount: 200,
       itemBuilder: (context, index) {
         return Container(
-          decoration: BoxDecoration(
-              border: Border.all(width: 0.1, color: Colors.black)),
+          decoration:
+              BoxDecoration(border: Border.all(width: 0.1, color: Colors.grey)),
         );
       },
     );
