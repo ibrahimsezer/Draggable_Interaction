@@ -43,7 +43,8 @@ class _ModulerWidgetState extends State<ModulerWidget> {
         width: widget.initialWidth,
         child: GestureDetector(
           onTap: () {
-            print("onTap");
+            int clickedWidgetId = widget.id; //clicked widget ID
+            log("onTap -----------> $clickedWidgetId");
             print("ThisModel.thisModelList: ${ThisModel.thisModelList}");
             ThisModel.thisModelList.map((e){
               print("e: ${e}");

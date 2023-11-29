@@ -6,7 +6,6 @@ import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 int idCounter = 0;
 bool widgetBarActiveGrid = false;
 bool widgetBarActiveSvg = false;
@@ -93,8 +92,8 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
               widget: ModulerWidget(
                 myPosX: MediaQuery.sizeOf(context).width * 0.4,
                 myPosY: MediaQuery.sizeOf(context).height * 0.4,
-                initialWidth: 100,
-                initialHeight: 100,
+                initialWidth: widget.myWidth,
+                initialHeight: widget.myHeight,
                 widgetVariable: widget.widgetButtonName,
                 id: idCounter++,
               ),
@@ -105,6 +104,7 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
           if (widget.widgetButtonIcon == Icons.insert_emoticon) {
             widgetBarActiveSvg = !widgetBarActiveSvg;
           }
+
           context.read<WidgetFunctions>().addThisModel(myModel);
         },
         child: Container(

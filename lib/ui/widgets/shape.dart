@@ -134,12 +134,8 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
         child: Container(
           width: 100,
           height: 100,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Color(0x12345678), Color(0x8765F6FF)],
-          )),
+          decoration:
+              BoxDecoration(color: Colors.white,border: Border.all(width: 2, color: Colors.black)),
           child: TextField(
             textInputAction: TextInputAction.done,
             onSubmitted: (value) {
@@ -164,11 +160,11 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
 class CustomTriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, 0);
-
+    final path = Path()
+      ..moveTo(size.width / 2, 0)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
     return path;
   }
 

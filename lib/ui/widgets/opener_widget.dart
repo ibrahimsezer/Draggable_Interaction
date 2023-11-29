@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'note_widget.dart';
 
@@ -65,26 +64,6 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.color_lens),
           action: () {
-            showDialog(
-                builder: (context) => AlertDialog(
-                      title: const Text('Pick a Color'),
-                      content: SingleChildScrollView(
-                        child: MaterialPicker(
-                          pickerColor: pickerColor,
-                          onColorChanged: changeColor,
-                        ),
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          child: const Text('Got it'),
-                          onPressed: () {
-                            setState(() => currentColor = pickerColor);
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                context: context);
           },
         ),
       ]),

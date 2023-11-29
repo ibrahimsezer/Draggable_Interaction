@@ -1,3 +1,4 @@
+import 'package:draggable_example/ui/widgets/priorty_status.dart';
 import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
@@ -88,12 +89,6 @@ class ActivityGridBar extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4),
           children: const [
-            ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: NoteWidget(),
-              widgetButtonIcon: FontAwesomeIcons.noteSticky,
-            ),
             ActivityBarIcon(
               myHeight: 100,
               myWidth: 100,

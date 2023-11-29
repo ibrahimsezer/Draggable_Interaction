@@ -3,7 +3,6 @@ import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/grid_view_background.dart';
 import 'package:draggable_example/ui/widgets/interface_buttons.dart';
-import 'package:draggable_example/ui/widgets/priorty_status.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +14,7 @@ import 'package:provider/provider.dart';
 //todo Group widgets
 //todo Add widget in board
 //todo Move widget to front or back
+//todo Create Hive database
 
 double globalPosY = 0;
 double globalPosX = 0;
@@ -108,39 +108,6 @@ class _MainBoardState extends State<MainBoard> {
                   : const SizedBox();
             },
           ),
-          Positioned(
-              top: 450,
-              left: 100,
-              child: Stack(
-                children: [
-                  Container(
-                    width: 250,
-                    height: 250,
-                    color: Colors.white,
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              PriorityStatus(prioTitle: "Ideas"),
-                              PriorityStatus(prioTitle: "In Progress"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              PriorityStatus(prioTitle: "Postponed"),
-                              PriorityStatus(prioTitle: "Completed"),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ))
         ]),
       ),
     );
