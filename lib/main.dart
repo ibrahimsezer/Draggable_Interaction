@@ -9,7 +9,11 @@ import 'Data/widget_data.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
-
+  Hive.registerAdapter(WidgetDataAdapter());
+//todo   boxPersons = await Hive.openBox<Person>('personBox');
+//todo   boxPersons.put
+//todo   boxPersons.deleteAt(index);
+//todo   boxPersons.clear();
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(
