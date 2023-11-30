@@ -32,7 +32,7 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
       height: widget.myHeight,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          color:Color.fromRGBO(34, 9, 44, 1)),
+          color: Color.fromRGBO(34, 9, 44, 1)),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         OpenerButton(
           barIcons: const Icon(Icons.copy),
@@ -58,13 +58,11 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         ),
         OpenerButton(
           barIcons: const Icon(Icons.format_size),
-          action: () {
-          },
+          action: () {},
         ),
         OpenerButton(
           barIcons: const Icon(Icons.color_lens),
-          action: () {
-          },
+          action: () {},
         ),
       ]),
     );
@@ -94,7 +92,8 @@ class _OpenerButtonState extends State<OpenerButton> {
         onTap: () {
           widget.action.call();
         },
-        child: CircleAvatar(foregroundColor: Colors.black,
+        child: CircleAvatar(
+          foregroundColor: Colors.black,
           radius: 20,
           backgroundColor: Colors.amberAccent,
           child: widget.barIcons,

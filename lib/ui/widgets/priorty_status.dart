@@ -69,8 +69,7 @@ class PrioStatusWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PriorityStatus(
-                    prioTitle: "Postponed",
-                    selectedColor: Colors.redAccent),
+                    prioTitle: "Postponed", selectedColor: Colors.redAccent),
                 PriorityStatus(
                     prioTitle: "Completed", selectedColor: Colors.green),
               ],

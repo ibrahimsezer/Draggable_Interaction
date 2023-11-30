@@ -25,5 +25,4 @@ class WidgetFunctions with ChangeNotifier {
     ThisModel.thisModelList.add(model);
     notifyListeners();
   }
-
 }

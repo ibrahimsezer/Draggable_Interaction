@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:draggable_example/model/this_model.dart';
 import 'package:flutter/material.dart';
 
 class ModulerWidget extends StatefulWidget {
@@ -45,17 +43,6 @@ class _ModulerWidgetState extends State<ModulerWidget> {
           onTap: () {
             int clickedWidgetId = widget.id; //clicked widget ID
             log("onTap -----------> $clickedWidgetId");
-            print("ThisModel.thisModelList: ${ThisModel.thisModelList}");
-            ThisModel.thisModelList.map((e){
-              print("e: ${e}");
-              print("e.id: ${e.id}");
-              print("e.isActive: ${e.isActive}");
-              if(e.id == widget.id){
-                print("e.id == widget.id");
-                e.isActive = !e.isActive;
-                print("IsActive changed");
-              }
-            });
           },
           onPanStart: (details) {
             if (details.localPosition.dx >= widget.initialWidth - 20 &&

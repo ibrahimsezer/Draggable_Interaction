@@ -24,8 +24,7 @@ class _PrioritizationTableWidgetState extends State<PrioritizationTableWidget> {
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height,
       child: const Stack(
-        children: [
-        ],
+        children: [],
       ),
     );
   }

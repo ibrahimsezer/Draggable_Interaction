@@ -134,8 +134,9 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
         child: Container(
           width: 100,
           height: 100,
-          decoration:
-              BoxDecoration(color: Colors.white,border: Border.all(width: 2, color: Colors.black)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 2, color: Colors.black)),
           child: TextField(
             textInputAction: TextInputAction.done,
             onSubmitted: (value) {
@@ -229,7 +230,6 @@ class RightArrowClipper extends CustomClipper<Path> {
     path.lineTo(size.width / 2, size.height * 1 / 4);
     path.lineTo(size.width / 2, 0);
     path.lineTo(size.width, size.height / 2);
-
     return path;
   }
 
