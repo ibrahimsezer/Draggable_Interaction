@@ -1,11 +1,8 @@
-import 'package:draggable_example/ui/widgets/priorty_status.dart';
 import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'image_widget.dart';
 import 'interface_buttons.dart';
-import 'note_widget.dart';
 
 class ActivityBar extends StatelessWidget {
   ActivityBar({super.key});

@@ -85,7 +85,6 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          print("${ActivityBar().activeWidgets}");
           ThisModel myModel = ThisModel(
               id: idCounter,
               widget: ModulerWidget(
