@@ -28,7 +28,7 @@ class _ModulerWidgetState extends State<ModulerWidget> {
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
-  double rotationAngle = 0.0; // Döndürme açısı
+  double rotationAngle = 0.0;
 
   @override
   Widget build(BuildContext context) {

@@ -13,8 +13,14 @@ bool isPointInWidget(Offset position, GlobalKey key) {
   return false;
 }
 
-class AreaControlWidget extends StatelessWidget {
+class AreaControlWidget extends StatefulWidget {
   AreaControlWidget({super.key});
+
+  @override
+  State<AreaControlWidget> createState() => _AreaControlWidgetState();
+}
+
+class _AreaControlWidgetState extends State<AreaControlWidget> {
   GlobalKey myKey = GlobalKey();
 
   @override

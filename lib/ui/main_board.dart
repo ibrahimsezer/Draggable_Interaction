@@ -4,7 +4,10 @@ import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/grid_view_background.dart';
 import 'package:draggable_example/ui/widgets/interface_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import '../Data/boxes.dart';
+import '../Data/widget_data.dart';
 
 //todo Widget frames remain unclickable after resizing
 //todo Widget delete with using topBarMenu
@@ -29,6 +32,17 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
 
   static List<ThisModel> widgets = [];
   static List<Widget> activeWidgetList = [];
+  static List<WidgetData> widgetDataList = [];
+
+  Future<void> addHiveData(WidgetData model) async {
+    box = await Hive.openBox("widgetDataBox");
+    box.put("key_${model.id}_${model.text}", model);
+    var values = box.values.toList();
+    for (int i = 0; i < box.values.length; i++) {
+      widgetDataList.add(values[i]);
+      print("${widgetDataList.toList()}");
+    }
+  }
 
   void addWidget(ThisModel model) {
     widgets.add(model);
@@ -66,7 +80,8 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
 }
 
 class _MainBoardState extends State<MainBoard> {
-  Widget getGridWidget = const GridViewBackground();
+  //Widget getGridWidget = const GridViewBackground();
+  Widget getGridBackground = const GridBackground();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +96,7 @@ class _MainBoardState extends State<MainBoard> {
                 maxScale: 1000,
                 child: Stack(
                   children: [
-                    AbsorbPointer(child: getGridWidget),
+                    AbsorbPointer(child: getGridBackground),
                     ...ThisModel.thisModelList.map((e) => e.widget),
                   ],
                 ),

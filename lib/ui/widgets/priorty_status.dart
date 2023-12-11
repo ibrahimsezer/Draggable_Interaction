@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class PriorityStatus extends StatelessWidget {
-  final String prioTitle;
+  final String priorityTitle;
   final Color selectedColor;
 
-  PriorityStatus({
+  const PriorityStatus({
     super.key,
-    required this.prioTitle,
+    required this.priorityTitle,
     required this.selectedColor,
   });
 
@@ -20,7 +20,7 @@ class PriorityStatus extends StatelessWidget {
           width: 100,
           child: Column(
             children: [
-              Text(prioTitle),
+              Text(priorityTitle),
               TextField(
                 textInputAction: TextInputAction.done,
                 onSubmitted: (value) {
@@ -51,7 +51,7 @@ class PrioStatusWidget extends StatelessWidget {
       width: 300,
       height: 300,
       color: Colors.blueGrey.shade100,
-      child: Center(
+      child: const Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -59,9 +59,9 @@ class PrioStatusWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PriorityStatus(
-                    prioTitle: "Ideas", selectedColor: Colors.lightBlue),
+                    priorityTitle: "Ideas", selectedColor: Colors.lightBlue),
                 PriorityStatus(
-                    prioTitle: "In Progress",
+                    priorityTitle: "In Progress",
                     selectedColor: Colors.orangeAccent),
               ],
             ),
@@ -69,9 +69,10 @@ class PrioStatusWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PriorityStatus(
-                    prioTitle: "Postponed", selectedColor: Colors.redAccent),
+                    priorityTitle: "Postponed",
+                    selectedColor: Colors.redAccent),
                 PriorityStatus(
-                    prioTitle: "Completed", selectedColor: Colors.green),
+                    priorityTitle: "Completed", selectedColor: Colors.green),
               ],
             )
           ],

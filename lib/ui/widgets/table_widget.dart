@@ -10,8 +10,8 @@ class TableWidget extends StatefulWidget {
 class _TableWidgetState extends State<TableWidget> {
   double width = 100;
   double height = 100;
-  double posx = 0;
-  double posy = 0;
+  double posX = 0;
+  double posY = 0;
   late double areaW;
   late double areaH;
   bool isResizing = false;
@@ -23,8 +23,8 @@ class _TableWidgetState extends State<TableWidget> {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
-        top: posy,
-        left: posx,
+        top: posY,
+        left: posX,
         width: areaW,
         height: areaH,
         child: GestureDetector(
@@ -40,11 +40,11 @@ class _TableWidgetState extends State<TableWidget> {
           onPanUpdate: (details) {
             setState(() {
               if (!isResizing) {
-                posx += details.delta.dx / 2;
-                posy += details.delta.dy / 2;
-                posx = posx.clamp(0, areaW);
-                posy = posy.clamp(0, areaH);
-                right = posx + width;
+                posX += details.delta.dx / 2;
+                posY += details.delta.dy / 2;
+                posX = posX.clamp(0, areaW);
+                posY = posY.clamp(0, areaH);
+                right = posX + width;
                 if (right > areaW) {
                   right = areaW;
                 }
@@ -71,8 +71,8 @@ class _TableWidgetState extends State<TableWidget> {
           },
           child: Stack(children: [
             Positioned(
-                top: posy,
-                left: posx,
+                top: posY,
+                left: posX,
                 width: width,
                 height: height,
                 child: Container(

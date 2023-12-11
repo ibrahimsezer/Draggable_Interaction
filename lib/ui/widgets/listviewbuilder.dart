@@ -12,7 +12,6 @@ class _ListViewWidgetState extends State<ListViewWidget> {
   double myHeight = 100;
   double myPosX = 0;
   double myPosY = 0;
-  late double right;
   late double areaW;
   late double areaH;
   bool isResizing = false;

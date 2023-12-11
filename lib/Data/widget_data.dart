@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+
 part 'widget_data.g.dart';
 
 @HiveType(typeId: 1)
@@ -10,8 +11,8 @@ class WidgetData {
       required this.posY,
       required this.width,
       required this.height,
-      required this.widgetName,
-      required this.text});
+      required this.text,
+      required this.widgetName});
 
   @HiveField(0)
   int id;
@@ -24,7 +25,7 @@ class WidgetData {
   @HiveField(4)
   double height;
   @HiveField(5)
-  Widget widgetName;
-  @HiveField(6)
   String text;
+  @HiveField(6)
+  Widget widgetName;
 }

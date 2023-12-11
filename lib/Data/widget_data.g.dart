@@ -22,8 +22,8 @@ class WidgetDataAdapter extends TypeAdapter<WidgetData> {
       posY: fields[2] as double,
       width: fields[3] as double,
       height: fields[4] as double,
-      widgetName: fields[5] as Widget,
-      text: fields[6] as String,
+      text: fields[5] as String,
+      widgetName: fields[6] as Widget,
     );
   }
 
@@ -42,9 +42,9 @@ class WidgetDataAdapter extends TypeAdapter<WidgetData> {
       ..writeByte(4)
       ..write(obj.height)
       ..writeByte(5)
-      ..write(obj.widgetName)
+      ..write(obj.text)
       ..writeByte(6)
-      ..write(obj.text);
+      ..write(obj.widgetName);
   }
 
   @override

@@ -1,11 +1,10 @@
-import 'dart:math';
-import 'dart:developer';
 import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/ui/widgets/activites_bar.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../Data/widget_data.dart';
 
 int idCounter = 0;
 bool widgetBarActiveGrid = false;
@@ -104,7 +103,18 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
           if (widget.widgetButtonIcon == Icons.insert_emoticon) {
             widgetBarActiveSvg = !widgetBarActiveSvg;
           }
-
+          var dataModel = WidgetData(
+              id: 0,
+              posX: 0,
+              posY: 0,
+              width: 0,
+              height: 0,
+              text: "text",
+              widgetName: const SizedBox(
+                width: 50,
+                height: 300,
+              ));
+          //context.read<MainBoard>().addHiveData(dataModel);
           context.read<WidgetFunctions>().addThisModel(myModel);
         },
         child: Container(
