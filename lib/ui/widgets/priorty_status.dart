@@ -43,7 +43,14 @@ class PriorityStatus extends StatelessWidget {
 }
 
 class PrioStatusWidget extends StatelessWidget {
-  const PrioStatusWidget({super.key});
+  PrioStatusWidget({super.key});
+
+  final List<String> priorityString = [
+    "Ideas",
+    "In Progress",
+    "Postponed",
+    "Completed"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +58,7 @@ class PrioStatusWidget extends StatelessWidget {
       width: 300,
       height: 300,
       color: Colors.blueGrey.shade100,
-      child: const Center(
+      child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -59,9 +66,10 @@ class PrioStatusWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PriorityStatus(
-                    priorityTitle: "Ideas", selectedColor: Colors.lightBlue),
+                    priorityTitle: priorityString[0],
+                    selectedColor: Colors.lightBlue),
                 PriorityStatus(
-                    priorityTitle: "In Progress",
+                    priorityTitle: priorityString[1],
                     selectedColor: Colors.orangeAccent),
               ],
             ),
@@ -69,10 +77,10 @@ class PrioStatusWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PriorityStatus(
-                    priorityTitle: "Postponed",
+                    priorityTitle: priorityString[2],
                     selectedColor: Colors.redAccent),
                 PriorityStatus(
-                    priorityTitle: "Completed", selectedColor: Colors.green),
+                    priorityTitle: priorityString[3], selectedColor: Colors.green),
               ],
             )
           ],

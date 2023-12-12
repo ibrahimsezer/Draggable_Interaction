@@ -23,6 +23,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
   double areaH1 = 0;
   double myPosX = 0;
   double myPosY = 0;
+  String dataText = "myData";
 
   @override
   void initState() {
@@ -47,7 +48,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
             }
           });
         },
-        data: "myData",
+        data: dataText,
         onDragEnd: (details) {
           setState(() {
             brColor = Colors.black;

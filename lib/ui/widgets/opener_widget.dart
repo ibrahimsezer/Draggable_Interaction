@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'note_widget.dart';
 
 ///Opener Widgets
 class OpenerTopWidget extends StatefulWidget {
@@ -10,6 +8,7 @@ class OpenerTopWidget extends StatefulWidget {
     super.key,
   });
 
+  final String refactorText = "Need refactor !!";
   final double myWidth = 230;
   final double myHeight = 50;
 
@@ -42,12 +41,13 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
             // ));
             context.read<WidgetFunctions>().addItem(WidgetModel(
                 myId: WidgetModel.widgetModelList.length,
-                widget: const NoteWidget(),
+                widget: SizedBox(
+                  width: 50,
+                  height: 100,
+                  child: Text(widget.refactorText),
+                ),
                 isSelected: true));
             WidgetModel.idCount++;
-            log("${WidgetModel.widgetModelList.toList()}");
-            log("${WidgetModel.widgetModelList.length}");
-            log("${WidgetModel.idCount}");
           },
         ),
         OpenerButton(

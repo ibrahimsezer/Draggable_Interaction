@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/ui/widgets/activites_bar.dart';
@@ -30,12 +32,13 @@ String tempText = "";
 class MainBoard extends StatefulWidget with ChangeNotifier {
   MainBoard({super.key});
 
+  String boxName = "widgetDataBox";
   static List<ThisModel> widgets = [];
   static List<Widget> activeWidgetList = [];
   static List<WidgetData> widgetDataList = [];
 
   Future<void> addHiveData(WidgetData model) async {
-    box = await Hive.openBox("widgetDataBox");
+    box = await Hive.openBox(boxName);
     box.put("key_${model.id}_${model.text}", model);
     var values = box.values.toList();
     for (int i = 0; i < box.values.length; i++) {
@@ -89,26 +92,32 @@ class _MainBoardState extends State<MainBoard> {
     double activityBarPosY = screenY * 0.05;
     double activityBarPosX = screenY * 0.02;
 
-///widgetBarActiveGrid
-    checkActivityGridBarPosY(){
+    ///widgetBarActiveGrid
+    checkActivityGridBarPosY() {
       double activityBarPosY1 = activityBarPosY;
-      double activityBarPosY2 = activityBarPosY * 1;
+      double activityBarPosY2 = activityBarPosY;
       return [activityBarPosY1, activityBarPosY2];
     }
+
     List<double> gridBarListY = checkActivityGridBarPosY();
 
     checkActivityGridBarPosX() {
-      double activityBarPosX1 = activityBarPosX * 8;
+      log("X : $screenX | Y: $screenY"); //Pixel 3a API 34 392.72,783.27
+      double activityBarPosX1 =
+          activityBarPosX * 8; //TV 4k X : 960.0 | Y: 540.0
       double activityBarPosX2 = activityBarPosX * 4.5;
       return [activityBarPosX1, activityBarPosX2];
     }
+
     List<double> gridBarListX = checkActivityGridBarPosX();
-///widgetBarActiveSvg
-    checkActivityGridSvgPosY(){
+
+    ///widgetBarActiveSvg
+    checkActivityGridSvgPosY() {
       double activitySvgPosY1 = activityBarPosY * 9.6;
       double activitySvgPosY2 = activityBarPosY * 5;
       return [activitySvgPosY1, activitySvgPosY2];
     }
+
     List<double> gridSvgListY = checkActivityGridSvgPosY();
 
     checkActivityGridSvgPosX() {
@@ -116,8 +125,8 @@ class _MainBoardState extends State<MainBoard> {
       double activitySvgPosX2 = activityBarPosX * 4.5;
       return [activitySvgPosX1, activitySvgPosX2];
     }
-    List<double> gridSvgListX = checkActivityGridSvgPosX();
 
+    List<double> gridSvgListX = checkActivityGridSvgPosX();
 
     return Scaffold(
       extendBody: true,
@@ -172,7 +181,7 @@ class _MainBoardState extends State<MainBoard> {
                       left: (screenY < screenX)
                           ? gridSvgListX[0].toDouble()
                           : gridSvgListX[1].toDouble(),
-                      child: const ActivityGridSvgBar())
+                      child: ActivityGridSvgBar())
                   : const SizedBox();
             },
           ),

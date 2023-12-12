@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../main_board.dart';
 import 'opener_widget.dart';
@@ -45,11 +44,7 @@ class _NoteWidgetState extends State<NoteWidget> {
                     width: 100,
                     color: Colors.orangeAccent,
                     child: TextField(
-                      onChanged: (value) {
-                        log(txtController.text);
-                        log("tempText : $tempText");
-                        tempText = txtController.text;
-                      },
+                      onChanged: (value) {},
                       controller: txtController,
                       textInputAction: TextInputAction.done,
                       onSubmitted: (value) {
