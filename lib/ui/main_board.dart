@@ -40,7 +40,6 @@ class MainBoard extends StatefulWidget with ChangeNotifier {
     var values = box.values.toList();
     for (int i = 0; i < box.values.length; i++) {
       widgetDataList.add(values[i]);
-      print("${widgetDataList.toList()}");
     }
   }
 
@@ -85,6 +84,41 @@ class _MainBoardState extends State<MainBoard> {
 
   @override
   Widget build(BuildContext context) {
+    double screenX = MediaQuery.sizeOf(context).width; //horizontal screen area
+    double screenY = MediaQuery.sizeOf(context).height; //vertical screen area
+    double activityBarPosY = screenY * 0.05;
+    double activityBarPosX = screenY * 0.02;
+
+///widgetBarActiveGrid
+    checkActivityGridBarPosY(){
+      double activityBarPosY1 = activityBarPosY;
+      double activityBarPosY2 = activityBarPosY * 1;
+      return [activityBarPosY1, activityBarPosY2];
+    }
+    List<double> gridBarListY = checkActivityGridBarPosY();
+
+    checkActivityGridBarPosX() {
+      double activityBarPosX1 = activityBarPosX * 8;
+      double activityBarPosX2 = activityBarPosX * 4.5;
+      return [activityBarPosX1, activityBarPosX2];
+    }
+    List<double> gridBarListX = checkActivityGridBarPosX();
+///widgetBarActiveSvg
+    checkActivityGridSvgPosY(){
+      double activitySvgPosY1 = activityBarPosY * 9.6;
+      double activitySvgPosY2 = activityBarPosY * 5;
+      return [activitySvgPosY1, activitySvgPosY2];
+    }
+    List<double> gridSvgListY = checkActivityGridSvgPosY();
+
+    checkActivityGridSvgPosX() {
+      double activitySvgPosX1 = activityBarPosX * 8;
+      double activitySvgPosX2 = activityBarPosX * 4.5;
+      return [activitySvgPosX1, activitySvgPosX2];
+    }
+    List<double> gridSvgListX = checkActivityGridSvgPosX();
+
+
     return Scaffold(
       extendBody: true,
       body: SafeArea(
@@ -103,14 +137,27 @@ class _MainBoardState extends State<MainBoard> {
               );
             },
           ),
-          Positioned(top: 100, left: 5, child: ActivityBar()),
+          Consumer(
+            builder: (context, value, child) {
+              return Positioned(
+                  top: activityBarPosY,
+                  left: activityBarPosX,
+                  child: ActivityBar());
+            },
+          ),
           ...MainBoard.widgets.map((e) => e.widget),
           Consumer<WidgetFunctions>(
             builder:
                 (BuildContext context, WidgetFunctions value, Widget? child) {
               return widgetBarActiveGrid
-                  ? const Positioned(
-                      top: 100, left: 60, child: ActivityGridBar())
+                  ? Positioned(
+                      top: (screenY < screenX)
+                          ? gridBarListY[0].toDouble()
+                          : gridBarListY[1].toDouble(),
+                      left: (screenY < screenX)
+                          ? gridBarListX[0].toDouble()
+                          : gridBarListX[1].toDouble(),
+                      child: const ActivityGridBar())
                   : const SizedBox();
             },
           ),
@@ -118,8 +165,14 @@ class _MainBoardState extends State<MainBoard> {
             builder:
                 (BuildContext context, WidgetFunctions value, Widget? child) {
               return widgetBarActiveSvg
-                  ? const Positioned(
-                      top: 260, left: 60, child: ActivityGridSvgBar())
+                  ? Positioned(
+                      top: (screenY < screenX)
+                          ? gridSvgListY[0].toDouble()
+                          : gridSvgListY[1].toDouble(),
+                      left: (screenY < screenX)
+                          ? gridSvgListX[0].toDouble()
+                          : gridSvgListX[1].toDouble(),
+                      child: const ActivityGridSvgBar())
                   : const SizedBox();
             },
           ),
