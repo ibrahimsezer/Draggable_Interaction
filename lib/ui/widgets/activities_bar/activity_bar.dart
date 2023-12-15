@@ -1,9 +1,12 @@
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
+import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../interface_buttons.dart';
 
 class ActivityBar extends StatefulWidget {
-  ActivityBar({super.key});
+  const ActivityBar({super.key});
 
   @override
   State<ActivityBar> createState() => _ActivityBarState();
@@ -11,7 +14,7 @@ class ActivityBar extends StatefulWidget {
 
 class _ActivityBarState extends State<ActivityBar> {
   bool activeWidgets = false;
-
+  double posZero = 0;
   List gridView = [];
 
   @override
@@ -24,53 +27,59 @@ class _ActivityBarState extends State<ActivityBar> {
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
         children: [
-          const ActivityBarIcon(
-              widgetButtonName: SizedBox(),
-              widgetButtonIcon: Icons.near_me,
-              myWidth: 0,
-              myHeight: 0),
           ActivityBarIcon(
-              widgetButtonName: SizedBox(
-                child: TextField(
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (value) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  textAlign: TextAlign.center,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      decoration: TextDecoration.none),
-                ),
+              widgetButtonName: const SizedBox(),
+              widgetButtonIcon: Icons.near_me,
+              myWidth: posZero,
+              myHeight: posZero),
+          ActivityBarIcon(
+            widgetButtonName: TextField(
+              textInputAction: TextInputAction.done,
+              onSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
+              textAlign: TextAlign.center,
+              maxLines: null,
+              decoration: const InputDecoration(
+                hintText: "Enter Text",
+                border: InputBorder.none,
               ),
-              widgetButtonIcon: Icons.title,
-              myWidth: 20,
-              myHeight: 20),
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            widgetButtonIcon: Icons.title,
+            myWidth: 110,
+            myHeight: 110,
+          ),
           ActivityBarIcon(
               widgetButtonName:
-                  activeWidgets ? const ActivityGridBar() : const SizedBox(),
-              widgetButtonIcon: Icons.check_box_outline_blank,
-              myWidth: 0,
-              myHeight: 0),
-          const ActivityBarIcon(
-              widgetButtonName: SizedBox(),
-              widgetButtonIcon: Icons.insert_emoticon,
-              myWidth: 0,
-              myHeight: 0),
-          const ActivityBarIcon(
-              widgetButtonName: SizedBox(),
+                  activeWidgets ? ActivityGridBar() : const SizedBox(),
+              widgetButtonIcon: Icons.window_outlined,
+              myWidth: posZero,
+              myHeight: posZero),
+          ActivityBarIcon(
+              widgetButtonName: const SizedBox(),
+              widgetButtonIcon: Icons.widgets_outlined,
+              myWidth: posZero,
+              myHeight: posZero),
+          ActivityBarIcon(
+              widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.undo,
-              myWidth: 0,
-              myHeight: 0),
-          const ActivityBarIcon(
-              widgetButtonName: SizedBox(),
+              myWidth: posZero,
+              myHeight: posZero),
+          ActivityBarIcon(
+              widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.redo,
-              myWidth: 0,
-              myHeight: 0),
+              myWidth: posZero,
+              myHeight: posZero),
+          ActivityBarIcon(
+              widgetButtonName: const SizedBox(),
+              widgetButtonIcon: Icons.delete,
+              myWidth: posZero,
+              myHeight: posZero),
         ],
       ),
     );

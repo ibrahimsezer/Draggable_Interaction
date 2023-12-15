@@ -1,5 +1,5 @@
-import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
+import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ bool widgetBarActiveSvg = false;
 
 ///-------------------------Activity_Bar--------------------------------
 class ActivityBarIcon extends StatefulWidget {
-  const ActivityBarIcon({
+  ActivityBarIcon({
     super.key,
     required this.widgetButtonName,
     required this.widgetButtonIcon,
@@ -29,30 +29,40 @@ class ActivityBarIcon extends StatefulWidget {
 
 class _ActivityBarIconState extends State<ActivityBarIcon> {
   Color selectedColor = Colors.black;
+  final double doubleDefaultValue = 100;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          ThisModel myModel = ThisModel(
-              id: idCounter,
-              widget: ModulerWidget(
-                myPosX: MediaQuery.sizeOf(context).width * 0.4,
-                myPosY: MediaQuery.sizeOf(context).height * 0.4,
-                initialWidth: widget.myWidth,
-                initialHeight: widget.myHeight,
-                widgetVariable: widget.widgetButtonName,
-                id: idCounter++,
-              ),
-              isActive: false);
-          if (widget.widgetButtonIcon == Icons.check_box_outline_blank) {
+          WidgetModel myModel = WidgetModel(
+            //test
+            height: doubleDefaultValue,
+            width: doubleDefaultValue,
+            posX: doubleDefaultValue,
+            posY: doubleDefaultValue,
+            id: idCounter,
+            widget: ModularWidget(
+              myPosX: MediaQuery.sizeOf(context).width * 0.4,
+              myPosY: MediaQuery.sizeOf(context).height * 0.4,
+              initialWidth: widget.myWidth,
+              initialHeight: widget.myHeight,
+              widgetVariable: widget.widgetButtonName,
+              id: idCounter++,
+            ),
+          );
+          if (widget.widgetButtonIcon == Icons.window_outlined) {
             widgetBarActiveGrid = !widgetBarActiveGrid;
           }
-          if (widget.widgetButtonIcon == Icons.insert_emoticon) {
+          if (widget.widgetButtonIcon == Icons.widgets_outlined) {
             widgetBarActiveSvg = !widgetBarActiveSvg;
           }
+          if (widget.widgetButtonIcon == Icons.delete) {
+            context.read<WidgetProvider>().allRemoveWidget();
+            print(WidgetModel.widgetModelList.toList());
+          }
 
-          context.read<WidgetFunctions>().addThisModel(myModel);
+          context.read<WidgetProvider>().addWidgetModel(myModel);
         },
         child: Container(
             color: Colors.white,

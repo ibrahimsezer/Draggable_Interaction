@@ -1,6 +1,7 @@
 #MainBoard.dart
 
 -ChangeNotifier and Stateful Widget will be separated
++
 -Try-catch can be used in Hive operations
 -Dart functions that can be used instead of for in list iterations will be checked.
 
@@ -36,7 +37,6 @@ boxPersons.clear();
 #main.dart
 await Hive.initFlutter();
 Hive.registerAdapter(WidgetDataAdapter());
-
 
 add dependencies
 create class

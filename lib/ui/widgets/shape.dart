@@ -16,7 +16,7 @@ class _RectangleShapeWidgetState extends State<RectangleShapeWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+      BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
       child: TextField(
         textInputAction: TextInputAction.done,
         onSubmitted: (value) {
@@ -136,7 +136,7 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
           height: 100,
           decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(width: 2, color: Colors.black)),
+              border: Border.all(width: 2, color: Colors.white)),
           child: TextField(
             textInputAction: TextInputAction.done,
             onSubmitted: (value) {
@@ -159,16 +159,20 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
 ///-----------------------------------------------
 
 class CustomTriangleClipper extends CustomClipper<Path> {
+  final double startFraction;
+  final double endFraction;
+
+  CustomTriangleClipper({this.startFraction = 0.5, this.endFraction = 1.0});
+
   @override
   Path getClip(Size size) {
     final path = Path()
-      ..moveTo(size.width / 2, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
+      ..moveTo(size.width *startFraction, size.height)
+      ..lineTo(size.width * endFraction, 0)..lineTo(0, 0)
       ..close();
     return path;
   }
-
+///height ,0,0 vertical triangle |triangle 0,0,height
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return false;
@@ -255,7 +259,7 @@ class _RhombusShapeWidgetState extends State<RhombusShapeWidget> {
       angle: -pi / 4,
       child: Container(
         decoration:
-            BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+        BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
         child: TextField(
           textInputAction: TextInputAction.done,
           onSubmitted: (value) {

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 
-class ModulerWidget extends StatefulWidget {
+class ModularWidget extends StatefulWidget {
   double initialHeight;
   double initialWidth;
   double myPosX;
@@ -9,7 +9,7 @@ class ModulerWidget extends StatefulWidget {
   final Widget widgetVariable;
   final int id;
 
-  ModulerWidget(
+  ModularWidget(
       {super.key,
       required this.myPosX,
       required this.myPosY,
@@ -19,10 +19,10 @@ class ModulerWidget extends StatefulWidget {
       required this.id});
 
   @override
-  State<ModulerWidget> createState() => _ModulerWidgetState();
+  State<ModularWidget> createState() => _ModularWidgetState();
 }
 
-class _ModulerWidgetState extends State<ModulerWidget> {
+class _ModularWidgetState extends State<ModularWidget> {
   late double areaW;
   late double areaH;
   bool isResizing = false;
@@ -72,9 +72,9 @@ class _ModulerWidgetState extends State<ModulerWidget> {
                   widget.initialWidth += dx;
                   widget.initialHeight += dy;
                   startPosition = details.localPosition;
-                } else if (widget.initialHeight < 1) {
+                } else if (widget.initialHeight < 35) {
                   widget.initialHeight += 1;
-                } else if (widget.initialWidth < 1) {
+                } else if (widget.initialWidth < 35) {
                   widget.initialWidth += 1;
                 }
               }

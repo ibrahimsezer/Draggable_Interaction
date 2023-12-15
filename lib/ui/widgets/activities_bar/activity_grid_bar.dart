@@ -4,7 +4,10 @@ import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 
 class ActivityGridBar extends StatelessWidget {
-  const ActivityGridBar({super.key});
+   ActivityGridBar({super.key});
+
+   double defaultHeight = 100;
+   double defaultWidth = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -15,61 +18,61 @@ class ActivityGridBar extends StatelessWidget {
       child: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4),
-          children: const [
+          children:   [
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: StickyNoteWidget(
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const StickyNoteWidget(
                   initialColor: Color.fromRGBO(190, 49, 68, 1)),
               widgetButtonIcon: Icons.sticky_note_2,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: StarWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const StarWidget(),
               widgetButtonIcon: Icons.star,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: RightArrowWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const RightArrowWidget(),
               widgetButtonIcon: Icons.arrow_right_alt,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: EllipseShapeWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const EllipseShapeWidget(),
               widgetButtonIcon: Icons.circle_outlined,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: RectangleShapeWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const RectangleShapeWidget(),
               widgetButtonIcon: Icons.rectangle,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: RoundedRectangleShapeWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const RoundedRectangleShapeWidget(),
               widgetButtonIcon: Icons.rounded_corner,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: RhombusShapeWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const RhombusShapeWidget(),
               widgetButtonIcon: Icons.format_shapes,
             ),
             ActivityBarIcon(
-              myHeight: 100,
-              myWidth: 100,
-              widgetButtonName: CircleWidget(),
+              myHeight: defaultHeight,
+              myWidth: defaultWidth,
+              widgetButtonName: const CircleWidget(),
               widgetButtonIcon: Icons.circle,
             ),
             ActivityBarIcon(
-                widgetButtonName: TriangleShapeWidget(),
+                widgetButtonName: const TriangleShapeWidget(),
                 widgetButtonIcon: Icons.play_arrow_rounded,
-                myWidth: 100,
-                myHeight: 100),
+                myWidth: defaultHeight,
+                myHeight: defaultWidth),
           ]),
     );
   }

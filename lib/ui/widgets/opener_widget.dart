@@ -1,6 +1,4 @@
-import 'package:draggable_example/model/widget_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 ///Opener Widgets
 class OpenerTopWidget extends StatefulWidget {
@@ -36,18 +34,6 @@ class _OpenerTopWidgetState extends State<OpenerTopWidget> {
         OpenerButton(
           barIcons: const Icon(Icons.copy),
           action: () {
-            // context.read<PageDraggable>().addWidget(NoteWidget(
-            //   getText: tempText,
-            // ));
-            context.read<WidgetFunctions>().addItem(WidgetModel(
-                myId: WidgetModel.widgetModelList.length,
-                widget: SizedBox(
-                  width: 50,
-                  height: 100,
-                  child: Text(widget.refactorText),
-                ),
-                isSelected: true));
-            WidgetModel.idCount++;
           },
         ),
         OpenerButton(

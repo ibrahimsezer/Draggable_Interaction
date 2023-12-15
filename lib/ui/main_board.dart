@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:draggable_example/model/this_model.dart';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
@@ -75,7 +74,7 @@ class _MainBoardState extends State<MainBoard> {
       extendBody: true,
       body: SafeArea(
         child: Stack(children: <Widget>[
-          Consumer<WidgetFunctions>(
+          Consumer<WidgetProvider>(
             builder: (context, value, child) {
               return InteractiveViewer(
                 minScale: 1,
@@ -83,24 +82,24 @@ class _MainBoardState extends State<MainBoard> {
                 child: Stack(
                   children: [
                     AbsorbPointer(child: getGridBackground),
-                    ...ThisModel.thisModelList.map((e) => e.widget),
+                    ...WidgetModel.widgetModelList.map((e) => e.widget),
                   ],
                 ),
               );
             },
           ),
-          Consumer(
+          Consumer<WidgetProvider>(
             builder: (context, value, child) {
               return Positioned(
                   top: activityBarPosY,
                   left: activityBarPosX,
-                  child: ActivityBar());
+                  child: const ActivityBar());
             },
           ),
-          ...WidgetProvider.widgets.map((e) => e.widget),
-          Consumer<WidgetFunctions>(
+          ...WidgetModel.widgetModelList.map((e) => e.widget),
+          Consumer<WidgetProvider>(
             builder:
-                (BuildContext context, WidgetFunctions value, Widget? child) {
+                (BuildContext context, WidgetProvider value, Widget? child) {
               return widgetBarActiveGrid
                   ? Positioned(
                       top: (screenY < screenX)
@@ -109,13 +108,13 @@ class _MainBoardState extends State<MainBoard> {
                       left: (screenY < screenX)
                           ? gridBarListX[0].toDouble()
                           : gridBarListX[1].toDouble(),
-                      child: const ActivityGridBar())
+                      child: ActivityGridBar())
                   : const SizedBox();
             },
           ),
-          Consumer<WidgetFunctions>(
+          Consumer<WidgetProvider>(
             builder:
-                (BuildContext context, WidgetFunctions value, Widget? child) {
+                (BuildContext context, WidgetProvider value, Widget? child) {
               return widgetBarActiveSvg
                   ? Positioned(
                       top: (screenY < screenX)
