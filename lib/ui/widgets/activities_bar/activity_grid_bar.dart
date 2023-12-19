@@ -4,10 +4,10 @@ import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 
 class ActivityGridBar extends StatelessWidget {
-   ActivityGridBar({super.key});
+  ActivityGridBar({super.key});
 
-   double defaultHeight = 100;
-   double defaultWidth = 100;
+  double defaultHeight = 100;
+  double defaultWidth = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ActivityGridBar extends StatelessWidget {
       child: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4),
-          children:   [
+          children: [
             ActivityBarIcon(
               myHeight: defaultHeight,
               myWidth: defaultWidth,
@@ -71,8 +71,8 @@ class ActivityGridBar extends StatelessWidget {
             ActivityBarIcon(
                 widgetButtonName: const TriangleShapeWidget(),
                 widgetButtonIcon: Icons.play_arrow_rounded,
-                myWidth: defaultHeight,
-                myHeight: defaultWidth),
+                myWidth: defaultWidth,
+                myHeight: defaultHeight),
           ]),
     );
   }

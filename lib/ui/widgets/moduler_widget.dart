@@ -58,8 +58,8 @@ class _ModularWidgetState extends State<ModularWidget> {
               if (!isResizing) {
                 widget.myPosX += details.delta.dx;
                 widget.myPosY += details.delta.dy;
-                widget.myPosX = widget.myPosX.clamp(0, areaW);
-                widget.myPosY = widget.myPosY.clamp(0, areaH);
+                // widget.myPosX = widget.myPosX.clamp(0, areaW);
+                // widget.myPosY = widget.myPosY.clamp(0, areaH);
               }
               if (isResizing) {
                 if ((widget.initialWidth >= 25 && widget.initialHeight >= 25) &&
