@@ -39,8 +39,8 @@ class _ModularWidgetState extends State<ModularWidget> {
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
-        top: gridY,
-        left: gridX,
+        top: widget.myPosY,
+        left: widget.myPosX,
         height: widget.initialHeight,
         width: widget.initialWidth,
         child: GestureDetector(
@@ -60,8 +60,8 @@ class _ModularWidgetState extends State<ModularWidget> {
           onPanUpdate: (details) {
             setState(() {
               if (!isResizing) {
-                gridX += details.delta.dx;
-                gridY += details.delta.dy;
+                widget.myPosX += details.delta.dx;
+                widget.myPosY += details.delta.dy;
                 // widget.myPosX = widget.myPosX.clamp(0, areaW);
                 // widget.myPosY = widget.myPosY.clamp(0, areaH);
               }

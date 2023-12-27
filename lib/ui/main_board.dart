@@ -80,7 +80,9 @@ class _MainBoardState extends State<MainBoard> {
           Consumer<WidgetProvider>(
             builder: (context, value, child) {
               log("ModularWidget - GridX: ${gridValues1[0]}, GridY: ${gridValues1[1]}");
-              return getCanvasBackground;
+              return Stack(children: [
+                getCanvasBackground,
+              ]);
             },
           ),
           Consumer<WidgetProvider>(

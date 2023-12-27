@@ -17,25 +17,42 @@ class CanvasBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //todo Add '...WidgetModel.widgetModelList.map((e) => e.widget)' for showing in TwoDimensionalGridView
-    return TwoDimensionalGridView(
-      diagonalDragBehavior: DiagonalDragBehavior.free,
-      delegate: TwoDimensionalChildBuilderDelegate(
-          maxXIndex: 4,
-          maxYIndex: 3,
-          builder: (BuildContext context, ChildVicinity vicinity) {
-            return Container(
-              color: vicinity.xIndex.isEven && vicinity.yIndex.isEven
-                  ? Colors.amber[50]
-                  : (vicinity.xIndex.isOdd && vicinity.yIndex.isOdd
-                      ? Colors.purple[50]
-                      : null),
-              height: 200,
-              width: 200,
-              child: Center(
-                  child: Text(
-                      'Row ${vicinity.yIndex}: Column ${vicinity.xIndex}')),
-            );
-          }),
+    return Consumer<WidgetProvider>(
+      builder: (BuildContext context, WidgetProvider value, Widget? child) {
+        return Stack(
+          children: [
+            TwoDimensionalGridView(
+              diagonalDragBehavior: DiagonalDragBehavior.free,
+              delegate: TwoDimensionalChildBuilderDelegate(
+                  maxXIndex: 4,
+                  maxYIndex: 3,
+                  builder: (BuildContext context, ChildVicinity vicinity) {
+                    return Container(
+                      color: vicinity.xIndex.isEven && vicinity.yIndex.isEven
+                          ? Colors.amber[50]
+                          : (vicinity.xIndex.isOdd && vicinity.yIndex.isOdd
+                              ? Colors.purple[50]
+                              : null),
+                      height: 200,
+                      width: 200,
+                      child: Center(
+                          child: Text(
+                              'Row ${vicinity.yIndex}: Column ${vicinity.xIndex}')),
+                    );
+                  }),
+            ),
+            // Positioned(
+            //     top: 100,
+            //     left: 100,
+            //     child: Container(
+            //       color: Colors.red,
+            //       width: 100,
+            //       height: 100,
+            //     )),
+            ...WidgetModel.widgetModelList.map((e) => e.widget)
+          ],
+        );
+      },
     );
   }
 }
