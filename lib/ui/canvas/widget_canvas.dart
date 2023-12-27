@@ -6,7 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-
 import '../../model/widget_model.dart';
 
 class CanvasBackground extends StatelessWidget {
@@ -41,14 +40,6 @@ class CanvasBackground extends StatelessWidget {
                     );
                   }),
             ),
-            // Positioned(
-            //     top: 100,
-            //     left: 100,
-            //     child: Container(
-            //       color: Colors.red,
-            //       width: 100,
-            //       height: 100,
-            //     )),
             ...WidgetModel.widgetModelList.map((e) => e.widget)
           ],
         );
@@ -164,16 +155,31 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
 
   @override
   void layoutChildSequence() {
+    ///TR horizontalPixels ve verticalPixels, yatay ve dikey kaydırma değerlerini temsil eder.
+    ///EN horizontalPixels and verticalPixels represent horizontal and vertical scroll values.
     final double horizontalPixels = horizontalOffset.pixels;
     final double verticalPixels = verticalOffset.pixels;
+
+    ///TR viewportWidth ve viewportHeight, viewport'un genişlik ve yüksekliğini temsil eder.
+    ///EN viewportWidth and viewportHeight represent the width and height of the viewport.
     final double viewportWidth = viewportDimension.width + cacheExtent;
     final double viewportHeight = viewportDimension.height + cacheExtent;
+
+    ///TR builderDelegate, TwoDimensionalChildBuilderDelegate türündeki bir delegeyi temsil eder.
+    ///EN builderDelegate represents a delegate of type TwoDimensionalChildBuilderDelegate.
     final TwoDimensionalChildBuilderDelegate builderDelegate =
         delegate as TwoDimensionalChildBuilderDelegate;
 
+    ///TR maxRowIndex ve maxColumnIndex, sırasıyla en büyük satır ve sütun indekslerini temsil eder.
+    ///EN maxRowIndex and maxColumnIndex represent the largest row and column indexes, respectively.
     final int maxRowIndex = builderDelegate.maxYIndex!;
     final int maxColumnIndex = builderDelegate.maxXIndex!;
 
+    ///TR leadingColumn, leadingRow, trailingColumn, ve trailingRow, görünen sütun ve
+    /// satır aralıklarını hesaplar. Bu, kullanıcının mevcut kaydırma konumuna bağlı olarak görünen ızgarayı belirler.
+    ///EN leadingColumn, leadingRow, trailingColumn, and trailingRow calculate visible
+    /// column and row spacing. This determines the grid that appears based
+    /// on the user's current scrolling position.
     final int leadingColumn = math.max((horizontalPixels / 200).floor(), 0);
     final int leadingRow = math.max((verticalPixels / 200).floor(), 0);
     final int trailingColumn = math.min(
@@ -185,6 +191,11 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
       maxRowIndex,
     );
 
+    ///TR İki iç içe döngü, görünen sütun ve satırlar arasında dolaşarak her bir çocuk elemanın düzenini hesaplar.
+    /// Çocuk elemanların yerleşim ofseti, xLayoutOffset ve yLayoutOffset kullanılarak ayarlanır.
+    ///EN Two nested loops calculate the layout of each child element by looping
+    /// through the visible columns and rows. The layout offset of child elements
+    /// is set using xLayoutOffset and yLayoutOffset.
     double xLayoutOffset = (leadingColumn * 200) - horizontalOffset.pixels;
     for (int column = leadingColumn; column <= trailingColumn; column++) {
       double yLayoutOffset = (leadingRow * 200) - verticalOffset.pixels;
@@ -202,10 +213,18 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
       xLayoutOffset += 200;
       yVariableGet = yLayoutOffset;
     }
+
+    ///TR gridX ve gridY, viewport genişliği ve yüksekliği üzerinden alınan eksen değerlerini temsil eder.
+    ///EN gridX and gridY represent axis values ​​taken over the viewport width and height.
     gridX = getAxisX(viewportWidth);
     gridY = getAxisY(viewportHeight);
 
     // Set the min and max scroll extents for each axis.
+
+    ///TR verticalOffset ve horizontalOffset, dikey ve yatay kaydırma sınırlarını belirler.
+    /// Bu sınırlar, 200 birimlik ızgaraların toplam uzunluğuna bağlı olarak ayarlanır.
+    /// EN verticalOffset and horizontalOffset determine the vertical and horizontal
+    /// scrolling limits. These limits are set based on the total length of the 200-unit grids.
     final double verticalExtent = 200 * (maxRowIndex + 1);
     verticalOffset.applyContentDimensions(
       0.0,
@@ -218,26 +237,5 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
       clampDouble(
           horizontalExtent - viewportDimension.width, 0.0, double.infinity),
     );
-  }
-}
-
-class TwoAxisWidget extends StatefulWidget {
-  const TwoAxisWidget({super.key});
-
-  @override
-  State<TwoAxisWidget> createState() => _TwoAxisWidgetState();
-}
-
-class _TwoAxisWidgetState extends State<TwoAxisWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-        top: 100,
-        left: 100,
-        child: Container(
-          color: Colors.red,
-          width: 100,
-          height: 100,
-        ));
   }
 }

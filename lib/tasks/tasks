@@ -1,10 +1,9 @@
+___________________________________________________________
 #MainBoard.dart
-
--ChangeNotifier and Stateful Widget will be separated
-+
+-ChangeNotifier and Stateful Widget will be separated+
 -Try-catch can be used in Hive operations
 -Dart functions that can be used instead of for in list iterations will be checked.
-
+___________________________________________________________
 #shape.dart
 
 -We can take the triangle starting point and angle as parameters for CustomClipper expansion
@@ -17,23 +16,22 @@ final double width
 final double height
 final Color borderColor
 const CustomTriangleClipper({this.width = 100,this.height = 100,this.borderColor = Colors.black})
-
+___________________________________________________________
 Widget frames remain unclickable after resizing
 Widget delete with using topBarMenu
-Right and bottom frames not locked. Lock this
 Edit widget button folder
 Save widget info in database
 Group widgets
 Add widget in board
 Move widget to front or back
 Create hive database
-
+___________________________________________________________
 #widget_provider.dart
 boxPersons = await Hive.openBox<Person>('personBox');
 boxPersons.put
 boxPersons.deleteAt(index);
 boxPersons.clear();
-
+___________________________________________________________
 #main.dart
 await Hive.initFlutter();
 Hive.registerAdapter(WidgetDataAdapter());
@@ -45,7 +43,9 @@ init flutter
 register adapter
 openbox create box file
 get | put | deleteAt | clear
-
+___________________________________________________________
 pin draggable widgets in canvas (position and size saved)
 The widget size should be calculated based on the canvas size, not the visible screen.
 canvas boundaries should be determined or an endless canvas should be made
+___________________________________________________________
+Change activity bar position for every screen size (mobile,tv,etc.)
