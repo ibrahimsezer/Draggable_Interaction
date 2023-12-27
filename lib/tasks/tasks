@@ -49,3 +49,26 @@ The widget size should be calculated based on the canvas size, not the visible s
 canvas boundaries should be determined or an endless canvas should be made
 ___________________________________________________________
 Change activity bar position for every screen size (mobile,tv,etc.)
+
+___________________________________________________________
+widget left top coordinate = 0,0
+screen left | RenderTwoDimensionalGridViewport.horizontalGlobalPixels
+screen top |RenderTwoDimensionalGridViewport.verticalGlobalPixels
+
+-Ekran hangi noktaya doğru kayıyorsa, widget'ları tam tersine aynı değerde kaydırma işlemi için kontrol yapılmalı.
+
+if screen.isSlideForLeft:
+	widget.slideHorizontalValue -= widget.horizontal;
+if screen.isSlideForRight:
+	widget.slideHorizontalValue += widget.horizontal;
+if screen.isSlideForTop:
+	widget.slideVerticalValue += widget.vertical;
+if screen.isSlideForBottom:
+	widget.slideVerticalValue -= widget.vertical;
+
+    screenCoord              | WidgetCoord
+    horizontalGlobalPixels          myPosX
+    verticalGlobalPixels            myPosY
+	                0 , 100
+	                100 , 200
+	                200 , 300
