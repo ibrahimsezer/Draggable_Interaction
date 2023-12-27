@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
+import 'package:draggable_example/ui/canvas/widget_canvas.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
@@ -26,6 +27,7 @@ class MainBoard extends StatefulWidget {
 
 class _MainBoardState extends State<MainBoard> {
   Widget getGridBackground = const GridBackground();
+  Widget getCanvasBackground = const CanvasBackground();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,7 @@ class _MainBoardState extends State<MainBoard> {
     }
 
     List<double> gridSvgListX = checkActivityGridSvgPosX();
+    List<double> gridValues1 = RenderTwoDimensionalGridViewport.getGridValues();
 
     return Scaffold(
       extendBody: true,
@@ -76,16 +79,8 @@ class _MainBoardState extends State<MainBoard> {
         child: Stack(children: <Widget>[
           Consumer<WidgetProvider>(
             builder: (context, value, child) {
-              return InteractiveViewer(
-                minScale: 1,
-                maxScale: 1000,
-                child: Stack(
-                  children: [
-                    AbsorbPointer(child: getGridBackground),
-                    ...WidgetModel.widgetModelList.map((e) => e.widget),
-                  ],
-                ),
-              );
+              log("ModularWidget - GridX: ${gridValues1[0]}, GridY: ${gridValues1[1]}");
+              return getCanvasBackground;
             },
           ),
           Consumer<WidgetProvider>(
@@ -96,7 +91,6 @@ class _MainBoardState extends State<MainBoard> {
                   child: const ActivityBar());
             },
           ),
-          ...WidgetModel.widgetModelList.map((e) => e.widget),
           Consumer<WidgetProvider>(
             builder:
                 (BuildContext context, WidgetProvider value, Widget? child) {

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:draggable_example/ui/canvas/widget_canvas.dart';
 import 'package:flutter/material.dart';
 
 class ModularWidget extends StatefulWidget {
@@ -32,11 +33,14 @@ class _ModularWidgetState extends State<ModularWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<double> gridValues = RenderTwoDimensionalGridViewport.getGridValues();
+    double gridX = gridValues[0];
+    double gridY = gridValues[1];
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
     return Positioned(
-        top: widget.myPosY,
-        left: widget.myPosX,
+        top: gridY,
+        left: gridX,
         height: widget.initialHeight,
         width: widget.initialWidth,
         child: GestureDetector(
@@ -56,8 +60,8 @@ class _ModularWidgetState extends State<ModularWidget> {
           onPanUpdate: (details) {
             setState(() {
               if (!isResizing) {
-                widget.myPosX += details.delta.dx;
-                widget.myPosY += details.delta.dy;
+                gridX += details.delta.dx;
+                gridY += details.delta.dy;
                 // widget.myPosX = widget.myPosX.clamp(0, areaW);
                 // widget.myPosY = widget.myPosY.clamp(0, areaH);
               }

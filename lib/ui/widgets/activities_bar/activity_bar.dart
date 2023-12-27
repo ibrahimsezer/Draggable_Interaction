@@ -1,8 +1,5 @@
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
-import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import '../interface_buttons.dart';
 
 class ActivityBar extends StatefulWidget {

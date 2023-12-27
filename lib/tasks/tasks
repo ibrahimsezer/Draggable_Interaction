@@ -45,3 +45,7 @@ init flutter
 register adapter
 openbox create box file
 get | put | deleteAt | clear
+
+pin draggable widgets in canvas (position and size saved)
+The widget size should be calculated based on the canvas size, not the visible screen.
+canvas boundaries should be determined or an endless canvas should be made

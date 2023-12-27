@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
@@ -37,8 +39,8 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
         onTap: () {
           WidgetModel myModel = WidgetModel(
             //test
-            height: doubleDefaultValue,
-            width: doubleDefaultValue,
+            height: widget.myHeight,
+            width: widget.myWidth,
             posX: doubleDefaultValue,
             posY: doubleDefaultValue,
             id: idCounter,
@@ -61,7 +63,6 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
             context.read<WidgetProvider>().allRemoveWidget();
             print(WidgetModel.widgetModelList.toList());
           }
-
           context.read<WidgetProvider>().addWidgetModel(myModel);
         },
         child: Container(

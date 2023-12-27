@@ -3,6 +3,8 @@ import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../canvas/widget_canvas.dart';
+
 class ActivityGridBar extends StatelessWidget {
   ActivityGridBar({super.key});
 
