@@ -24,6 +24,8 @@ class _ActivityBarState extends State<ActivityBar> {
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
         children: [
+          //todo change Activity Bar, must be without widget create.
+          //todo make activityBarIcon activated with another button.
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.near_me,

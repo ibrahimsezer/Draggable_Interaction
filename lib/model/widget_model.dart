@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class WidgetModel {
+  //todo must be posX,Y value integrated with ModulerWidget
   final int id;
   final Widget widget;
-  final double posX;
-  final double posY;
+   double posX;
+   double posY;
   final double width;
   final double height;
 

@@ -24,6 +24,7 @@ class ModularWidget extends StatefulWidget {
 }
 
 class _ModularWidgetState extends State<ModularWidget> {
+  //todo The POS values coming from the modular widget must be the same as the other POS values.
   late double areaW;
   late double areaH;
   bool isResizing = false;

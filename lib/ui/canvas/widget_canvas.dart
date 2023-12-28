@@ -8,10 +8,25 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import '../../model/widget_model.dart';
 
-class CanvasBackground extends StatelessWidget {
+class CanvasBackground extends StatefulWidget {
   const CanvasBackground({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<CanvasBackground> createState() => _CanvasBackgroundState();
+}
+
+class _CanvasBackgroundState extends State<CanvasBackground> {
+  String getInfoText(param) {
+    return 'Row ${param.yIndex}: Column ${param.xIndex}'
+        '\nHorizontal : ${RenderTwoDimensionalGridViewport.horizontalGlobalPixels}'
+        '\nVertical : ${RenderTwoDimensionalGridViewport.verticalGlobalPixels}'
+        '\n viewW : ${RenderTwoDimensionalGridViewport.viewportW}'
+        '\n viewH : ${RenderTwoDimensionalGridViewport.viewportH}'
+        '\n MQ : ${MediaQuery.sizeOf(context).height}'
+        '\n WidPos : ${WidgetModel.widgetModelList.toList()}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +48,7 @@ class CanvasBackground extends StatelessWidget {
                               : null),
                       height: 200,
                       width: 200,
-                      child: Center(
-                          child: Text(
-                              'Row ${vicinity.yIndex}: Column ${vicinity.xIndex}'
-                              '\nHorizontal : ${RenderTwoDimensionalGridViewport.horizontalGlobalPixels}'
-                              '\nVertical : ${RenderTwoDimensionalGridViewport.verticalGlobalPixels}')),
+                      child: Center(child: Text(getInfoText(vicinity))),
                     );
                   }),
             ),
@@ -125,6 +136,12 @@ class TwoDimensionalGridViewport extends TwoDimensionalViewport {
       ..delegate = delegate
       ..cacheExtent = cacheExtent
       ..clipBehavior = clipBehavior;
+
+    WidgetProvider().movingWidgetsWithCanvas(
+        horizontalOffset.pixels,
+        verticalOffset.pixels,
+        RenderTwoDimensionalGridViewport.horizontalGlobalPixels,
+        RenderTwoDimensionalGridViewport.verticalGlobalPixels);
   }
 }
 
@@ -145,6 +162,10 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
   static double gridY = 0.0;
   static double horizontalGlobalPixels = 0.0;
   static double verticalGlobalPixels = 0.0;
+  static double viewportW = 0.0;
+  static double viewportH = 0.0;
+  static double extentV = 0.0;
+  static double extentH = 0.0;
 
   static double getCoordinate(axis) => axis;
 
@@ -160,7 +181,7 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
     final double horizontalPixels = horizontalOffset.pixels;
     final double verticalPixels = verticalOffset.pixels;
 
-    ///TR viewportWidth ve viewportHeight, viewport'un genişlik ve yüksekliğini temsil eder.
+    ///TR viewportWidth ve viewportHeight, viewport'un genişlik ve yüksekliğini temsil eder. (Görünen Alan)
 
     ///EN viewportWidth and viewportHeight represent the width and height of the viewport.
     final double viewportWidth = viewportDimension.width + cacheExtent;
@@ -225,6 +246,10 @@ class RenderTwoDimensionalGridViewport extends RenderTwoDimensionalViewport {
     gridY = getCoordinate(viewportHeight);
     horizontalGlobalPixels = getCoordinate(horizontalPixels);
     verticalGlobalPixels = getCoordinate(verticalPixels);
+    viewportW = getCoordinate(viewportWidth);
+    viewportH = getCoordinate(viewportHeight);
+    extentV = getCoordinate(extentV);
+    extentH = getCoordinate(extentH);
     // Set the min and max scroll extents for each axis.
 
     ///TR verticalOffset ve horizontalOffset, dikey ve yatay kaydırma sınırlarını belirler.
