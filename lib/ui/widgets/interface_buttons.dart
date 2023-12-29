@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
@@ -16,14 +14,14 @@ class ActivityBarIcon extends StatefulWidget {
     super.key,
     required this.widgetButtonName,
     required this.widgetButtonIcon,
-    required this.myWidth,
-    required this.myHeight,
+    required this.activityBarWidth,
+    required this.activityBarHeight,
   });
 
   final Widget widgetButtonName;
   final IconData widgetButtonIcon;
-  final double myWidth;
-  final double myHeight;
+  final double activityBarWidth;
+  final double activityBarHeight;
 
   @override
   State<ActivityBarIcon> createState() => _ActivityBarIconState();
@@ -39,17 +37,17 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
         onTap: () {
           WidgetModel myModel = WidgetModel(
             //test
-            height: widget.myHeight,
-            width: widget.myWidth,
+            height: widget.activityBarHeight,
+            width: widget.activityBarWidth,
             posX: doubleDefaultValue,
             posY: doubleDefaultValue,
             id: idCounter,
             widget: ModularWidget(
-              myPosX: MediaQuery.sizeOf(context).width * 0.4,
-              myPosY: MediaQuery.sizeOf(context).height * 0.4,
-              initialWidth: widget.myWidth,
-              initialHeight: widget.myHeight,
-              widgetVariable: widget.widgetButtonName,
+              modularPosX: MediaQuery.sizeOf(context).width * 0.4,
+              modularPosY: MediaQuery.sizeOf(context).height * 0.4,
+              modularWidth: widget.activityBarWidth,
+              modularHeight: widget.activityBarHeight,
+              modularWidget: widget.widgetButtonName,
               id: idCounter++,
             ),
           );

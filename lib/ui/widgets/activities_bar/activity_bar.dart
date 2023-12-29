@@ -29,8 +29,8 @@ class _ActivityBarState extends State<ActivityBar> {
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.near_me,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
           ActivityBarIcon(
             widgetButtonName: TextField(
               textInputAction: TextInputAction.done,
@@ -50,35 +50,35 @@ class _ActivityBarState extends State<ActivityBar> {
               ),
             ),
             widgetButtonIcon: Icons.title,
-            myWidth: 110,
-            myHeight: 110,
+            activityBarWidth: 110,
+            activityBarHeight: 110,
           ),
           ActivityBarIcon(
               widgetButtonName:
                   activeWidgets ? ActivityGridBar() : const SizedBox(),
               widgetButtonIcon: Icons.window_outlined,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.widgets_outlined,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.undo,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.redo,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.delete,
-              myWidth: posZero,
-              myHeight: posZero),
+              activityBarWidth: posZero,
+              activityBarHeight: posZero),
         ],
       ),
     );

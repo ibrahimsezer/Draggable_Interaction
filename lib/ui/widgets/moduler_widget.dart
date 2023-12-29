@@ -1,22 +1,22 @@
-import 'dart:developer';
-import 'package:draggable_example/ui/canvas/widget_canvas.dart';
+import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ModularWidget extends StatefulWidget {
-  double initialHeight;
-  double initialWidth;
-  double myPosX;
-  double myPosY;
-  final Widget widgetVariable;
   final int id;
+  final Widget modularWidget;
+  double modularPosX;
+  double modularPosY;
+  double modularWidth;
+  double modularHeight;
 
   ModularWidget(
       {super.key,
-      required this.myPosX,
-      required this.myPosY,
-      required this.initialHeight,
-      required this.initialWidth,
-      required this.widgetVariable,
+      required this.modularPosX,
+      required this.modularPosY,
+      required this.modularHeight,
+      required this.modularWidth,
+      required this.modularWidget,
       required this.id});
 
   @override
@@ -34,63 +34,60 @@ class _ModularWidgetState extends State<ModularWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<double> gridValues = RenderTwoDimensionalGridViewport.getGridValues();
-    double gridX = gridValues[0];
-    double gridY = gridValues[1];
     areaW = MediaQuery.sizeOf(context).width;
     areaH = MediaQuery.sizeOf(context).height;
-    return Positioned(
-        top: widget.myPosY,
-        left: widget.myPosX,
-        height: widget.initialHeight,
-        width: widget.initialWidth,
-        child: GestureDetector(
-          onTap: () {
-            int clickedWidgetId = widget.id; //clicked widget ID
-            log("onTap -----------> $clickedWidgetId");
-          },
-          onPanStart: (details) {
-            if (details.localPosition.dx >= widget.initialWidth - 20 &&
-                details.localPosition.dy >= widget.initialHeight - 20) {
-              setState(() {
-                isResizing = true;
-                startPosition = details.localPosition;
-              });
-            }
-          },
-          onPanUpdate: (details) {
-            setState(() {
-              if (!isResizing) {
-                widget.myPosX += details.delta.dx;
-                widget.myPosY += details.delta.dy;
-                // widget.myPosX = widget.myPosX.clamp(0, areaW);
-                // widget.myPosY = widget.myPosY.clamp(0, areaH);
-              }
-              if (isResizing) {
-                if ((widget.initialWidth >= 25 && widget.initialHeight >= 25) &&
-                    (widget.initialWidth <= areaW &&
-                        widget.initialHeight <= areaH) &&
-                    (startPosition.dx <= areaW && startPosition.dy >= 0) &&
-                    (startPosition.dy <= areaH && startPosition.dy >= 0)) {
-                  double dx = details.localPosition.dx - startPosition.dx;
-                  double dy = details.localPosition.dy - startPosition.dy;
-                  widget.initialWidth += dx;
-                  widget.initialHeight += dy;
+    return Consumer<WidgetProvider>(builder: (c, widgetProvider, w) {
+      return Positioned(
+          top: widget.modularPosY + widgetProvider.posOffsetY,
+          left: widget.modularPosX + widgetProvider.posOffsetX,
+          height: widget.modularHeight,
+          width: widget.modularWidth,
+          child: GestureDetector(
+            onTap: () {
+              int clickedWidgetId = widget.id; //clicked widget ID
+            },
+            onPanStart: (details) {
+              if (details.localPosition.dx >= widget.modularWidth - 20 &&
+                  details.localPosition.dy >= widget.modularHeight - 20) {
+                setState(() {
+                  isResizing = true;
                   startPosition = details.localPosition;
-                } else if (widget.initialHeight < 35) {
-                  widget.initialHeight += 1;
-                } else if (widget.initialWidth < 35) {
-                  widget.initialWidth += 1;
-                }
+                });
               }
-            });
-          },
-          onPanEnd: (details) {
-            setState(() {
-              isResizing = false;
-            });
-          },
-          child: widget.widgetVariable,
-        ));
+            },
+            onPanUpdate: (details) {
+              setState(() {
+                if (!isResizing) {
+                  widget.modularPosX += details.delta.dx;
+                  widget.modularPosY += details.delta.dy;
+                }
+                if (isResizing) {
+                  if ((widget.modularWidth >= 25 &&
+                          widget.modularHeight >= 25) &&
+                      (widget.modularWidth <= areaW &&
+                          widget.modularHeight <= areaH) &&
+                      (startPosition.dx <= areaW && startPosition.dy >= 0) &&
+                      (startPosition.dy <= areaH && startPosition.dy >= 0)) {
+                    double dx = details.localPosition.dx - startPosition.dx;
+                    double dy = details.localPosition.dy - startPosition.dy;
+                    widget.modularWidth += dx;
+                    widget.modularHeight += dy;
+                    startPosition = details.localPosition;
+                  } else if (widget.modularHeight < 35) {
+                    widget.modularHeight += 1;
+                  } else if (widget.modularWidth < 35) {
+                    widget.modularWidth += 1;
+                  }
+                }
+              });
+            },
+            onPanEnd: (details) {
+              setState(() {
+                isResizing = false;
+              });
+            },
+            child: widget.modularWidget,
+          ));
+    });
   }
 }

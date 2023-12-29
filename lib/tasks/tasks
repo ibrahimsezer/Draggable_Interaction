@@ -81,3 +81,4 @@ WidgetModel.widgetModelList.map((e) {
         });
 ___________________________________________________________
 todo The POS values coming from the modular widget must be the same as the other POS values.
+perdeleme işlemi ile değerlerin kontrolü sağlanmalı lokasyon perdeye göre yapılacak

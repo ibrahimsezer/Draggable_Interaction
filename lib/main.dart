@@ -3,7 +3,6 @@ import 'package:draggable_example/ui/main_board.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
   runApp(MultiProvider(
       providers: [
@@ -11,7 +10,7 @@ Future<void> main() async {
           create: (context) => WidgetProvider(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         home: MainBoard(),
       )));
 }
