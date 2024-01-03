@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class WidgetModel {
-  //todo must be posX,Y value integrated with ModularWidget
   final int id;
   final Widget widget;
    double posX;
@@ -19,6 +18,7 @@ class WidgetModel {
   });
 
   static List<WidgetModel> widgetModelList = [];
+
 
   @override
   String toString() {

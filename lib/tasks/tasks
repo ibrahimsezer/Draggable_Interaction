@@ -44,41 +44,11 @@ register adapter
 openbox create box file
 get | put | deleteAt | clear
 ___________________________________________________________
-todo pin draggable widgets in canvas (position and size saved)
+todo pin draggable widgets in canvas (position and size saved)+
 todo The widget size should be calculated based on the canvas size, not the visible screen.
 todo canvas boundaries should be determined or an endless canvas should be made
 ___________________________________________________________
 todo Change activity bar position for every screen size (mobile,tv,etc.)
-
-___________________________________________________________
-widget left top coordinate = 0,0
-screen left | RenderTwoDimensionalGridViewport.horizontalGlobalPixels
-screen top |RenderTwoDimensionalGridViewport.verticalGlobalPixels
-
--Ekran hangi noktaya doğru kayıyorsa, widget'ları tam tersine aynı
-değerde kaydırma işlemi için kontrol yapılmalı.
-
-if screen.isSlideForLeft:
-	widget.slideHorizontalValue -= widget.horizontal;
-if screen.isSlideForRight:
-	widget.slideHorizontalValue += widget.horizontal;
-if screen.isSlideForTop:
-	widget.slideVerticalValue += widget.vertical;
-if screen.isSlideForBottom:
-	widget.slideVerticalValue -= widget.vertical;
-
-WidgetModel.widgetModelList.map((e) {
-          if (horizontalOffset.pixels > 0) {
-            e.posX -= RenderTwoDimensionalGridViewport.horizontalGlobalPixels;
-          } else {
-            e.posX += RenderTwoDimensionalGridViewport.horizontalGlobalPixels;
-          }
-          if (verticalOffset.pixels > 0) {
-            e.posY -= RenderTwoDimensionalGridViewport.verticalGlobalPixels;
-          } else {
-            e.posY += RenderTwoDimensionalGridViewport.verticalGlobalPixels;
-          }
-        });
 ___________________________________________________________
 todo The POS values coming from the modular widget must be the same as the other POS values.
-perdeleme işlemi ile değerlerin kontrolü sağlanmalı lokasyon perdeye göre yapılacak
+todo Control of the values ​​should be ensured with the curtaining process. The location will be done according to the curtain.+

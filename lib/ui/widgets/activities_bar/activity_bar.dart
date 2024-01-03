@@ -13,7 +13,7 @@ class _ActivityBarState extends State<ActivityBar> {
   bool activeWidgets = false;
   double posZero = 0;
   List gridView = [];
-
+  bool noneWidget = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,12 +53,14 @@ class _ActivityBarState extends State<ActivityBar> {
             activityBarWidth: 110,
             activityBarHeight: 110,
           ),
+          if(noneWidget)
           ActivityBarIcon(
               widgetButtonName:
-                  activeWidgets ? ActivityGridBar() : const SizedBox(),
+                   ActivityGridBar(),
               widgetButtonIcon: Icons.window_outlined,
               activityBarWidth: posZero,
               activityBarHeight: posZero),
+          if(noneWidget)
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.widgets_outlined,

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
@@ -23,6 +24,10 @@ class ActivityBarIcon extends StatefulWidget {
   final double activityBarWidth;
   final double activityBarHeight;
 
+  double get getActivityBarWidth => activityBarWidth;
+
+  double get getActivityBarHeight => activityBarHeight;
+
   @override
   State<ActivityBarIcon> createState() => _ActivityBarIconState();
 }
@@ -36,21 +41,23 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
     return InkWell(
         onTap: () {
           WidgetModel myModel = WidgetModel(
-            //test
             height: widget.activityBarHeight,
             width: widget.activityBarWidth,
             posX: doubleDefaultValue,
             posY: doubleDefaultValue,
             id: idCounter,
             widget: ModularWidget(
-              modularPosX: MediaQuery.sizeOf(context).width * 0.4,
-              modularPosY: MediaQuery.sizeOf(context).height * 0.4,
+              modularPosX: context.read<WidgetProvider>().activityBarPosX,
+              modularPosY: context.read<WidgetProvider>().activityBarPosY,
               modularWidth: widget.activityBarWidth,
               modularHeight: widget.activityBarHeight,
               modularWidget: widget.widgetButtonName,
               id: idCounter++,
             ),
           );
+
+          context.read<WidgetProvider>().getWidgetWidth = myModel.width;
+          context.read<WidgetProvider>().getWidgetHeight = myModel.height;
           if (widget.widgetButtonIcon == Icons.window_outlined) {
             widgetBarActiveGrid = !widgetBarActiveGrid;
           }

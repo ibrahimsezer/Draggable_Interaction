@@ -12,7 +12,6 @@
 - CustomClipper
 - Consumer
 - context.read
-- TwoDimensionalViewport
   
 ## Installation
 1. To download this project to your local computer, enter the following command in terminal or command prompt:
@@ -47,10 +46,9 @@ This command will run the project on your local emulator or a connected device.
 - When the project runs, you can create it on the screen by selecting the item you want from the menu on the left side of the screen.
 - Afterwards, you can move the items on the screen by dragging them.
 - You can update the item size by pulling from the bottom right corner of each item.
-- You can zoom in and out on the screen with two fingers.
-- For now, the left and top screen edges are limited. (I aim to increase the screen size in the future.)
+- You can zoom in and out on the screen with two fingers.*
 - You can create a object within square (basic material objects menu) and emoji(.svg format objects menu) menu.
-
+- We have an endless canvas
 ## Contributing
 1. Fork this repository.
 2. Create a branch to add a new feature or fix.

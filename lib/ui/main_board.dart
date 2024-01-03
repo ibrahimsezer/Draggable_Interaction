@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
@@ -28,18 +30,22 @@ class MainBoard extends StatefulWidget {
 class _MainBoardState extends State<MainBoard> {
   double mainPosX = 0;
   double mainPosY = 0;
+  double thisActivityBarPosY = 0;
+  double thisActivityBarPosX = 0;
 
   @override
   Widget build(BuildContext context) {
     double screenX = MediaQuery.sizeOf(context).width; //horizontal screen area
     double screenY = MediaQuery.sizeOf(context).height; //vertical screen area
-    double activityBarPosY = screenY * 0.05;
-    double activityBarPosX = screenY * 0.02;
+    thisActivityBarPosY = screenY * 0.05;
+    thisActivityBarPosX = screenY * 0.02;
+    double defaultWidgetSizeW = context.read<WidgetProvider>().getWidgetWidth;
+    double defaultWidgetSizeH = context.read<WidgetProvider>().getWidgetHeight;
 
     ///widgetBarActiveGrid
     checkActivityGridBarPosY() {
-      double activityBarPosY1 = activityBarPosY;
-      double activityBarPosY2 = activityBarPosY;
+      double activityBarPosY1 = thisActivityBarPosY;
+      double activityBarPosY2 = thisActivityBarPosY;
       return [activityBarPosY1, activityBarPosY2];
     }
 
@@ -47,8 +53,8 @@ class _MainBoardState extends State<MainBoard> {
 
     checkActivityGridBarPosX() {
       double activityBarPosX1 =
-          activityBarPosX * 8; //TV 4k X : 960.0 | Y: 540.0
-      double activityBarPosX2 = activityBarPosX * 4.5;
+          thisActivityBarPosX * 8; //TV 4k X : 960.0 | Y: 540.0
+      double activityBarPosX2 = thisActivityBarPosX * 4.5;
       return [activityBarPosX1, activityBarPosX2];
     }
 
@@ -56,16 +62,16 @@ class _MainBoardState extends State<MainBoard> {
 
     ///widgetBarActiveSvg
     checkActivityGridSvgPosY() {
-      double activitySvgPosY1 = activityBarPosY * 9.6;
-      double activitySvgPosY2 = activityBarPosY * 5;
+      double activitySvgPosY1 = thisActivityBarPosY * 9.6;
+      double activitySvgPosY2 = thisActivityBarPosY * 5;
       return [activitySvgPosY1, activitySvgPosY2];
     }
 
     List<double> gridSvgListY = checkActivityGridSvgPosY();
 
     checkActivityGridSvgPosX() {
-      double activitySvgPosX1 = activityBarPosX * 8;
-      double activitySvgPosX2 = activityBarPosX * 4.5;
+      double activitySvgPosX1 = thisActivityBarPosX * 8;
+      double activitySvgPosX2 = thisActivityBarPosX * 4.5;
       return [activitySvgPosX1, activitySvgPosX2];
     }
 
@@ -74,9 +80,28 @@ class _MainBoardState extends State<MainBoard> {
     return Scaffold(
       body: GestureDetector(
         onPanUpdate: (details) {
+          double screenWidth = MediaQuery.sizeOf(context).width;
+          double screenHeight = MediaQuery.sizeOf(context).height;
+          double newPosX = ((screenWidth * 0.5) - (defaultWidgetSizeW / 2));
+          double newPosY = ((screenHeight * 0.5) - (defaultWidgetSizeH / 2));
+          context.read<WidgetProvider>().activityBarPosX = newPosX;
+          context.read<WidgetProvider>().activityBarPosY = newPosY;
+
           setState(() {
-            context.read<WidgetProvider>().posOffsetX += details.delta.dx;
-            context.read<WidgetProvider>().posOffsetY += details.delta.dy;
+            double offsetX =
+                context.read<WidgetProvider>().posOffsetX + details.delta.dx;
+            double offsetY =
+                context.read<WidgetProvider>().posOffsetY + details.delta.dy;
+
+            // new position update
+            context.read<WidgetProvider>().activityBarPosX =
+                ((screenWidth * 0.5) - (defaultWidgetSizeW / 2)) - offsetX;
+            context.read<WidgetProvider>().activityBarPosY =
+                ((screenHeight * 0.5) - (defaultWidgetSizeH / 2)) - offsetY;
+
+            // offset variable update
+            context.read<WidgetProvider>().posOffsetX = offsetX;
+            context.read<WidgetProvider>().posOffsetY = offsetY;
           });
         },
         child: ColoredBox(
@@ -88,8 +113,8 @@ class _MainBoardState extends State<MainBoard> {
                 children: [
                   ...WidgetModel.widgetModelList.map((e) => e.widget),
                   Positioned(
-                      top: activityBarPosY,
-                      left: activityBarPosX,
+                      top: thisActivityBarPosY,
+                      left: thisActivityBarPosX,
                       child: const ActivityBar()),
                   if (widgetBarActiveGrid)
                     Positioned(
