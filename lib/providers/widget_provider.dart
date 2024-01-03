@@ -17,11 +17,6 @@ class WidgetProvider with ChangeNotifier {
 
   double get activityBarPosY => _activityBarPosY;
 
-  // List<double> getWidgetSizeFromModel(width, height) {
-  //   notifyListeners();
-  //   return [width, height];
-  // }
-
   double _getWidgetWidth = 0;
   double _getWidgetHeight = 0;
 

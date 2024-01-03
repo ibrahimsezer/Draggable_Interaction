@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
@@ -11,7 +10,7 @@ bool widgetBarActiveSvg = false;
 
 ///-------------------------Activity_Bar--------------------------------
 class ActivityBarIcon extends StatefulWidget {
-  ActivityBarIcon({
+  const ActivityBarIcon({
     super.key,
     required this.widgetButtonName,
     required this.widgetButtonIcon,
@@ -66,7 +65,6 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
           }
           if (widget.widgetButtonIcon == Icons.delete) {
             context.read<WidgetProvider>().allRemoveWidget();
-            print(WidgetModel.widgetModelList.toList());
           }
           context.read<WidgetProvider>().addWidgetModel(myModel);
         },

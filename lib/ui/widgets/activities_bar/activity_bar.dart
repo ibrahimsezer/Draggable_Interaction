@@ -1,4 +1,6 @@
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
+import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
+import 'package:draggable_example/ui/widgets/enter_textfield.dart';
 import 'package:flutter/material.dart';
 import '../interface_buttons.dart';
 
@@ -14,15 +16,16 @@ class _ActivityBarState extends State<ActivityBar> {
   double posZero = 0;
   List gridView = [];
   bool noneWidget = true;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 50,
-      height: 310,
-      color: Colors.white,
+      height: 400,
       child: GridView(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+        ),
         children: [
           //todo change Activity Bar, must be without widget create.
           //todo make activityBarIcon activated with another button.
@@ -31,41 +34,24 @@ class _ActivityBarState extends State<ActivityBar> {
               widgetButtonIcon: Icons.near_me,
               activityBarWidth: posZero,
               activityBarHeight: posZero),
-          ActivityBarIcon(
-            widgetButtonName: TextField(
-              textInputAction: TextInputAction.done,
-              onSubmitted: (value) {
-                FocusScope.of(context).unfocus();
-              },
-              textAlign: TextAlign.center,
-              maxLines: null,
-              decoration: const InputDecoration(
-                hintText: "Enter Text",
-                border: InputBorder.none,
-              ),
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                decoration: TextDecoration.none,
-              ),
-            ),
+          const ActivityBarIcon(
+            widgetButtonName: EnterTextField(),
             widgetButtonIcon: Icons.title,
-            activityBarWidth: 110,
-            activityBarHeight: 110,
+            activityBarWidth: 100,
+            activityBarHeight: 100,
           ),
-          if(noneWidget)
-          ActivityBarIcon(
-              widgetButtonName:
-                   ActivityGridBar(),
-              widgetButtonIcon: Icons.window_outlined,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
-          if(noneWidget)
-          ActivityBarIcon(
-              widgetButtonName: const SizedBox(),
-              widgetButtonIcon: Icons.widgets_outlined,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
+          if (noneWidget)
+            ActivityBarIcon(
+                widgetButtonName: ActivityGridBar(),
+                widgetButtonIcon: Icons.window_outlined,
+                activityBarWidth: posZero,
+                activityBarHeight: posZero),
+          if (noneWidget)
+            ActivityBarIcon(
+                widgetButtonName: ActivityGridSvgBar(),
+                widgetButtonIcon: Icons.widgets_outlined,
+                activityBarWidth: posZero,
+                activityBarHeight: posZero),
           ActivityBarIcon(
               widgetButtonName: const SizedBox(),
               widgetButtonIcon: Icons.undo,

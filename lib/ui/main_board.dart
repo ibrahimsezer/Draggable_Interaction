@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:ui';
-
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
@@ -15,10 +15,9 @@ double containerLeft = 0;
 double containerTop = 0;
 bool isResizing = false;
 Offset startPosition = Offset.zero;
-String tempText = "";
 
 class MainBoard extends StatefulWidget {
-  MainBoard({super.key});
+  const MainBoard({super.key});
 
   static List<double> getPosition() =>
       [_MainBoardState().mainPosX, _MainBoardState().mainPosY];
@@ -45,7 +44,7 @@ class _MainBoardState extends State<MainBoard> {
     ///widgetBarActiveGrid
     checkActivityGridBarPosY() {
       double activityBarPosY1 = thisActivityBarPosY;
-      double activityBarPosY2 = thisActivityBarPosY;
+      double activityBarPosY2 = thisActivityBarPosY * 2;
       return [activityBarPosY1, activityBarPosY2];
     }
 
@@ -63,7 +62,7 @@ class _MainBoardState extends State<MainBoard> {
     ///widgetBarActiveSvg
     checkActivityGridSvgPosY() {
       double activitySvgPosY1 = thisActivityBarPosY * 9.6;
-      double activitySvgPosY2 = thisActivityBarPosY * 5;
+      double activitySvgPosY2 = thisActivityBarPosY * 5.5;
       return [activitySvgPosY1, activitySvgPosY2];
     }
 
@@ -92,13 +91,11 @@ class _MainBoardState extends State<MainBoard> {
                 context.read<WidgetProvider>().posOffsetX + details.delta.dx;
             double offsetY =
                 context.read<WidgetProvider>().posOffsetY + details.delta.dy;
-
             // new position update
             context.read<WidgetProvider>().activityBarPosX =
                 ((screenWidth * 0.5) - (defaultWidgetSizeW / 2)) - offsetX;
             context.read<WidgetProvider>().activityBarPosY =
                 ((screenHeight * 0.5) - (defaultWidgetSizeH / 2)) - offsetY;
-
             // offset variable update
             context.read<WidgetProvider>().posOffsetX = offsetX;
             context.read<WidgetProvider>().posOffsetY = offsetY;

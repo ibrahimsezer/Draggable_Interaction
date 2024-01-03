@@ -25,9 +25,9 @@ class ActivityGridSvgBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       width: 150,
       height: 150,
-      color: Colors.white,
       child: GridView(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
