@@ -10,7 +10,7 @@ Future<void> main() async {
           create: (context) => WidgetProvider(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: MainBoard(),
       )));
 }

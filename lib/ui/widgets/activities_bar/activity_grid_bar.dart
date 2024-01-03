@@ -73,6 +73,11 @@ class ActivityGridBar extends StatelessWidget {
                 widgetButtonIcon: Icons.play_arrow_rounded,
                 activityBarWidth: defaultWidth,
                 activityBarHeight: defaultHeight),
+            ActivityBarIcon(
+                widgetButtonName: const TriangleRPS(),
+                widgetButtonIcon: Icons.play_arrow_outlined,
+                activityBarWidth: defaultWidth,
+                activityBarHeight: defaultHeight),
           ]),
     );
   }

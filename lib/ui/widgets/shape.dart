@@ -16,7 +16,7 @@ class _RectangleShapeWidgetState extends State<RectangleShapeWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-      BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
       child: TextField(
         textInputAction: TextInputAction.done,
         onSubmitted: (value) {
@@ -135,8 +135,8 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(width: 2, color: Colors.white)),
+              color: Colors.black54,
+              border: Border.all(width: 1, color: Colors.black54)),
           child: TextField(
             textInputAction: TextInputAction.done,
             onSubmitted: (value) {
@@ -158,6 +158,66 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
 
 ///-----------------------------------------------
 
+class TriangleRPS extends StatefulWidget {
+  const TriangleRPS({super.key});
+
+  @override
+  State<TriangleRPS> createState() => _TriangleRPSState();
+}
+
+class _TriangleRPSState extends State<TriangleRPS> {
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: RPSCustomPainter(),
+      child: Container(
+        child: const OvalTextWidget(),
+      ),
+    );
+  }
+}
+
+class RPSCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.0020000, size.height * -0.0060000);
+    path_0.lineTo(size.width * 0.5000000, size.height * 1.0020000);
+    path_0.lineTo(size.width, size.height * -0.0040000);
+    path_0.lineTo(size.width * 0.0020000, size.height * -0.0060000);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+    // Layer 1
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    canvas.drawPath(path_0, paint_stroke_0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+///-----------------------------------------------
+
 class CustomTriangleClipper extends CustomClipper<Path> {
   final double startFraction;
   final double endFraction;
@@ -167,12 +227,13 @@ class CustomTriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path()
-      ..moveTo(size.width *startFraction, size.height)
-      ..lineTo(size.width * endFraction, 0)..lineTo(0, 0)
+      ..moveTo(size.width * startFraction, size.height)
+      ..lineTo(size.width * endFraction, 0)
+      ..lineTo(0, 0)
       ..close();
     return path;
   }
-///height ,0,0 vertical triangle |triangle 0,0,height
+
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return false;
@@ -259,7 +320,7 @@ class _RhombusShapeWidgetState extends State<RhombusShapeWidget> {
       angle: -pi / 4,
       child: Container(
         decoration:
-        BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+            BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
         child: TextField(
           textInputAction: TextInputAction.done,
           onSubmitted: (value) {
