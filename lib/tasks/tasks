@@ -1,16 +1,13 @@
 ___________________________________________________________
 #MainBoard.dart
--ChangeNotifier and Stateful Widget will be separated+
 todo -Try-catch can be used in Hive operations
 todo -Dart functions that can be used instead of for in list iterations will be checked.
 ___________________________________________________________
 #shape.dart
-
 todo -We can take the triangle starting point and angle as parameters for CustomClipper expansion
 final double startFraction
 final double endFraction
 CustomTriangleClipper ({this.startFraction=0.5,this.endFraction=1})
-
 todo -Widget Structure - Size, border color, etc. for multiple use cases. can be determined
 final double width
 final double height
@@ -35,7 +32,6 @@ ___________________________________________________________
 #main.dart
 await Hive.initFlutter();
 Hive.registerAdapter(WidgetDataAdapter());
-
 add dependencies
 create class
 auto generate class.g
@@ -44,11 +40,4 @@ register adapter
 openbox create box file
 get | put | deleteAt | clear
 ___________________________________________________________
-todo pin draggable widgets in canvas (position and size saved)+
-todo The widget size should be calculated based on the canvas size, not the visible screen.
-todo canvas boundaries should be determined or an endless canvas should be made
-___________________________________________________________
 todo Change activity bar position for every screen size (mobile,tv,etc.)
-___________________________________________________________
-todo The POS values coming from the modular widget must be the same as the other POS values.
-todo Control of the values ​​should be ensured with the curtaining process. The location will be done according to the curtain.+

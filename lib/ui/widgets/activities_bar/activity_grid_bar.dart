@@ -73,7 +73,7 @@ class ActivityGridBar extends StatelessWidget {
                 widgetButtonIcon: Icons.play_arrow_rounded,
                 activityBarWidth: defaultWidth,
                 activityBarHeight: defaultHeight),
-          ]),
+            ]),
     );
   }
 }
