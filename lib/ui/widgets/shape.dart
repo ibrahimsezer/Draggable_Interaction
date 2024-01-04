@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:draggable_example/ui/widgets/oval_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class RectangleShapeWidget extends StatefulWidget {
@@ -157,81 +158,17 @@ class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
 }
 
 ///-----------------------------------------------
-
-class TriangleRPS extends StatefulWidget {
-  const TriangleRPS({super.key});
-
+class CustomTriangleClipper extends CustomClipper<Path> {
   @override
-  State<TriangleRPS> createState() => _TriangleRPSState();
-}
-
-class _TriangleRPSState extends State<TriangleRPS> {
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: RPSCustomPainter(),
-      child: Container(
-        child: const OvalTextWidget(),
-      ),
-    );
-  }
-}
-
-class RPSCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Layer 1
-
-    Paint paint_fill_0 = Paint()
-      ..color = const Color.fromARGB(255, 255, 255, 255)
-      ..style = PaintingStyle.fill
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.miter;
-
-    Path path_0 = Path();
+  Path getClip(Size size) {
+    final path_0 = Path();
     path_0.moveTo(size.width * 0.0020000, size.height * -0.0060000);
     path_0.lineTo(size.width * 0.5000000, size.height * 1.0020000);
     path_0.lineTo(size.width, size.height * -0.0040000);
     path_0.lineTo(size.width * 0.0020000, size.height * -0.0060000);
     path_0.close();
 
-    canvas.drawPath(path_0, paint_fill_0);
-
-    // Layer 1
-
-    Paint paint_stroke_0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.miter;
-
-    canvas.drawPath(path_0, paint_stroke_0);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
-///-----------------------------------------------
-
-class CustomTriangleClipper extends CustomClipper<Path> {
-  final double startFraction;
-  final double endFraction;
-
-  CustomTriangleClipper({this.startFraction = 0.5, this.endFraction = 1.0});
-
-  @override
-  Path getClip(Size size) {
-    final path = Path()
-      ..moveTo(size.width * startFraction, size.height)
-      ..lineTo(size.width * endFraction, 0)
-      ..lineTo(0, 0)
-      ..close();
-    return path;
+    return path_0;
   }
 
   @override
@@ -372,36 +309,7 @@ class CircleWidget extends StatelessWidget {
         width: 100,
         height: 100,
         color: Colors.blue,
-        child: const OvalTextWidget(),
-      ),
-    );
-  }
-}
-
-class OvalTextWidget extends StatelessWidget {
-  const OvalTextWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipOval(
-      child: Center(
-        child: TextField(
-          textInputAction: TextInputAction.done,
-          onSubmitted: (value) {
-            FocusScope.of(context).unfocus();
-          },
-          textAlign: TextAlign.center,
-          maxLines: null,
-          decoration: const InputDecoration(
-            border: InputBorder.none,
-          ),
-          style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              decoration: TextDecoration.none),
-        ),
+        child: OvalTextWidget(),
       ),
     );
   }
@@ -460,7 +368,7 @@ class _StarWidgetState extends State<StarWidget> {
       clipper: StarClipper(),
       child: Container(
         color: Colors.orangeAccent,
-        child: const OvalTextWidget(),
+        child: OvalTextWidget(),
       ),
     );
   }
