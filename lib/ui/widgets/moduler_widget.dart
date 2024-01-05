@@ -1,23 +1,13 @@
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../model/widget_model.dart';
 
 class ModularWidget extends StatefulWidget {
-  final int id;
-  final Widget modularWidget;
-  double modularPosX;
-  double modularPosY;
-  double modularWidth;
-  double modularHeight;
+  final WidgetModel model;
+  final Widget child;
 
-  ModularWidget(
-      {super.key,
-      required this.modularPosX,
-      required this.modularPosY,
-      required this.modularHeight,
-      required this.modularWidth,
-      required this.modularWidget,
-      required this.id});
+  const ModularWidget({super.key, required this.model, required this.child});
 
   @override
   State<ModularWidget> createState() => _ModularWidgetState();
@@ -29,25 +19,41 @@ class _ModularWidgetState extends State<ModularWidget> {
   bool isResizing = false;
   bool isVisible = false;
   Offset startPosition = const Offset(0, 0);
-  double rotationAngle = 0.0;
+
+  late double posX;
+  late double posY;
+  late double width;
+  late double height;
+
+  @override
+  void initState() {
+    super.initState();
+    assignValues();
+  }
+
+  void assignValues() {
+    posX = widget.model.posX;
+    posY = widget.model.posY;
+    width = widget.model.width;
+    height = widget.model.height;
+  }
 
   @override
   Widget build(BuildContext context) {
-    areaW = MediaQuery.sizeOf(context).width;
-    areaH = MediaQuery.sizeOf(context).height;
+    final size = MediaQuery.sizeOf(context);
+    areaW = size.width;
+    areaH = size.height;
     return Consumer<WidgetProvider>(builder: (c, widgetProvider, w) {
       return Positioned(
-          top: widget.modularPosY + widgetProvider.posOffsetY,
-          left: widget.modularPosX + widgetProvider.posOffsetX,
-          height: widget.modularHeight,
-          width: widget.modularWidth,
+          top: posY + widgetProvider.posOffsetY,
+          left: posX + widgetProvider.posOffsetX,
+          height: height,
+          width: width,
           child: GestureDetector(
-            onTap: () {
-              int clickedWidgetId = widget.id; //clicked widget ID
-            },
+            onTap: () {},
             onPanStart: (details) {
-              if (details.localPosition.dx >= widget.modularWidth - 20 &&
-                  details.localPosition.dy >= widget.modularHeight - 20) {
+              if (details.localPosition.dx >= width - 20 &&
+                  details.localPosition.dy >= height - 20) {
                 setState(() {
                   isResizing = true;
                   startPosition = details.localPosition;
@@ -57,25 +63,23 @@ class _ModularWidgetState extends State<ModularWidget> {
             onPanUpdate: (details) {
               setState(() {
                 if (!isResizing) {
-                  widget.modularPosX += details.delta.dx;
-                  widget.modularPosY += details.delta.dy;
+                  posX += details.delta.dx;
+                  posY += details.delta.dy;
                 }
                 if (isResizing) {
-                  if ((widget.modularWidth >= 25 &&
-                          widget.modularHeight >= 25) &&
-                      (widget.modularWidth <= areaW &&
-                          widget.modularHeight <= areaH) &&
+                  if ((width >= 25 && height >= 25) &&
+                      (width <= areaW && height <= areaH) &&
                       (startPosition.dx <= areaW && startPosition.dy >= 0) &&
                       (startPosition.dy <= areaH && startPosition.dy >= 0)) {
                     double dx = details.localPosition.dx - startPosition.dx;
                     double dy = details.localPosition.dy - startPosition.dy;
-                    widget.modularWidth += dx;
-                    widget.modularHeight += dy;
+                    width += dx;
+                    height += dy;
                     startPosition = details.localPosition;
-                  } else if (widget.modularHeight < 35) {
-                    widget.modularHeight += 1;
-                  } else if (widget.modularWidth < 35) {
-                    widget.modularWidth += 1;
+                  } else if (height < 35) {
+                    height += 1;
+                  } else if (width < 35) {
+                    width += 1;
                   }
                 }
               });
@@ -85,7 +89,7 @@ class _ModularWidgetState extends State<ModularWidget> {
                 isResizing = false;
               });
             },
-            child: widget.modularWidget,
+            child: widget.child,
           ));
     });
   }

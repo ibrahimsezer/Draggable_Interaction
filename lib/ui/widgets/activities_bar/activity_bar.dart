@@ -1,6 +1,8 @@
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
 import 'package:draggable_example/ui/widgets/enter_textfield.dart';
+import 'package:draggable_example/ui/widgets/moduler_widget.dart';
+import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:flutter/material.dart';
 import '../interface_buttons.dart';
 
@@ -27,46 +29,36 @@ class _ActivityBarState extends State<ActivityBar> {
           crossAxisCount: 1,
         ),
         children: [
-          //todo change Activity Bar, must be without widget create.
-          //todo make activityBarIcon activated with another button.
-          ActivityBarIcon(
-              widgetButtonName: const SizedBox(),
-              widgetButtonIcon: Icons.near_me,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
+          const ActivityBarIcon(
+            widgetButtonName: SizedBox(),
+            widgetButtonIcon: Icons.near_me,
+          ),
           const ActivityBarIcon(
             widgetButtonName: EnterTextField(),
             widgetButtonIcon: Icons.title,
-            activityBarWidth: 100,
-            activityBarHeight: 100,
           ),
           if (noneWidget)
-            ActivityBarIcon(
-                widgetButtonName: ActivityGridBar(),
-                widgetButtonIcon: Icons.window_outlined,
-                activityBarWidth: posZero,
-                activityBarHeight: posZero),
+            const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.window_outlined,
+            ),
           if (noneWidget)
-            ActivityBarIcon(
-                widgetButtonName: ActivityGridSvgBar(),
-                widgetButtonIcon: Icons.widgets_outlined,
-                activityBarWidth: posZero,
-                activityBarHeight: posZero),
-          ActivityBarIcon(
-              widgetButtonName: const SizedBox(),
-              widgetButtonIcon: Icons.undo,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
-          ActivityBarIcon(
-              widgetButtonName: const SizedBox(),
-              widgetButtonIcon: Icons.redo,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
-          ActivityBarIcon(
-              widgetButtonName: const SizedBox(),
-              widgetButtonIcon: Icons.delete,
-              activityBarWidth: posZero,
-              activityBarHeight: posZero),
+            const ActivityBarIcon(
+              widgetButtonName: SizedBox(),
+              widgetButtonIcon: Icons.widgets_outlined,
+            ),
+          const ActivityBarIcon(
+            widgetButtonName: SizedBox(),
+            widgetButtonIcon: Icons.undo,
+          ),
+          const ActivityBarIcon(
+            widgetButtonName: SizedBox(),
+            widgetButtonIcon: Icons.redo,
+          ),
+          const ActivityBarIcon(
+            widgetButtonName: SizedBox(),
+            widgetButtonIcon: Icons.delete,
+          ),
         ],
       ),
     );
