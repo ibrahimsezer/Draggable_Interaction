@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:draggable_example/ui/widgets/oval_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -122,7 +123,6 @@ class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
 
 class TriangleShapeWidget extends StatefulWidget {
   const TriangleShapeWidget({super.key});
-
   @override
   State<TriangleShapeWidget> createState() => _TriangleShapeWidgetState();
 }

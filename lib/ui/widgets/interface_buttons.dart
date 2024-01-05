@@ -1,5 +1,6 @@
 import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
+import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,18 +15,10 @@ class ActivityBarIcon extends StatefulWidget {
     super.key,
     required this.widgetButtonName,
     required this.widgetButtonIcon,
-    required this.activityBarWidth,
-    required this.activityBarHeight,
   });
 
   final Widget widgetButtonName;
   final IconData widgetButtonIcon;
-  final double activityBarWidth;
-  final double activityBarHeight;
-
-  double get getActivityBarWidth => activityBarWidth;
-
-  double get getActivityBarHeight => activityBarHeight;
 
   @override
   State<ActivityBarIcon> createState() => _ActivityBarIconState();
@@ -33,30 +26,32 @@ class ActivityBarIcon extends StatefulWidget {
 
 class _ActivityBarIconState extends State<ActivityBarIcon> {
   Color selectedColor = Colors.black;
-  final double doubleDefaultValue = 100;
+
+  get defaultWidgetSizeW => context.read<WidgetProvider>().getWidgetWidth;
+
+  get defaultWidgetSizeH => context.read<WidgetProvider>().getWidgetHeight;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          WidgetModel myModel = WidgetModel(
-            height: widget.activityBarHeight,
-            width: widget.activityBarWidth,
-            posX: doubleDefaultValue,
-            posY: doubleDefaultValue,
-            id: idCounter,
-            widget: ModularWidget(
-              modularPosX: context.read<WidgetProvider>().activityBarPosX,
-              modularPosY: context.read<WidgetProvider>().activityBarPosY,
-              modularWidth: widget.activityBarWidth,
-              modularHeight: widget.activityBarHeight,
-              modularWidget: widget.widgetButtonName,
-              id: idCounter++,
-            ),
-          );
+          setState(() {
+            final screen = MediaQuery.sizeOf(context);
+            double screenWidth = screen.width;
+            double screenHeight = screen.height;
+            double newPosX = ((screenWidth * 0.5) - (defaultWidgetSizeW / 2));
+            double newPosY = ((screenHeight * 0.5) - (defaultWidgetSizeH / 2));
+            context.read<WidgetProvider>().addWidgetModel(ModularWidget(
+                  model: WidgetModel(
+                      posX: context.read<WidgetProvider>().activityBarPosX,
+                      posY: context.read<WidgetProvider>().activityBarPosY,
+                      id: ++idCounter),
+                  child: widget.widgetButtonName,
+                ));
+            context.read<WidgetProvider>().getWidgetWidth = defaultWidgetSizeW;
+            context.read<WidgetProvider>().getWidgetHeight = defaultWidgetSizeH;
+          });
 
-          context.read<WidgetProvider>().getWidgetWidth = myModel.width;
-          context.read<WidgetProvider>().getWidgetHeight = myModel.height;
           if (widget.widgetButtonIcon == Icons.window_outlined) {
             widgetBarActiveGrid = !widgetBarActiveGrid;
           }
@@ -66,7 +61,6 @@ class _ActivityBarIconState extends State<ActivityBarIcon> {
           if (widget.widgetButtonIcon == Icons.delete) {
             context.read<WidgetProvider>().allRemoveWidget();
           }
-          context.read<WidgetProvider>().addWidgetModel(myModel);
         },
         child: Container(
             color: Colors.white,

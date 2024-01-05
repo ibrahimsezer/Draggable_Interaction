@@ -5,6 +5,8 @@ import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
 import 'package:draggable_example/ui/widgets/interface_buttons.dart';
+import 'package:draggable_example/ui/widgets/moduler_widget.dart';
+import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,13 +80,13 @@ class _MainBoardState extends State<MainBoard> {
     return Scaffold(
       body: GestureDetector(
         onPanUpdate: (details) {
-          double screenWidth = MediaQuery.sizeOf(context).width;
-          double screenHeight = MediaQuery.sizeOf(context).height;
-          double newPosX = ((screenWidth * 0.5) - (defaultWidgetSizeW / 2));
-          double newPosY = ((screenHeight * 0.5) - (defaultWidgetSizeH / 2));
+          Size screen = MediaQuery.sizeOf(context);
+          double screenWidth = screen.width;
+          double screenHeight = screen.height;
+          double newPosX = ((screenWidth * 0.38) - (defaultWidgetSizeW / 2));
+          double newPosY = ((screenHeight * 0.455) - (defaultWidgetSizeH / 2));
           context.read<WidgetProvider>().activityBarPosX = newPosX;
           context.read<WidgetProvider>().activityBarPosY = newPosY;
-
           setState(() {
             double offsetX =
                 context.read<WidgetProvider>().posOffsetX + details.delta.dx;
@@ -92,9 +94,9 @@ class _MainBoardState extends State<MainBoard> {
                 context.read<WidgetProvider>().posOffsetY + details.delta.dy;
             // new position update
             context.read<WidgetProvider>().activityBarPosX =
-                ((screenWidth * 0.5) - (defaultWidgetSizeW / 2)) - offsetX;
+                ((screenWidth * 0.38) - (defaultWidgetSizeW / 2)) - offsetX;
             context.read<WidgetProvider>().activityBarPosY =
-                ((screenHeight * 0.5) - (defaultWidgetSizeH / 2)) - offsetY;
+                ((screenHeight * 0.455) - (defaultWidgetSizeH / 2)) - offsetY;
             // offset variable update
             context.read<WidgetProvider>().posOffsetX = offsetX;
             context.read<WidgetProvider>().posOffsetY = offsetY;
@@ -107,7 +109,7 @@ class _MainBoardState extends State<MainBoard> {
                 (BuildContext context, WidgetProvider value, Widget? child) {
               return Stack(
                 children: [
-                  ...WidgetModel.widgetModelList.map((e) => e.widget),
+                  ...context.watch<WidgetProvider>().widgetModelList,
                   Positioned(
                       top: thisActivityBarPosY,
                       left: thisActivityBarPosX,

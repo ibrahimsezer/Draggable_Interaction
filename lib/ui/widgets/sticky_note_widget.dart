@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StickyNoteWidget extends StatefulWidget {
+class StickyNoteWidget extends StatelessWidget {
   final Color initialColor;
 
   const StickyNoteWidget({
@@ -9,14 +9,9 @@ class StickyNoteWidget extends StatefulWidget {
   });
 
   @override
-  State<StickyNoteWidget> createState() => _StickyNoteWidgetState();
-}
-
-class _StickyNoteWidgetState extends State<StickyNoteWidget> {
-  @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.initialColor,
+      color: initialColor,
       elevation: 5,
       shadowColor: Colors.black,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

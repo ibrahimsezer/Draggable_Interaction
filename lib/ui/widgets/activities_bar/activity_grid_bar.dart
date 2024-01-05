@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 class ActivityGridBar extends StatelessWidget {
   ActivityGridBar({super.key});
 
-  double defaultHeight = 100;
-  double defaultWidth = 100;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,62 +15,45 @@ class ActivityGridBar extends StatelessWidget {
       child: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4),
-          children: [
+          children: const [
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const StickyNoteWidget(
+              widgetButtonName: StickyNoteWidget(
                   initialColor: Color.fromRGBO(190, 49, 68, 1)),
               widgetButtonIcon: Icons.sticky_note_2,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const StarWidget(),
+              widgetButtonName: StarWidget(),
               widgetButtonIcon: Icons.star,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const RightArrowWidget(),
+              widgetButtonName: RightArrowWidget(),
               widgetButtonIcon: Icons.arrow_right_alt,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const EllipseShapeWidget(),
+              widgetButtonName: EllipseShapeWidget(),
               widgetButtonIcon: Icons.circle_outlined,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const RectangleShapeWidget(),
+              widgetButtonName: RectangleShapeWidget(),
               widgetButtonIcon: Icons.rectangle,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const RoundedRectangleShapeWidget(),
+              widgetButtonName: RoundedRectangleShapeWidget(),
               widgetButtonIcon: Icons.rounded_corner,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const RhombusShapeWidget(),
+              widgetButtonName: RhombusShapeWidget(),
               widgetButtonIcon: Icons.format_shapes,
             ),
             ActivityBarIcon(
-              activityBarHeight: defaultHeight,
-              activityBarWidth: defaultWidth,
-              widgetButtonName: const CircleWidget(),
+              widgetButtonName: CircleWidget(),
               widgetButtonIcon: Icons.circle,
             ),
             ActivityBarIcon(
-                widgetButtonName: const TriangleShapeWidget(),
-                widgetButtonIcon: Icons.play_arrow_rounded,
-                activityBarWidth: defaultWidth,
-                activityBarHeight: defaultHeight),
-            ]),
+              widgetButtonName: TriangleShapeWidget(),
+              widgetButtonIcon: Icons.play_arrow_rounded,
+            ),
+          ]),
     );
   }
 }
