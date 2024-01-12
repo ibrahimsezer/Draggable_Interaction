@@ -1,8 +1,4 @@
-import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
-import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
 import 'package:draggable_example/ui/widgets/enter_textfield.dart';
-import 'package:draggable_example/ui/widgets/moduler_widget.dart';
-import 'package:draggable_example/ui/widgets/shape.dart';
 import 'package:flutter/material.dart';
 import '../interface_buttons.dart';
 

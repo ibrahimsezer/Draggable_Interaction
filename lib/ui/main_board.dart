@@ -1,12 +1,8 @@
-import 'dart:developer';
-import 'package:draggable_example/model/widget_model.dart';
 import 'package:draggable_example/providers/widget_provider.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
 import 'package:draggable_example/ui/widgets/interface_buttons.dart';
-import 'package:draggable_example/ui/widgets/moduler_widget.dart';
-import 'package:draggable_example/ui/widgets/sticky_note_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,8 +31,9 @@ class _MainBoardState extends State<MainBoard> {
 
   @override
   Widget build(BuildContext context) {
-    double screenX = MediaQuery.sizeOf(context).width; //horizontal screen area
-    double screenY = MediaQuery.sizeOf(context).height; //vertical screen area
+    Size size = MediaQuery.sizeOf(context);
+    double screenX = size.width; //horizontal screen area
+    double screenY = size.height; //vertical screen area
     thisActivityBarPosY = screenY * 0.05;
     thisActivityBarPosX = screenY * 0.02;
     double defaultWidgetSizeW = context.read<WidgetProvider>().getWidgetWidth;

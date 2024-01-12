@@ -373,3 +373,81 @@ class _StarWidgetState extends State<StarWidget> {
     );
   }
 }
+///-----------------------------------------------
+///todo pentagon clipper
+class PentagonClipper extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path
+      // ..moveTo(size.width / 2, 0) // moving to topCenter 1st, then draw the path
+      ..lineTo(size.width, size.height * .25)
+      ..lineTo(size.width, size.height * .75)
+      ..lineTo(size.width * .5, size.height)
+      ..lineTo(0, size.height * .75)
+      ..lineTo(0, size.height * .25)
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    throw UnimplementedError();
+  }
+
+}
+
+///-----------------------------------------------
+class PentagonWidget extends StatelessWidget {
+  const PentagonWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: PentagonClipper(),
+      child: Container(
+        color: Colors.orange,
+        child: OvalTextWidget(),
+      ),
+    );
+  }
+}
+///-----------------------------------------------
+
+class HexagonClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path
+      ..moveTo(size.width / 2, 0) // moving to topCenter 1st, then draw the path
+      ..lineTo(size.width, size.height * .25)
+      ..lineTo(size.width, size.height * .75)
+      ..lineTo(size.width * .5, size.height)
+      ..lineTo(0, size.height * .75)
+      ..lineTo(0, size.height * .25)
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}///-----------------------------------------------
+class HexagonWidget extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw  ClipPath(
+      clipper: HexagonClipper(),
+      child: Container(
+        width: 100, /// controll the size and color
+        height: 110,
+        color: Colors.amber,
+      ),
+    );
+  }}
