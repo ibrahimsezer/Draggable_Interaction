@@ -123,6 +123,7 @@ class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
 
 class TriangleShapeWidget extends StatefulWidget {
   const TriangleShapeWidget({super.key});
+
   @override
   State<TriangleShapeWidget> createState() => _TriangleShapeWidgetState();
 }
@@ -373,9 +374,10 @@ class _StarWidgetState extends State<StarWidget> {
     );
   }
 }
+
 ///-----------------------------------------------
 ///todo pentagon clipper
-class PentagonClipper extends CustomClipper<Path>{
+class PentagonClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
@@ -396,7 +398,6 @@ class PentagonClipper extends CustomClipper<Path>{
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     throw UnimplementedError();
   }
-
 }
 
 ///-----------------------------------------------
@@ -414,6 +415,7 @@ class PentagonWidget extends StatelessWidget {
     );
   }
 }
+
 ///-----------------------------------------------
 
 class HexagonClipper extends CustomClipper<Path> {
@@ -437,17 +439,112 @@ class HexagonClipper extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return false;
   }
-}///-----------------------------------------------
-class HexagonWidget extends StatelessWidget{
+}
+
+///-----------------------------------------------
+class HexagonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    throw  ClipPath(
+    throw ClipPath(
       clipper: HexagonClipper(),
       child: Container(
-        width: 100, /// controll the size and color
+        width: 100,
+
+        /// controll the size and color
         height: 110,
         color: Colors.amber,
       ),
     );
-  }}
+  }
+}
+
+///-----------------------------------------------
+class TrapezoidCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.3741667, size.height * -0.0050000);
+    path_0.lineTo(size.width * 0.6266667, size.height * -0.0016667);
+    path_0.lineTo(size.width * 0.6258333, size.height * 1.0066667);
+    path_0.lineTo(size.width * -0.0025000, size.height * 1.0016667);
+    path_0.lineTo(size.width * 0.3741667, size.height * -0.0050000);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    canvas.drawPath(path_0, paint_stroke_0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+///-----------------------------------------------
+
+class TwinedgeSCustomPainter extends CustomPainter{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.4583333,size.height*-0.0033333);
+    path_0.lineTo(size.width*0.5008333,size.height*-0.0016667);
+    path_0.lineTo(size.width,size.height*0.4966667);
+    path_0.lineTo(size.width*1.0008333,size.height*0.5800000);
+    path_0.lineTo(size.width*0.4991667,size.height*0.9983333);
+    path_0.lineTo(size.width*0.4600000,size.height*0.9983333);
+    path_0.lineTo(size.width*-0.0008333,size.height*0.5833333);
+    path_0.lineTo(size.width*-0.0025000,size.height*0.4950000);
+    path_0.lineTo(size.width*0.4583333,size.height*-0.0033333);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+
+    // Layer 1
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+
+    canvas.drawPath(path_0, paint_stroke_0);
+
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
