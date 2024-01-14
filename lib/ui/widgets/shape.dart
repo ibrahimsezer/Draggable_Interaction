@@ -399,7 +399,6 @@ class PentagonClipper extends CustomClipper<Path> {
     throw UnimplementedError();
   }
 }
-
 ///-----------------------------------------------
 class PentagonWidget extends StatelessWidget {
   const PentagonWidget({super.key});
@@ -415,9 +414,7 @@ class PentagonWidget extends StatelessWidget {
     );
   }
 }
-
 ///-----------------------------------------------
-
 class HexagonClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -440,7 +437,6 @@ class HexagonClipper extends CustomClipper<Path> {
     return false;
   }
 }
-
 ///-----------------------------------------------
 class HexagonWidget extends StatelessWidget {
   @override
@@ -458,7 +454,6 @@ class HexagonWidget extends StatelessWidget {
     );
   }
 }
-
 ///-----------------------------------------------
 class TrapezoidCustomPainter extends CustomPainter {
   @override
@@ -495,9 +490,7 @@ class TrapezoidCustomPainter extends CustomPainter {
     return true;
   }
 }
-
 ///-----------------------------------------------
-
 class TwinedgeSCustomPainter extends CustomPainter{
 
   @override
@@ -548,3 +541,109 @@ class TwinedgeSCustomPainter extends CustomPainter{
   }
 
 }
+///-----------------------------------------------
+class SmoothTrapezoidCustomPainter extends CustomPainter{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+
+
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.8333333,size.height*-0.0016667);
+    path_0.lineTo(size.width*0.1658333,size.height*0.0016667);
+    path_0.lineTo(size.width*-0.0050000,size.height*0.9983333);
+    path_0.lineTo(size.width*1.0008333,size.height);
+    path_0.lineTo(size.width*0.8333333,size.height*-0.0016667);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+
+    // Layer 1
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+
+    canvas.drawPath(path_0, paint_stroke_0);
+
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+///-----------------------------------------------
+class ChatBubbleCustomPainter extends CustomPainter{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+
+
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.2165167,size.height*0.0009833);
+    path_0.lineTo(size.width*0.7767167,size.height*0.0034667);
+    path_0.lineTo(size.width*0.7729917,size.height*0.7562000);
+    path_0.lineTo(size.width*0.3461000,size.height*0.7512333);
+    path_0.lineTo(size.width*0.3129833,size.height*0.9971500);
+    path_0.lineTo(size.width*0.2794333,size.height*0.7504333);
+    path_0.lineTo(size.width*0.2202417,size.height*0.7529000);
+    path_0.lineTo(size.width*0.2165167,size.height*0.0009833);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+
+    // Layer 1
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width*0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+
+
+    canvas.drawPath(path_0, paint_stroke_0);
+
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+///-----------------------------------------------
