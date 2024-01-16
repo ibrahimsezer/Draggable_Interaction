@@ -442,17 +442,15 @@ class HexagonClipper extends CustomClipper<Path> {
 
 ///-----------------------------------------------
 class HexagonWidget extends StatelessWidget {
+  const HexagonWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw ClipPath(
+    return ClipPath(
       clipper: HexagonClipper(),
       child: Container(
-        width: 100,
-
-        /// controll the size and color
-        height: 110,
-        color: Colors.amber,
+        color: Colors.orange,
+        child: OvalTextWidget(),
       ),
     );
   }
@@ -496,6 +494,22 @@ class TrapezoidCustomPainter extends CustomPainter {
 }
 
 ///-----------------------------------------------
+class TrapeziodWidget extends StatelessWidget {
+  const TrapeziodWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: TrapezoidCustomPainter(),
+        child: Container(
+          color: Colors.orange,
+          child: OvalTextWidget(),
+        ));
+  }
+}
+
+///-----------------------------------------------
+
 class TwinedgeSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -535,6 +549,21 @@ class TwinedgeSCustomPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+///-----------------------------------------------
+class TwinedgeWidget extends StatelessWidget {
+  const TwinedgeWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: TwinedgeSCustomPainter(),
+        child: Container(
+          color: Colors.orange,
+          child: OvalTextWidget(),
+        ));
   }
 }
 
@@ -580,6 +609,18 @@ class SmoothTrapezoidCustomPainter extends CustomPainter {
 }
 
 ///-----------------------------------------------
+class SmoothTrapezoidWidget extends StatelessWidget {
+  const SmoothTrapezoidWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: SmoothTrapezoidCustomPainter(),
+        child: Container(color: Colors.orange, child: OvalTextWidget()));
+  }
+}
+
+///-----------------------------------------------
 class ChatBubbleCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -620,6 +661,18 @@ class ChatBubbleCustomPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+///-----------------------------------------------
+class ChatBubbleWidget extends StatelessWidget {
+  const ChatBubbleWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: ChatBubbleCustomPainter(),
+        child: Container(color: Colors.orange, child: OvalTextWidget()));
   }
 }
 
@@ -669,53 +722,66 @@ class OctagonCustomPainter extends CustomPainter {
 }
 
 ///-----------------------------------------------
-class HorizontalRectangleCustomPainter extends CustomPainter{
+class OctagonWidget extends StatelessWidget {
+  const OctagonWidget({super.key});
 
   @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: OctagonCustomPainter(),
+        child: Container(color: Colors.orange, child: OvalTextWidget()));
+  }
+}
+
+///-----------------------------------------------
+class HorizontalRectangleCustomPainter extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
-
-
-
     // Layer 1
 
     Paint paint_fill_0 = Paint()
       ..color = const Color.fromARGB(255, 255, 255, 255)
       ..style = PaintingStyle.fill
-      ..strokeWidth = size.width*0.00
+      ..strokeWidth = size.width * 0.00
       ..strokeCap = StrokeCap.butt
       ..strokeJoin = StrokeJoin.miter;
 
-
     Path path_0 = Path();
-    path_0.moveTo(size.width*-0.0016667,size.height*-0.0066667);
-    path_0.lineTo(size.width*-0.0025000,size.height);
-    path_0.lineTo(size.width,size.height*1.0016667);
-    path_0.lineTo(size.width,size.height*-0.0100000);
-    path_0.lineTo(size.width*-0.0016667,size.height*-0.0066667);
+    path_0.moveTo(size.width * -0.0016667, size.height * -0.0066667);
+    path_0.lineTo(size.width * -0.0025000, size.height);
+    path_0.lineTo(size.width, size.height * 1.0016667);
+    path_0.lineTo(size.width, size.height * -0.0100000);
+    path_0.lineTo(size.width * -0.0016667, size.height * -0.0066667);
     path_0.close();
 
     canvas.drawPath(path_0, paint_fill_0);
-
 
     // Layer 1
 
     Paint paint_stroke_0 = Paint()
       ..color = const Color.fromARGB(255, 33, 150, 243)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width*0.00
+      ..strokeWidth = size.width * 0.00
       ..strokeCap = StrokeCap.butt
       ..strokeJoin = StrokeJoin.miter;
 
-
-
     canvas.drawPath(path_0, paint_stroke_0);
-
-
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+}
 
+///-----------------------------------------------
+class HorizontalRectangleWidget extends StatelessWidget {
+  const HorizontalRectangleWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: HorizontalRectangleCustomPainter(),
+        child: Container(color: Colors.orange, child: OvalTextWidget()));
+  }
 }
