@@ -52,15 +52,38 @@ class ActivityGridBar extends StatelessWidget {
             ActivityBarIcon(
               widgetButtonName: TriangleShapeWidget(),
               widgetButtonIcon: Icons.play_arrow_rounded,
-            ),   ActivityBarIcon(
+            ),
+            ActivityBarIcon(
               widgetButtonName: PentagonWidget(),
               widgetButtonIcon: Icons.pentagon_outlined,
-            ),   ActivityBarIcon(
+            ),
+            ActivityBarIcon(
               widgetButtonName: HexagonWidget(),
               widgetButtonIcon: Icons.hexagon_outlined,
-            ),ActivityBarIcon(
+            ),
+            ActivityBarIcon(
               widgetButtonName: TrapeziodWidget(),
               widgetButtonIcon: Icons.format_shapes,
+            ),
+            ActivityBarIcon(
+              widgetButtonName: TwinedgeWidget(),
+              widgetButtonIcon: Icons.credit_card_sharp,
+            ),
+            ActivityBarIcon(
+              widgetButtonName: SmoothTrapezoidWidget(),
+              widgetButtonIcon: Icons.smart_screen,
+            ),
+            ActivityBarIcon(
+              widgetButtonName: ChatBubbleWidget(),
+              widgetButtonIcon: Icons.chat_bubble,
+            ),
+            ActivityBarIcon(
+              widgetButtonName: OctagonWidget(),
+              widgetButtonIcon: Icons.eight_k_outlined,
+            ),
+            ActivityBarIcon(
+              widgetButtonName: HorizontalRectangleWidget(),
+              widgetButtonIcon: Icons.directions,
             ),
           ]),
     );

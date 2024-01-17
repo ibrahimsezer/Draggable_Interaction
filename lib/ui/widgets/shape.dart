@@ -4,16 +4,11 @@ import 'package:draggable_example/ui/widgets/moduler_widget.dart';
 import 'package:draggable_example/ui/widgets/oval_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class RectangleShapeWidget extends StatefulWidget {
+class RectangleShapeWidget extends StatelessWidget {
   const RectangleShapeWidget({
     super.key,
   });
 
-  @override
-  State<RectangleShapeWidget> createState() => _RectangleShapeWidgetState();
-}
-
-class _RectangleShapeWidgetState extends State<RectangleShapeWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,16 +33,9 @@ class _RectangleShapeWidgetState extends State<RectangleShapeWidget> {
 
 ///-----------------------------------------------
 
-class RoundedRectangleShapeWidget extends StatefulWidget {
+class RoundedRectangleShapeWidget extends StatelessWidget {
   const RoundedRectangleShapeWidget({super.key});
 
-  @override
-  State<RoundedRectangleShapeWidget> createState() =>
-      _RoundedRectangleShapeWidgetState();
-}
-
-class _RoundedRectangleShapeWidgetState
-    extends State<RoundedRectangleShapeWidget> {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -76,14 +64,9 @@ class _RoundedRectangleShapeWidgetState
 }
 
 ///-----------------------------------------------
-class EllipseShapeWidget extends StatefulWidget {
+class EllipseShapeWidget extends StatelessWidget {
   const EllipseShapeWidget({super.key});
 
-  @override
-  State<EllipseShapeWidget> createState() => _EllipseShapeWidgetState();
-}
-
-class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -121,14 +104,9 @@ class _EllipseShapeWidgetState extends State<EllipseShapeWidget> {
 
 ///-----------------------------------------------
 
-class TriangleShapeWidget extends StatefulWidget {
+class TriangleShapeWidget extends StatelessWidget {
   const TriangleShapeWidget({super.key});
 
-  @override
-  State<TriangleShapeWidget> createState() => _TriangleShapeWidgetState();
-}
-
-class _TriangleShapeWidgetState extends State<TriangleShapeWidget> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -179,14 +157,9 @@ class CustomTriangleClipper extends CustomClipper<Path> {
 }
 
 ///-----------------------------------------------
-class RightArrowWidget extends StatefulWidget {
+class RightArrowWidget extends StatelessWidget {
   const RightArrowWidget({super.key});
 
-  @override
-  State<RightArrowWidget> createState() => _RightArrowWidgetState();
-}
-
-class _RightArrowWidgetState extends State<RightArrowWidget> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -244,14 +217,9 @@ class RightArrowClipper extends CustomClipper<Path> {
 
 ///-----------------------------------------------
 
-class RhombusShapeWidget extends StatefulWidget {
+class RhombusShapeWidget extends StatelessWidget {
   const RhombusShapeWidget({super.key});
 
-  @override
-  State<RhombusShapeWidget> createState() => _RhombusShapeWidgetState();
-}
-
-class _RhombusShapeWidgetState extends State<RhombusShapeWidget> {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
@@ -355,14 +323,9 @@ class StarClipper extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
 
-class StarWidget extends StatefulWidget {
+class StarWidget extends StatelessWidget {
   const StarWidget({super.key});
 
-  @override
-  State<StarWidget> createState() => _StarWidgetState();
-}
-
-class _StarWidgetState extends State<StarWidget> {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -501,10 +464,7 @@ class TrapeziodWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
         painter: TrapezoidCustomPainter(),
-        child: Container(
-          color: Colors.orange,
-          child: OvalTextWidget(),
-        ));
+        child: OvalTextWidget());
   }
 }
 
@@ -560,10 +520,7 @@ class TwinedgeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
         painter: TwinedgeSCustomPainter(),
-        child: Container(
-          color: Colors.orange,
-          child: OvalTextWidget(),
-        ));
+        child: OvalTextWidget());
   }
 }
 
@@ -616,7 +573,7 @@ class SmoothTrapezoidWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
         painter: SmoothTrapezoidCustomPainter(),
-        child: Container(color: Colors.orange, child: OvalTextWidget()));
+        child: OvalTextWidget());
   }
 }
 
@@ -671,8 +628,7 @@ class ChatBubbleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: ChatBubbleCustomPainter(),
-        child: Container(color: Colors.orange, child: OvalTextWidget()));
+        painter: ChatBubbleCustomPainter(), child: OvalTextWidget());
   }
 }
 
@@ -728,8 +684,7 @@ class OctagonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: OctagonCustomPainter(),
-        child: Container(color: Colors.orange, child: OvalTextWidget()));
+        painter: OctagonCustomPainter(), child: OvalTextWidget());
   }
 }
 
@@ -781,7 +736,6 @@ class HorizontalRectangleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: HorizontalRectangleCustomPainter(),
-        child: Container(color: Colors.orange, child: OvalTextWidget()));
+        painter: HorizontalRectangleCustomPainter(), child: OvalTextWidget());
   }
 }
