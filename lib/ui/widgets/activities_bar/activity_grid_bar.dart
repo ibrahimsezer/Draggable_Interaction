@@ -62,7 +62,7 @@ class ActivityGridBar extends StatelessWidget {
               widgetButtonIcon: Icons.hexagon_outlined,
             ),
             ActivityBarIcon(
-              widgetButtonName: TrapeziodWidget(),
+              widgetButtonName: TrapezoidWidget(),
               widgetButtonIcon: Icons.format_shapes,
             ),
             ActivityBarIcon(

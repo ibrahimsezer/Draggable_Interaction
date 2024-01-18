@@ -380,47 +380,8 @@ class PentagonWidget extends StatelessWidget {
 }
 
 ///-----------------------------------------------
-class HexagonClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
 
-    path
-      ..moveTo(size.width / 2, 0) // moving to topCenter 1st, then draw the path
-      ..lineTo(size.width, size.height * .25)
-      ..lineTo(size.width, size.height * .75)
-      ..lineTo(size.width * .5, size.height)
-      ..lineTo(0, size.height * .75)
-      ..lineTo(0, size.height * .25)
-      ..close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-///-----------------------------------------------
-class HexagonWidget extends StatelessWidget {
-  const HexagonWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: HexagonClipper(),
-      child: Container(
-        color: Colors.orange,
-        child: OvalTextWidget(),
-      ),
-    );
-  }
-}
-
-///-----------------------------------------------
-class TrapezoidCustomPainter extends CustomPainter {
+class HexagonPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_fill_0 = Paint()
@@ -431,11 +392,13 @@ class TrapezoidCustomPainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.miter;
 
     Path path_0 = Path();
-    path_0.moveTo(size.width * 0.3741667, size.height * -0.0050000);
-    path_0.lineTo(size.width * 0.6266667, size.height * -0.0016667);
-    path_0.lineTo(size.width * 0.6258333, size.height * 1.0066667);
-    path_0.lineTo(size.width * -0.0025000, size.height * 1.0016667);
-    path_0.lineTo(size.width * 0.3741667, size.height * -0.0050000);
+    path_0.moveTo(size.width * 0.3316667, size.height * 0.0833333);
+    path_0.lineTo(size.width * 0.5866667, size.height * 0.0816667);
+    path_0.lineTo(size.width * 0.7500000, size.height * 0.3300000);
+    path_0.lineTo(size.width * 0.5833333, size.height * 0.5866667);
+    path_0.lineTo(size.width * 0.3316667, size.height * 0.5883333);
+    path_0.lineTo(size.width * 0.1616667, size.height * 0.3333333);
+    path_0.lineTo(size.width * 0.3316667, size.height * 0.0833333);
     path_0.close();
 
     canvas.drawPath(path_0, paint_fill_0);
@@ -457,20 +420,17 @@ class TrapezoidCustomPainter extends CustomPainter {
 }
 
 ///-----------------------------------------------
-class TrapeziodWidget extends StatelessWidget {
-  const TrapeziodWidget({super.key});
+class HexagonWidget extends StatelessWidget {
+  const HexagonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-        painter: TrapezoidCustomPainter(),
-        child: OvalTextWidget());
+    return CustomPaint(painter: HexagonPainter(), child: OvalTextWidget());
   }
 }
 
 ///-----------------------------------------------
-
-class TwinedgeSCustomPainter extends CustomPainter {
+class TrapezoidCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_fill_0 = Paint()
@@ -481,15 +441,62 @@ class TwinedgeSCustomPainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.miter;
 
     Path path_0 = Path();
-    path_0.moveTo(size.width * 0.4583333, size.height * -0.0033333);
-    path_0.lineTo(size.width * 0.5008333, size.height * -0.0016667);
-    path_0.lineTo(size.width, size.height * 0.4966667);
-    path_0.lineTo(size.width * 1.0008333, size.height * 0.5800000);
-    path_0.lineTo(size.width * 0.4991667, size.height * 0.9983333);
-    path_0.lineTo(size.width * 0.4600000, size.height * 0.9983333);
-    path_0.lineTo(size.width * -0.0008333, size.height * 0.5833333);
-    path_0.lineTo(size.width * -0.0025000, size.height * 0.4950000);
-    path_0.lineTo(size.width * 0.4583333, size.height * -0.0033333);
+    path_0.moveTo(size.width * 0.3316667, size.height * 0.0833333);
+    path_0.lineTo(size.width * 0.6633333, size.height * 0.0833333);
+    path_0.lineTo(size.width * 0.8350000, size.height * 0.7500000);
+    path_0.lineTo(size.width * 0.1683333, size.height * 0.7500000);
+    path_0.lineTo(size.width * 0.3316667, size.height * 0.0833333);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    canvas.drawPath(path_0, paint_stroke_0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+///-----------------------------------------------
+class TrapezoidWidget extends StatelessWidget {
+  const TrapezoidWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+        painter: TrapezoidCustomPainter(), child: OvalTextWidget());
+  }
+}
+
+///-----------------------------------------------
+
+class TwinEdgeCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.1666667, size.height * 0.0816667);
+    path_0.lineTo(size.width * 0.8316667, size.height * 0.0833333);
+    path_0.lineTo(size.width * 0.7483333, size.height * 0.5850000);
+    path_0.lineTo(size.width * 0.0833333, size.height * 0.5816667);
+    path_0.lineTo(size.width * 0.1666667, size.height * 0.0816667);
     path_0.close();
 
     canvas.drawPath(path_0, paint_fill_0);
@@ -519,8 +526,7 @@ class TwinedgeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: TwinedgeSCustomPainter(),
-        child: OvalTextWidget());
+        painter: TwinEdgeCustomPainter(), child: OvalTextWidget());
   }
 }
 
@@ -572,8 +578,7 @@ class SmoothTrapezoidWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        painter: SmoothTrapezoidCustomPainter(),
-        child: OvalTextWidget());
+        painter: SmoothTrapezoidCustomPainter(), child: OvalTextWidget());
   }
 }
 
