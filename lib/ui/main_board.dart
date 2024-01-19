@@ -128,7 +128,41 @@ class _MainBoardState extends State<MainBoard> {
                         left: (screenY < screenX)
                             ? gridSvgListX[0].toDouble()
                             : gridSvgListX[1].toDouble(),
-                        child: ActivityGridSvgBar())
+                        child: ActivityGridSvgBar()),
+                  Positioned(
+                    top: 50,
+                    left: 100,
+                    child: InkWell(
+                      onTap: () {
+                        //todo clicked menu
+                      },
+                      child: Container(
+                        child: Text("Menu1"),
+                        width: 75,
+                        height: 75,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 250,
+                    left: 100,
+                    child: InkWell(
+                      onTap: () {
+                        //todo clicked menu
+                      },
+                      child: Container(
+                        child: Text("Menu1"),
+                        width: 75,
+                        height: 75,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ],
               );
             },
