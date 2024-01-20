@@ -3,6 +3,7 @@ import 'package:draggable_example/ui/widgets/activities_bar/activity_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_bar.dart';
 import 'package:draggable_example/ui/widgets/activities_bar/activity_grid_svg_bar.dart';
 import 'package:draggable_example/ui/widgets/interface_buttons.dart';
+import 'package:draggable_example/ui/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,11 @@ class _MainBoardState extends State<MainBoard> {
   double mainPosY = 0;
   double thisActivityBarPosY = 0;
   double thisActivityBarPosX = 0;
+
+  double menuWidth = 75;
+  double menuHeight = 75;
+  String menuText = "Menu1";
+  Color menuColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -129,40 +135,12 @@ class _MainBoardState extends State<MainBoard> {
                             ? gridSvgListX[0].toDouble()
                             : gridSvgListX[1].toDouble(),
                         child: ActivityGridSvgBar()),
-                  Positioned(
-                    top: 50,
-                    left: 100,
-                    child: InkWell(
-                      onTap: () {
-                        //todo clicked menu
-                      },
-                      child: Container(
-                        child: Text("Menu1"),
-                        width: 75,
-                        height: 75,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 250,
-                    left: 100,
-                    child: InkWell(
-                      onTap: () {
-                        //todo clicked menu
-                      },
-                      child: Container(
-                        child: Text("Menu1"),
-                        width: 75,
-                        height: 75,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
+                  MenuButton(
+                      screenX: screenX,
+                      menuWidth: menuWidth,
+                      menuHeight: menuHeight,
+                      menuColor: menuColor,
+                      menuText: menuText),
                 ],
               );
             },

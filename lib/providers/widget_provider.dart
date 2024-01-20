@@ -67,4 +67,13 @@ class WidgetProvider with ChangeNotifier {
     _getWidgetHeight = height;
     notifyListeners();
   }
+
+  //todo rework
+  bool _isMenuTapActive = false;
+  get isMenuTapActive => _isMenuTapActive;
+  set isMenuTapActive(isActive){
+    isActive = !_isMenuTapActive;
+    _isMenuTapActive = isActive;
+    notifyListeners();
+  }
 }
